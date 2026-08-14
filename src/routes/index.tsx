@@ -126,7 +126,7 @@ function Header() {
         <Button
           asChild
           size="sm"
-          className="bg-whatsapp text-white hover:bg-[#128C7E]"
+          className="bg-whatsapp text-white hover:bg-whatsapp-dark"
         >
           <a
             href={buildWhatsAppLink(
