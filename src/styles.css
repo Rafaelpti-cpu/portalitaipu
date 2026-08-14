@@ -116,6 +116,8 @@
   --brand-purple: oklch(0.536 0.222 328.12);
   --brand-green: oklch(0.776 0.172 118.51);
   --brand-dark: oklch(0.224 0.022 326.23);
+  --whatsapp: oklch(0.69 0.19 152.5);
+  --whatsapp-dark: oklch(0.55 0.16 152.5);
 }
 
 .dark {
