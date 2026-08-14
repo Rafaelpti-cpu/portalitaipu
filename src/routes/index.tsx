@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -116,11 +117,11 @@ function Header() {
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <a href="/" className="flex items-center gap-2">
           <img
-            src="https://portalitaipu.com.br/site/wp-content/uploads/2025/10/PORTAL-ITAIPU-1.png"
+            src={logoAsset.url}
             alt="Portal Itaipu"
             className="h-9 w-auto"
-            width="144"
-            height="36"
+            width="1733"
+            height="593"
           />
         </a>
         <Button
@@ -613,11 +614,11 @@ function Footer() {
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <img
-            src="https://portalitaipu.com.br/site/wp-content/uploads/2025/10/PORTAL-ITAIPU-1.png"
+            src={logoAsset.url}
             alt="Portal Itaipu"
             className="h-10 w-auto"
-            width="160"
-            height="40"
+            width="1733"
+            height="593"
           />
           <div className="text-center text-sm text-muted-foreground md:text-right">
             <p>© 2026 Portal Itaipu. Todos os direitos reservados.</p>
