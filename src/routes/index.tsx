@@ -620,7 +620,7 @@ function Footer() {
             height="40"
           />
           <div className="text-center text-sm text-muted-foreground md:text-right">
-            <p>© {new Date().getFullYear()} Portal Itaipu. Todos os direitos reservados.</p>
+            <p>© 2026 Portal Itaipu. Todos os direitos reservados.</p>
             <p className="mt-1">
               Medianeira/PR • Internet Fibra Óptica de qualidade
             </p>
