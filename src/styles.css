@@ -68,6 +68,8 @@
   --color-brand-purple: var(--brand-purple);
   --color-brand-green: var(--brand-green);
   --color-brand-dark: var(--brand-dark);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-dark: var(--whatsapp-dark);
 }
 
 :root {
