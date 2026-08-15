@@ -18,54 +18,59 @@ import {
   Phone,
   Check,
 } from "lucide-react";
+import { WhatsAppLink } from "@/components/landing/cta-link";
+import { UrgencyBar } from "@/components/landing/urgency-bar";
+import { CoverageCheck } from "@/components/landing/coverage-check";
+import { Testimonials } from "@/components/landing/testimonials";
+import { PlansComparison } from "@/components/landing/plans-comparison";
+import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
+import { DEFAULT_MESSAGE, PHONE_DISPLAY, PHONE_TEL, trackLead } from "@/lib/lead";
 
-const WHATSAPP_NUMBER = "554535591665";
-const UTM_PARAMS = "utm_source=google&utm_medium=cpc&utm_campaign=medianeira_internet";
-const DEFAULT_MESSAGE =
-  "Olá! Vi a campanha do Google e quero contratar o plano de 550 Mega + WiFi 6 por R$ 109,90 em Medianeira/PR.";
+const TITLE =
+  "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu";
+const DESCRIPTION =
+  "Contrate internet fibra em Medianeira/PR. Plano de 550 Mega + WiFi 6 por R$ 109,90/mês. Instalação grátis e ativação em até 24h. Provedor local com atendimento humanizado.";
 
-function buildWhatsAppLink(message: string) {
-  const encoded = encodeURIComponent(message);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}&${UTM_PARAMS}`;
-}
+const faqs = [
+  {
+    question: "Tem disponibilidade no meu bairro em Medianeira?",
+    answer:
+      "Nossa rede nova está expandindo por Medianeira. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.",
+  },
+  {
+    question: "Quanto tempo leva para instalar?",
+    answer:
+      "Trabalhamos para ativar sua internet em até 24 horas após a confirmação do pedido. A instalação é 100% gratuita.",
+  },
+  {
+    question: "O WiFi 6 é incluso no plano de R$ 109,90?",
+    answer:
+      "Sim! O Plano FOR FAMILY de 550 Mega já inclui roteador com tecnologia WiFi 6, que entrega mais alcance e estabilidade.",
+  },
+  {
+    question: "Preciso pagar alguma taxa de adesão?",
+    answer:
+      "Não. Nesta oferta, a instalação e ativação são gratuitas. Você paga apenas a mensalidade do plano contratado.",
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      {
-        title:
-          "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu",
-      },
-      {
-        name: "description",
-        content:
-          "Contrate internet fibra em Medianeira/PR. Plano de 550 Mega + WiFi 6 por R$ 109,90/mês. Instalação grátis e ativação em até 24h. Provedor local com atendimento humanizado.",
-      },
-      {
-        property: "og:title",
-        content:
-          "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu",
-      },
-      {
-        property: "og:description",
-        content:
-          "Contrate internet fibra em Medianeira/PR. Plano de 550 Mega + WiFi 6 por R$ 109,90/mês. Instalação grátis e ativação em até 24h.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
-      {
-        name: "twitter:title",
-        content:
-          "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu",
-      },
-      {
-        name: "twitter:description",
-        content:
-          "Contrate internet fibra em Medianeira/PR. Plano de 550 Mega + WiFi 6 por R$ 109,90/mês. Instalação grátis e ativação em até 24h.",
-      },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "preload", as: "image", href: logoAsset.url },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -76,16 +81,25 @@ export const Route = createFileRoute("/")({
           description:
             "Provedor de internet fibra óptica em Medianeira, Paraná.",
           url: "https://portalitaipu.com.br/",
-          telephone: "+554535591665",
+          telephone: PHONE_TEL,
           areaServed: {
             "@type": "City",
             name: "Medianeira",
-            containedInPlace: {
-              "@type": "State",
-              name: "Paraná",
-            },
+            containedInPlace: { "@type": "State", name: "Paraná" },
           },
           priceRange: "R$",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answer },
+          })),
         }),
       },
     ],
@@ -95,18 +109,22 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-screen bg-background pb-20 font-sans md:pb-0">
+      <UrgencyBar />
       <Header />
       <main>
         <HeroSection />
         <BenefitsSection />
-        <PlanSection />
+        <CoverageCheck />
+        <PlansComparison />
+        <Testimonials />
         <TrustSection />
         <FaqSection />
         <FinalCtaSection />
       </main>
       <Footer />
       <FloatingWhatsAppButton />
+      <MobileCtaBar />
     </div>
   );
 }
@@ -118,28 +136,35 @@ function Header() {
         <a href="/" className="flex items-center gap-2">
           <img
             src={logoAsset.url}
-            alt="Portal Itaipu"
+            alt="Portal Itaipu — internet fibra óptica em Medianeira/PR"
             className="h-9 w-auto"
             width="1733"
             height="593"
           />
         </a>
-        <Button
-          asChild
-          size="sm"
-          className="bg-whatsapp text-white hover:bg-whatsapp-dark"
-        >
+        <div className="flex items-center gap-2">
           <a
-            href={buildWhatsAppLink(
-              "Olá! Vi a campanha do Google e quero contratar internet em Medianeira/PR."
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`tel:${PHONE_TEL}`}
+            onClick={() => trackLead("phone_click", { location: "header" })}
+            className="hidden items-center gap-2 rounded-md border border-input px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent hover:text-accent-foreground sm:inline-flex"
           >
-            <MessageCircle className="h-4 w-4" />
-            WhatsApp
+            <Phone className="h-4 w-4" />
+            {PHONE_DISPLAY}
           </a>
-        </Button>
+          <Button
+            asChild
+            size="sm"
+            className="bg-whatsapp text-white hover:bg-whatsapp-dark"
+          >
+            <WhatsAppLink
+              location="header"
+              message="Olá! Vi a campanha do Google e quero contratar internet em Medianeira/PR."
+            >
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </WhatsAppLink>
+          </Button>
+        </div>
       </div>
     </header>
   );
@@ -175,14 +200,10 @@ function HeroSection() {
                 size="lg"
                 className="h-14 gap-2 bg-brand-magenta px-8 text-base font-bold text-white shadow-lg shadow-brand-magenta/25 hover:bg-brand-magenta/90"
               >
-                <a
-                  href={buildWhatsAppLink(DEFAULT_MESSAGE)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
                   <MessageCircle className="h-5 w-5" />
                   Quero contratar pelo WhatsApp
-                </a>
+                </WhatsAppLink>
               </Button>
               <Button
                 asChild
@@ -190,7 +211,7 @@ function HeroSection() {
                 size="lg"
                 className="h-14 gap-2 px-6 text-base font-semibold"
               >
-                <a href="#planos">Ver plano em destaque</a>
+                <a href="#cobertura">Consultar cobertura</a>
               </Button>
             </div>
             <div className="flex flex-wrap items-center gap-4 pt-2 text-sm text-muted-foreground">
@@ -207,6 +228,17 @@ function HeroSection() {
                 WiFi 6 incluso
               </span>
             </div>
+            <p className="text-sm text-muted-foreground">
+              Prefere ligar?{" "}
+              <a
+                href={`tel:${PHONE_TEL}`}
+                onClick={() => trackLead("phone_click", { location: "hero" })}
+                className="font-bold text-brand-magenta underline-offset-4 hover:underline"
+              >
+                {PHONE_DISPLAY}
+              </a>{" "}
+              — seg. a sáb., 8h às 18h.
+            </p>
           </div>
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-brand-magenta/20 via-brand-blue/20 to-brand-yellow/20 blur-3xl" />
@@ -263,14 +295,10 @@ function HeroSection() {
                   asChild
                   className="w-full gap-2 bg-brand-magenta py-6 text-base font-bold text-white hover:bg-brand-magenta/90"
                 >
-                  <a
-                    href={buildWhatsAppLink(DEFAULT_MESSAGE)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <WhatsAppLink location="hero_card" message={DEFAULT_MESSAGE}>
                     <MessageCircle className="h-5 w-5" />
                     Contratar agora
-                  </a>
+                  </WhatsAppLink>
                 </Button>
               </div>
             </div>
@@ -353,95 +381,6 @@ function BenefitsSection() {
   );
 }
 
-function PlanSection() {
-  return (
-    <section id="planos" className="px-4 py-16">
-      <div className="container mx-auto max-w-6xl">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Plano em destaque para Medianeira
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            A melhor custo-benefício para sua casa com internet fibra de
-            verdade.
-          </p>
-        </div>
-        <div className="mx-auto mt-10 max-w-md">
-          <div className="relative overflow-hidden rounded-3xl border-2 border-brand-magenta bg-card shadow-2xl">
-            <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-brand-magenta via-brand-blue to-brand-yellow" />
-            <div className="p-8">
-              <div className="mb-6 flex items-center justify-between">
-                <span className="rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
-                  OFERTA GOOGLE ADS
-                </span>
-                <Wifi className="h-8 w-8 text-brand-magenta" />
-              </div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                Plano FOR FAMILY
-              </p>
-              <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-7xl font-black text-foreground">550</span>
-                <span className="text-2xl font-semibold text-muted-foreground">
-                  Mega
-                </span>
-              </div>
-              <ul className="mt-6 space-y-4">
-                {[
-                  "WiFi 6 de alta performance",
-                  "Instalação 100% grátis",
-                  "Ativação em até 24 horas",
-                  "Suporte técnico local",
-                  "Sem taxa de adesão",
-                ].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 text-foreground"
-                  >
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-magenta/10">
-                      <Check className="h-4 w-4 text-brand-magenta" />
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8 border-t border-border pt-6 text-center">
-                <p className="text-sm text-muted-foreground">
-                  Investimento mensal
-                </p>
-                <div className="mt-1 flex items-baseline justify-center gap-1">
-                  <span className="text-xl text-muted-foreground">R$</span>
-                  <span className="text-6xl font-black text-foreground">
-                    109,90
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground">/mês</p>
-              </div>
-              <Button
-                asChild
-                className="mt-6 w-full gap-2 bg-brand-magenta py-6 text-base font-bold text-white hover:bg-brand-magenta/90"
-              >
-                <a
-                  href={buildWhatsAppLink(
-                    "Olá! Quero contratar o Plano FOR FAMILY de 550 Mega + WiFi 6 por R$ 109,90 em Medianeira/PR."
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  Contratar pelo WhatsApp
-                </a>
-              </Button>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                Oferta válida para Medianeira/PR. Sujeito a viabilidade técnica.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function TrustSection() {
   const items = [
     {
@@ -452,14 +391,12 @@ function TrustSection() {
     {
       icon: MapPin,
       title: "Rede nova em Medianeira",
-      description:
-        "Infraestrutura moderna e de alta capacidade para a cidade.",
+      description: "Infraestrutura moderna e de alta capacidade para a cidade.",
     },
     {
       icon: Phone,
       title: "Atendimento local",
-      description:
-        "Fale com quem conhece a região e resolve com agilidade.",
+      description: "Fale com quem conhece a região e resolve com agilidade.",
     },
   ];
 
@@ -476,22 +413,35 @@ function TrustSection() {
               pronta para entregar a velocidade e estabilidade que sua casa
               precisa.
             </p>
-            <Button
-              asChild
-              size="lg"
-              className="mt-6 h-12 gap-2 bg-white px-6 font-bold text-brand-dark hover:bg-white/90"
-            >
-              <a
-                href={buildWhatsAppLink(
-                  "Olá! Moro em Medianeira/PR e quero saber se tem disponibilidade na minha rua."
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button
+                asChild
+                size="lg"
+                className="h-12 gap-2 bg-white px-6 font-bold text-brand-dark hover:bg-white/90"
               >
-                <MessageCircle className="h-5 w-5" />
-                Ver disponibilidade
-              </a>
-            </Button>
+                <WhatsAppLink
+                  location="trust"
+                  message="Olá! Moro em Medianeira/PR e quero saber se tem disponibilidade na minha rua."
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Ver disponibilidade
+                </WhatsAppLink>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="h-12 gap-2 border-white/30 bg-transparent px-6 font-bold text-white hover:bg-white/10 hover:text-white"
+              >
+                <a
+                  href={`tel:${PHONE_TEL}`}
+                  onClick={() => trackLead("phone_click", { location: "trust" })}
+                >
+                  <Phone className="h-5 w-5" />
+                  Ligar {PHONE_DISPLAY}
+                </a>
+              </Button>
+            </div>
           </div>
           <div className="grid gap-4">
             {items.map((item) => (
@@ -518,29 +468,6 @@ function TrustSection() {
 }
 
 function FaqSection() {
-  const faqs = [
-    {
-      question: "Tem disponibilidade no meu bairro em Medianeira?",
-      answer:
-        "Nossa rede nova está expandindo por Medianeira. Envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.",
-    },
-    {
-      question: "Quanto tempo leva para instalar?",
-      answer:
-        "Trabalhamos para ativar sua internet em até 24 horas após a confirmação do pedido. A instalação é 100% gratuita.",
-    },
-    {
-      question: "O WiFi 6 é incluso no plano de R$ 109,90?",
-      answer:
-        "Sim! O Plano FOR FAMILY de 550 Mega já inclui roteador com tecnologia WiFi 6, que entrega mais alcance e estabilidade.",
-    },
-    {
-      question: "Preciso pagar alguma taxa de adesão?",
-      answer:
-        "Não. Nesta oferta, a instalação e ativação são gratuitas. Você paga apenas a mensalidade do plano contratado.",
-    },
-  ];
-
   return (
     <section className="bg-muted/30 px-4 py-16">
       <div className="container mx-auto max-w-3xl">
@@ -584,22 +511,36 @@ function FinalCtaSection() {
               Aproveite a oferta de 550 Mega + WiFi 6 por R$ 109,90/mês com
               instalação grátis e ativação em até 24h em Medianeira/PR.
             </p>
-            <Button
-              asChild
-              size="lg"
-              className="mt-8 h-14 gap-2 bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
-            >
-              <a
-                href={buildWhatsAppLink(DEFAULT_MESSAGE)}
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Button
+                asChild
+                size="lg"
+                className="h-14 gap-2 bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
               >
-                <MessageCircle className="h-5 w-5" />
-                Falar no WhatsApp agora
-              </a>
-            </Button>
+                <WhatsAppLink location="final_cta" message={DEFAULT_MESSAGE}>
+                  <MessageCircle className="h-5 w-5" />
+                  Falar no WhatsApp agora
+                </WhatsAppLink>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-14 gap-2 border-white/40 bg-transparent px-8 text-base font-bold text-white hover:bg-white/10 hover:text-white"
+              >
+                <a
+                  href={`tel:${PHONE_TEL}`}
+                  onClick={() =>
+                    trackLead("phone_click", { location: "final_cta" })
+                  }
+                >
+                  <Phone className="h-5 w-5" />
+                  Ligar agora
+                </a>
+              </Button>
+            </div>
             <p className="mt-4 text-sm text-white/80">
-              Atendimento rápido de segunda a sábado.
+              Atendimento de segunda a sábado, 8h às 18h.
             </p>
           </div>
         </div>
@@ -619,9 +560,21 @@ function Footer() {
             className="h-10 w-auto"
             width="1733"
             height="593"
+            loading="lazy"
           />
           <div className="text-center text-sm text-muted-foreground md:text-right">
-            <p>© 2026 Portal Itaipu. Todos os direitos reservados.</p>
+            <p>
+              Telefone:{" "}
+              <a
+                href={`tel:${PHONE_TEL}`}
+                className="font-semibold text-foreground"
+              >
+                {PHONE_DISPLAY}
+              </a>
+            </p>
+            <p className="mt-1">
+              © 2026 Portal Itaipu. Todos os direitos reservados.
+            </p>
             <p className="mt-1">
               Medianeira/PR • Internet Fibra Óptica de qualidade
             </p>
@@ -634,14 +587,13 @@ function Footer() {
 
 function FloatingWhatsAppButton() {
   return (
-    <a
-      href={buildWhatsAppLink(DEFAULT_MESSAGE)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/20 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    <WhatsAppLink
+      location="floating_button"
+      message={DEFAULT_MESSAGE}
       aria-label="Conversar no WhatsApp"
+      className="fixed bottom-6 right-6 z-50 hidden h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/20 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:flex"
     >
       <MessageCircle className="h-7 w-7" />
-    </a>
+    </WhatsAppLink>
   );
 }
