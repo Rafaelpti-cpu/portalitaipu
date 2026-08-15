@@ -1,0 +1,134 @@
+import { Check, MessageCircle, Wifi } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { WhatsAppLink } from "@/components/landing/cta-link";
+
+const plans = [
+  {
+    name: "FOR YOU",
+    speed: "300",
+    price: "89,90",
+    highlight: false,
+    features: [
+      "WiFi 6 incluso",
+      "Instalação grátis",
+      "Ativação em até 24h",
+      "Suporte local",
+    ],
+  },
+  {
+    name: "FOR FAMILY",
+    speed: "550",
+    price: "109,90",
+    highlight: true,
+    features: [
+      "WiFi 6 de alta performance",
+      "Instalação 100% grátis",
+      "Ativação em até 24h",
+      "Suporte técnico local",
+      "Sem taxa de adesão",
+    ],
+  },
+  {
+    name: "FOR GAMER",
+    speed: "800",
+    price: "149,90",
+    highlight: false,
+    features: [
+      "WiFi 6 incluso",
+      "Baixa latência para jogos",
+      "Instalação grátis",
+      "Suporte prioritário",
+    ],
+  },
+];
+
+export function PlansComparison() {
+  return (
+    <section id="planos" className="px-4 py-16">
+      <div className="container mx-auto max-w-6xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            Compare os planos para Medianeira
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            Todos com fibra óptica, WiFi 6 e instalação grátis. Escolha a
+            velocidade ideal para sua casa.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {plans.map((plan) => (
+            <div
+              key={plan.name}
+              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-card p-7 ${
+                plan.highlight
+                  ? "border-2 border-brand-magenta shadow-2xl lg:-mt-3 lg:pb-10"
+                  : "border-border shadow-sm"
+              }`}
+            >
+              {plan.highlight ? (
+                <span className="absolute right-5 top-5 rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
+                  MAIS VENDIDO
+                </span>
+              ) : null}
+              <Wifi
+                className={`h-7 w-7 ${
+                  plan.highlight ? "text-brand-magenta" : "text-brand-blue"
+                }`}
+              />
+              <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                Plano {plan.name}
+              </p>
+              <div className="mt-1 flex items-baseline gap-2">
+                <span className="text-5xl font-black text-foreground">
+                  {plan.speed}
+                </span>
+                <span className="text-lg font-semibold text-muted-foreground">
+                  Mega
+                </span>
+              </div>
+              <div className="mt-4 flex items-baseline gap-1">
+                <span className="text-base text-muted-foreground">R$</span>
+                <span className="text-4xl font-black text-foreground">
+                  {plan.price}
+                </span>
+                <span className="text-muted-foreground">/mês</span>
+              </div>
+              <ul className="mt-6 flex-1 space-y-3">
+                {plan.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-center gap-3 text-sm text-foreground"
+                  >
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-magenta/10">
+                      <Check className="h-3 w-3 text-brand-magenta" />
+                    </span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                asChild
+                className={`mt-7 w-full gap-2 py-6 text-base font-bold ${
+                  plan.highlight
+                    ? "bg-brand-magenta text-white hover:bg-brand-magenta/90"
+                    : "bg-brand-dark text-white hover:bg-brand-dark/90"
+                }`}
+              >
+                <WhatsAppLink
+                  location={`plano_${plan.speed}`}
+                  message={`Olá! Quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês em Medianeira/PR.`}
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Contratar {plan.speed} Mega
+                </WhatsAppLink>
+              </Button>
+            </div>
+          ))}
+        </div>
+        <p className="mt-6 text-center text-xs text-muted-foreground">
+          Ofertas válidas para Medianeira/PR e sujeitas a viabilidade técnica.
+        </p>
+      </div>
+    </section>
+  );
+}
