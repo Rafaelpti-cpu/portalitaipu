@@ -5,9 +5,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { buildWhatsAppLink, trackLead } from "@/lib/lead";
 
+const BAIRROS = [
+  "Centro",
+  "Cidade Alta",
+  "Ipê",
+  "Jardim Irriga",
+  "Nazaré",
+  "Belo Horizonte",
+  "Interlagos",
+  "Condá",
+  "Parque Independência",
+  "Itaipu",
+  "Panorâmico",
+  "São Cristóvão",
+  "Vila Rica",
+  "Zona Industrial",
+];
+
 export function CoverageCheck() {
   const [bairro, setBairro] = useState("");
   const [nome, setNome] = useState("");
+
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -54,10 +72,35 @@ export function CoverageCheck() {
                 onChange={(e) => setBairro(e.target.value)}
                 placeholder="Ex: Centro, Ipê, Jardim Irriga"
                 className="h-12"
+                list="bairros-medianeira"
                 required
               />
+              <datalist id="bairros-medianeira">
+                {BAIRROS.map((b) => (
+                  <option key={b} value={b} />
+                ))}
+              </datalist>
             </div>
             <div className="sm:col-span-2">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Bairros atendidos em Medianeira (referência)
+              </p>
+              <div className="mb-5 flex flex-wrap gap-2">
+                {BAIRROS.map((b) => (
+                  <button
+                    key={b}
+                    type="button"
+                    onClick={() => setBairro(b)}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                      bairro === b
+                        ? "border-brand-magenta bg-brand-magenta text-white"
+                        : "border-border bg-background text-foreground hover:border-brand-magenta hover:text-brand-magenta"
+                    }`}
+                  >
+                    {b}
+                  </button>
+                ))}
+              </div>
               <Button
                 type="submit"
                 className="h-14 w-full gap-2 bg-whatsapp text-base font-bold text-white hover:bg-whatsapp-dark"

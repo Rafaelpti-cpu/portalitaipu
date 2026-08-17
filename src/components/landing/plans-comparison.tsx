@@ -1,25 +1,24 @@
 import { Check, MessageCircle, Wifi } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppLink } from "@/components/landing/cta-link";
+import watchTvLogo from "@/assets/watch-tv.png.asset.json";
+import hboMaxLogo from "@/assets/hbo-max.svg.asset.json";
 
-const plans = [
-  {
-    name: "FOR YOU",
-    speed: "300",
-    price: "89,90",
-    highlight: false,
-    features: [
-      "WiFi 6 incluso",
-      "Instalação grátis",
-      "Ativação em até 24h",
-      "Suporte local",
-    ],
-  },
+type Plan = {
+  name: string;
+  speed: string;
+  price: string;
+  highlight: boolean;
+  features: string[];
+  logos: { src: string; alt: string; className: string }[];
+};
+
+const plans: Plan[] = [
   {
     name: "FOR FAMILY",
     speed: "550",
     price: "109,90",
-    highlight: true,
+    highlight: false,
     features: [
       "WiFi 6 de alta performance",
       "Instalação 100% grátis",
@@ -27,17 +26,39 @@ const plans = [
       "Suporte técnico local",
       "Sem taxa de adesão",
     ],
+    logos: [],
   },
   {
-    name: "FOR GAMER",
-    speed: "800",
-    price: "149,90",
+    name: "FOR FAMILY + TV",
+    speed: "550",
+    price: "119,90",
+    highlight: true,
+    features: [
+      "Watch TV Canais Brasil incluso",
+      "WiFi 6 de alta performance",
+      "Instalação 100% grátis",
+      "Ativação em até 24h",
+      "Suporte técnico local",
+    ],
+    logos: [
+      { src: watchTvLogo.url, alt: "Watch TV Canais Brasil", className: "h-7" },
+    ],
+  },
+  {
+    name: "FOR FAMILY + TV E HBO MAX",
+    speed: "550",
+    price: "129,90",
     highlight: false,
     features: [
-      "WiFi 6 incluso",
-      "Baixa latência para jogos",
-      "Instalação grátis",
-      "Suporte prioritário",
+      "Watch TV Canais Brasil incluso",
+      "HBO Max incluso",
+      "WiFi 6 de alta performance",
+      "Instalação 100% grátis",
+      "Suporte técnico local",
+    ],
+    logos: [
+      { src: watchTvLogo.url, alt: "Watch TV Canais Brasil", className: "h-7" },
+      { src: hboMaxLogo.url, alt: "HBO Max", className: "h-7" },
     ],
   },
 ];
@@ -51,14 +72,14 @@ export function PlansComparison() {
             Compare os planos para Medianeira
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Todos com fibra óptica, WiFi 6 e instalação grátis. Escolha a
-            velocidade ideal para sua casa.
+            Todos com 550 Mega de fibra óptica, WiFi 6 e instalação grátis.
+            Escolha se quer TV e streaming inclusos.
           </p>
         </div>
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {plans.map((plan) => (
             <div
-              key={plan.name}
+              key={plan.price}
               className={`relative flex flex-col overflow-hidden rounded-3xl border bg-card p-7 ${
                 plan.highlight
                   ? "border-2 border-brand-magenta shadow-2xl lg:-mt-3 lg:pb-10"
@@ -93,6 +114,19 @@ export function PlansComparison() {
                 </span>
                 <span className="text-muted-foreground">/mês</span>
               </div>
+              {plan.logos.length > 0 ? (
+                <div className="mt-5 flex flex-wrap items-center gap-4 rounded-2xl bg-muted/60 px-4 py-3">
+                  {plan.logos.map((logo) => (
+                    <img
+                      key={logo.alt}
+                      src={logo.src}
+                      alt={logo.alt}
+                      loading="lazy"
+                      className={`${logo.className} w-auto object-contain`}
+                    />
+                  ))}
+                </div>
+              ) : null}
               <ul className="mt-6 flex-1 space-y-3">
                 {plan.features.map((feature) => (
                   <li
@@ -115,11 +149,11 @@ export function PlansComparison() {
                 }`}
               >
                 <WhatsAppLink
-                  location={`plano_${plan.speed}`}
+                  location={`plano_${plan.price}`}
                   message={`Olá! Quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês em Medianeira/PR.`}
                 >
                   <MessageCircle className="h-5 w-5" />
-                  Contratar {plan.speed} Mega
+                  Contratar R$ {plan.price}
                 </WhatsAppLink>
               </Button>
             </div>
@@ -127,6 +161,7 @@ export function PlansComparison() {
         </div>
         <p className="mt-6 text-center text-xs text-muted-foreground">
           Ofertas válidas para Medianeira/PR e sujeitas a viabilidade técnica.
+          Watch TV Canais Brasil e HBO Max sujeitos aos termos de cada serviço.
         </p>
       </div>
     </section>
