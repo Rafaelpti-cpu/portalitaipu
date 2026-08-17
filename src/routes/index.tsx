@@ -19,7 +19,6 @@ import {
   Check,
 } from "lucide-react";
 import { WhatsAppLink } from "@/components/landing/cta-link";
-import { UrgencyBar } from "@/components/landing/urgency-bar";
 import { CoverageCheck } from "@/components/landing/coverage-check";
 import { Testimonials } from "@/components/landing/testimonials";
 import { PlansComparison } from "@/components/landing/plans-comparison";
@@ -110,7 +109,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen bg-background pb-20 font-sans md:pb-0">
-      <UrgencyBar />
       <Header />
       <main>
         <HeroSection />
