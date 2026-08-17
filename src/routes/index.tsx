@@ -23,12 +23,26 @@ import { CoverageCheck } from "@/components/landing/coverage-check";
 import { Testimonials } from "@/components/landing/testimonials";
 import { PlansComparison } from "@/components/landing/plans-comparison";
 import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
+import { SeoKeywords, BAIRROS_MEDIANEIRA } from "@/components/landing/seo-keywords";
 import { DEFAULT_MESSAGE, PHONE_DISPLAY, PHONE_TEL, trackLead } from "@/lib/lead";
 
 const TITLE =
   "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu";
 const DESCRIPTION =
-  "Contrate internet fibra em Medianeira/PR. Plano de 550 Mega + WiFi 6 por R$ 109,90/mês. Instalação grátis e ativação em até 24h. Provedor local com atendimento humanizado.";
+  "Internet fibra óptica em Medianeira/PR para contratar hoje: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e HBO Max. Instalação grátis, ativação em até 24h e suporte local.";
+const KEYWORDS = [
+  "internet em Medianeira",
+  "internet fibra óptica Medianeira",
+  "provedor de internet Medianeira PR",
+  "internet 550 mega Medianeira",
+  "internet com WiFi 6 Medianeira",
+  "internet com TV Medianeira",
+  "internet com HBO Max Medianeira",
+  "internet residencial Medianeira Paraná",
+  "contratar internet Medianeira",
+  "instalação de internet grátis Medianeira",
+  "Portal Itaipu internet",
+].join(", ");
 
 const faqs = [
   {
@@ -58,6 +72,10 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
+      { name: "keywords", content: KEYWORDS },
+      { name: "geo.region", content: "BR-PR" },
+      { name: "geo.placename", content: "Medianeira, Paraná" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
@@ -81,12 +99,46 @@ export const Route = createFileRoute("/")({
             "Provedor de internet fibra óptica em Medianeira, Paraná.",
           url: "https://portalitaipu.com.br/",
           telephone: PHONE_TEL,
-          areaServed: {
-            "@type": "City",
-            name: "Medianeira",
-            containedInPlace: { "@type": "State", name: "Paraná" },
+          image: "https://portalitaipu.com.br/",
+          keywords: KEYWORDS,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Medianeira",
+            addressRegion: "PR",
+            addressCountry: "BR",
           },
-          priceRange: "R$",
+          areaServed: [
+            {
+              "@type": "City",
+              name: "Medianeira",
+              containedInPlace: { "@type": "State", name: "Paraná" },
+            },
+            ...BAIRROS_MEDIANEIRA.map((bairro) => ({
+              "@type": "Place",
+              name: `${bairro}, Medianeira - PR`,
+            })),
+          ],
+          priceRange: "R$ 109,90 - R$ 129,90",
+          makesOffer: [
+            {
+              "@type": "Offer",
+              name: "Plano FOR FAMILY 550 Mega + WiFi 6",
+              price: "109.90",
+              priceCurrency: "BRL",
+            },
+            {
+              "@type": "Offer",
+              name: "Plano 550 Mega + WiFi 6 + Watch TV Canais Brasil",
+              price: "119.90",
+              priceCurrency: "BRL",
+            },
+            {
+              "@type": "Offer",
+              name: "Plano 550 Mega + WiFi 6 + Watch TV + HBO Max",
+              price: "129.90",
+              priceCurrency: "BRL",
+            },
+          ],
         }),
       },
       {
@@ -117,6 +169,7 @@ function Index() {
         <PlansComparison />
         <Testimonials />
         <TrustSection />
+        <SeoKeywords />
         <FaqSection />
         <FinalCtaSection />
       </main>
