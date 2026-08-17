@@ -5,9 +5,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { buildWhatsAppLink, trackLead } from "@/lib/lead";
 
+const BAIRROS = [
+  "Centro",
+  "Cidade Alta",
+  "Ipê",
+  "Jardim Irriga",
+  "Nazaré",
+  "Belo Horizonte",
+  "Interlagos",
+  "Condá",
+  "Parque Independência",
+  "Itaipu",
+  "Panorâmico",
+  "São Cristóvão",
+  "Vila Rica",
+  "Frron",
+  "Zona Industrial",
+];
+
 export function CoverageCheck() {
   const [bairro, setBairro] = useState("");
   const [nome, setNome] = useState("");
+
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
