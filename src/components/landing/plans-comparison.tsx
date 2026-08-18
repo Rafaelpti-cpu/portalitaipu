@@ -72,7 +72,8 @@ export function PlansComparison() {
             Compare os planos para Medianeira
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Todos com 550 Mega de fibra óptica, WiFi 6 e instalação grátis.
+            Todos com 550 Mega de fibra óptica, WiFi 6, instalação grátis e a{" "}
+            <strong className="text-foreground">1ª mensalidade grátis</strong>.
             Escolha se quer TV e streaming inclusos.
           </p>
         </div>
