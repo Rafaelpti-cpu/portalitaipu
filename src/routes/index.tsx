@@ -302,9 +302,14 @@ function HeroSection() {
             <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-xl">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-brand-magenta/10 px-3 py-1 text-sm font-semibold text-brand-magenta">
-                    MAIS VENDIDO
-                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full bg-brand-magenta/10 px-3 py-1 text-sm font-semibold text-brand-magenta">
+                      MAIS VENDIDO
+                    </span>
+                    <span className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-bold text-brand-dark">
+                      1º MÊS GRÁTIS
+                    </span>
+                  </div>
                   <Wifi className="h-8 w-8 text-brand-magenta" />
                 </div>
                 <div>
