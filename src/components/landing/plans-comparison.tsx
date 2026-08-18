@@ -1,6 +1,7 @@
 import { Check, MessageCircle, Wifi } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppLink } from "@/components/landing/cta-link";
+import { OFFER_DISCLAIMER } from "@/lib/lead";
 import watchTvLogo from "@/assets/watch-tv.png.asset.json";
 import hboMaxLogo from "@/assets/hbo-max.svg.asset.json";
 
@@ -156,7 +157,7 @@ export function PlansComparison() {
               >
                 <WhatsAppLink
                   location={`plano_${plan.price}`}
-                  message={`Olá! Quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês em Medianeira/PR.`}
+                  message={`Olá! Vim pela página de Medianeira e quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês com a 1ª mensalidade grátis.`}
                 >
                   <MessageCircle className="h-5 w-5" />
                   Contratar R$ {plan.price}
@@ -166,8 +167,8 @@ export function PlansComparison() {
           ))}
         </div>
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          Ofertas válidas para Medianeira/PR e sujeitas a viabilidade técnica.
-          Watch TV Canais Brasil e Max sujeitos aos termos de cada serviço.
+          {OFFER_DISCLAIMER} Ofertas sujeitas a viabilidade técnica. Watch TV
+          Canais Brasil e Max sujeitos aos termos de cada serviço.
         </p>
       </div>
     </section>
