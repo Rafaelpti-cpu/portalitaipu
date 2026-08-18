@@ -29,7 +29,7 @@ import { DEFAULT_MESSAGE, PHONE_DISPLAY, PHONE_TEL, trackLead } from "@/lib/lead
 const TITLE =
   "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu";
 const DESCRIPTION =
-  "Internet fibra óptica em Medianeira/PR para contratar hoje: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e HBO Max. Instalação grátis, ativação em até 24h e suporte local.";
+  "Internet fibra óptica em Medianeira/PR para contratar hoje: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.";
 const KEYWORDS = [
   "internet em Medianeira",
   "internet fibra óptica Medianeira",
@@ -37,7 +37,7 @@ const KEYWORDS = [
   "internet 550 mega Medianeira",
   "internet com WiFi 6 Medianeira",
   "internet com TV Medianeira",
-  "internet com HBO Max Medianeira",
+  "internet com Max Medianeira",
   "internet residencial Medianeira Paraná",
   "contratar internet Medianeira",
   "instalação de internet grátis Medianeira",
@@ -134,7 +134,7 @@ export const Route = createFileRoute("/")({
             },
             {
               "@type": "Offer",
-              name: "Plano 550 Mega + WiFi 6 + Watch TV + HBO Max",
+              name: "Plano 550 Mega + WiFi 6 + Watch TV + Max",
               price: "129.90",
               priceCurrency: "BRL",
             },

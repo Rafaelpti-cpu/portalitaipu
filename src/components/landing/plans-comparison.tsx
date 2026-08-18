@@ -51,14 +51,14 @@ const plans: Plan[] = [
     highlight: false,
     features: [
       "Watch TV Canais Brasil incluso",
-      "HBO Max incluso",
+      "Max incluso",
       "WiFi 6 de alta performance",
       "Instalação 100% grátis",
       "Suporte técnico local",
     ],
     logos: [
       { src: watchTvLogo.url, alt: "Watch TV Canais Brasil", className: "h-7" },
-      { src: hboMaxLogo.url, alt: "HBO Max", className: "h-7" },
+      { src: hboMaxLogo.url, alt: "Max", className: "h-7" },
     ],
   },
 ];
@@ -161,7 +161,7 @@ export function PlansComparison() {
         </div>
         <p className="mt-6 text-center text-xs text-muted-foreground">
           Ofertas válidas para Medianeira/PR e sujeitas a viabilidade técnica.
-          Watch TV Canais Brasil e HBO Max sujeitos aos termos de cada serviço.
+          Watch TV Canais Brasil e Max sujeitos aos termos de cada serviço.
         </p>
       </div>
     </section>
