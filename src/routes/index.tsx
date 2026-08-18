@@ -33,9 +33,9 @@ import {
 } from "@/lib/lead";
 
 const TITLE =
-  "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu";
+  "Internet Fibra em Medianeira/PR | 1ª Mensalidade Grátis | Portal Itaipu";
 const DESCRIPTION =
-  "Internet fibra óptica em Medianeira/PR para contratar hoje: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.";
+  "1ª mensalidade grátis em Medianeira/PR: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.";
 const KEYWORDS = [
   "internet em Medianeira",
   "internet fibra óptica Medianeira",
