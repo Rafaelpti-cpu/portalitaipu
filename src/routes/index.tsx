@@ -24,7 +24,13 @@ import { Testimonials } from "@/components/landing/testimonials";
 import { PlansComparison } from "@/components/landing/plans-comparison";
 import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
 import { SeoKeywords, BAIRROS_MEDIANEIRA } from "@/components/landing/seo-keywords";
-import { DEFAULT_MESSAGE, PHONE_DISPLAY, PHONE_TEL, trackLead } from "@/lib/lead";
+import {
+  DEFAULT_MESSAGE,
+  OFFER_DISCLAIMER,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  trackLead,
+} from "@/lib/lead";
 
 const TITLE =
   "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu";
