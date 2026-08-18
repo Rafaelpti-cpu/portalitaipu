@@ -45,7 +45,7 @@ const plans: Plan[] = [
     ],
   },
   {
-    name: "FOR FAMILY + TV E HBO MAX",
+    name: "FOR FAMILY + TV E MAX",
     speed: "550",
     price: "129,90",
     highlight: false,
