@@ -236,15 +236,15 @@ function HeroSection() {
             </div>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
               Internet fibra em{" "}
-              <span className="text-brand-magenta">Medianeira</span> com
-              instalação grátis
+              <span className="text-brand-magenta">Medianeira</span> com 1ª
+              mensalidade grátis
             </h1>
             <p className="text-lg text-muted-foreground md:text-xl">
               Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
-              <strong className="text-foreground">R$ 109,90/mês</strong>. Rede
-              totalmente nova, ativação em até <strong>24 horas</strong> e
-              atendimento humanizado de verdade.
+              <strong className="text-foreground">R$ 109,90/mês</strong> e não
+              pague nada no primeiro mês. Instalação grátis, ativação em até 24h.
             </p>
+            <p className="text-xs text-muted-foreground">{OFFER_DISCLAIMER}</p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 asChild
