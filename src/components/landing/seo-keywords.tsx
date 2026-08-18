@@ -4,19 +4,17 @@ import { DEFAULT_MESSAGE } from "@/lib/lead";
 
 export const BAIRROS_MEDIANEIRA = [
   "Centro",
-  "Cidade Alta",
-  "Ipê",
-  "Jardim Irriga",
-  "Nazaré",
+  "São Cristóvão",
   "Belo Horizonte",
-  "Interlagos",
   "Condá",
-  "Parque Independência",
+  "Cidade Alta",
+  "Frimesa",
+  "Nazaré",
+  "Ipê",
+  "Jardim Irene",
+  "Independência",
   "Itaipu",
   "Panorâmico",
-  "São Cristóvão",
-  "Vila Rica",
-  "Zona Industrial",
 ];
 
 const searchTerms = [
