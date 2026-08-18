@@ -86,11 +86,16 @@ export function PlansComparison() {
                   : "border-border shadow-sm"
               }`}
             >
-              {plan.highlight ? (
-                <span className="absolute right-5 top-5 rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
-                  MAIS VENDIDO
+              <div className="absolute right-5 top-5 flex flex-col items-end gap-2">
+                <span className="rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold text-brand-dark">
+                  1º MÊS GRÁTIS
                 </span>
-              ) : null}
+                {plan.highlight ? (
+                  <span className="rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
+                    MAIS VENDIDO
+                  </span>
+                ) : null}
+              </div>
               <Wifi
                 className={`h-7 w-7 ${
                   plan.highlight ? "text-brand-magenta" : "text-brand-blue"
