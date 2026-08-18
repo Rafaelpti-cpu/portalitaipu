@@ -570,8 +570,12 @@ function FinalCtaSection() {
               Não fique sem internet de qualidade
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
-              Aproveite a oferta de 550 Mega + WiFi 6 por R$ 109,90/mês com
-              instalação grátis e ativação em até 24h em Medianeira/PR.
+              Contrate 550 Mega + WiFi 6 por R$ 109,90/mês e ganhe a 1ª
+              mensalidade grátis, com instalação grátis e ativação em até 24h em
+              Medianeira/PR.
+            </p>
+            <p className="mx-auto mt-3 max-w-2xl text-xs text-white/70">
+              {OFFER_DISCLAIMER}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
