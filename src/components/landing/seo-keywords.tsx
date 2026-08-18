@@ -27,7 +27,7 @@ const searchTerms = [
   "internet barata em Medianeira",
   "internet com WiFi 6 Medianeira",
   "internet com TV em Medianeira",
-  "internet com HBO Max Medianeira",
+  "internet com Max Medianeira",
   "internet para jogos em Medianeira",
   "internet residencial Medianeira Paraná",
   "instalação de internet grátis Medianeira",
@@ -49,7 +49,7 @@ export function SeoKeywords() {
           <strong className="text-foreground">internet para contratar em Medianeira</strong>
           , temos planos de 550 Mega a partir de R$ 109,90/mês, com opções de{" "}
           <strong className="text-foreground">internet com TV (Watch TV Canais Brasil)</strong>{" "}
-          e <strong className="text-foreground">internet com HBO Max</strong>,
+          e <strong className="text-foreground">internet com Max</strong>,
           instalação grátis e ativação em até 24 horas.
         </p>
 

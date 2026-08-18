@@ -22,17 +22,32 @@ const BAIRROS = [
   "Zona Industrial",
 ];
 
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits.replace(/^(\d{0,2})/, "($1");
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10)
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
 export function CoverageCheck() {
   const [bairro, setBairro] = useState("");
   const [nome, setNome] = useState("");
+  const [telefone, setTelefone] = useState("");
 
+  const phoneDigits = telefone.replace(/\D/g, "");
+  const phoneValid = phoneDigits.length >= 10;
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (!phoneValid) return;
     trackLead("coverage_form_submit", { bairro: bairro || "nao_informado" });
-    const message = `Olá! Meu nome é ${nome || "(não informado)"} e moro no bairro ${
+    const message = `Olá! Vim pela página de Medianeira e quero contratar com a 1ª mensalidade grátis. Meu nome é ${
+      nome || "(não informado)"
+    }, meu WhatsApp é ${telefone} e moro no bairro ${
       bairro || "(não informado)"
-    } em Medianeira/PR. Quero saber se tem cobertura na minha rua e contratar o plano de 550 Mega + WiFi 6 por R$ 109,90.`;
+    } em Medianeira/PR.`;
     window.open(buildWhatsAppLink(message), "_blank", "noopener,noreferrer");
   };
 
@@ -65,12 +80,31 @@ export function CoverageCheck() {
               />
             </div>
             <div className="space-y-2">
+              <Label htmlFor="telefone">Seu WhatsApp</Label>
+              <Input
+                id="telefone"
+                type="tel"
+                inputMode="numeric"
+                value={telefone}
+                onChange={(e) => setTelefone(formatPhone(e.target.value))}
+                placeholder="(45) 99999-9999"
+                className="h-12"
+                maxLength={16}
+                required
+              />
+              {telefone && !phoneValid ? (
+                <p className="text-xs text-destructive">
+                  Informe o número com DDD, ex: (45) 99999-9999.
+                </p>
+              ) : null}
+            </div>
+            <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="bairro">Seu bairro em Medianeira</Label>
               <Input
                 id="bairro"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
-                placeholder="Ex: Centro, Ipê, Jardim Irriga"
+                placeholder="Ex: Centro, Ipê, Nazaré"
                 className="h-12"
                 list="bairros-medianeira"
                 required

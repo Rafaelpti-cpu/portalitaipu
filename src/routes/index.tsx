@@ -24,12 +24,18 @@ import { Testimonials } from "@/components/landing/testimonials";
 import { PlansComparison } from "@/components/landing/plans-comparison";
 import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
 import { SeoKeywords, BAIRROS_MEDIANEIRA } from "@/components/landing/seo-keywords";
-import { DEFAULT_MESSAGE, PHONE_DISPLAY, PHONE_TEL, trackLead } from "@/lib/lead";
+import {
+  DEFAULT_MESSAGE,
+  OFFER_DISCLAIMER,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  trackLead,
+} from "@/lib/lead";
 
 const TITLE =
-  "Internet Fibra em Medianeira/PR | 550 Mega + WiFi 6 | Portal Itaipu";
+  "Internet Fibra em Medianeira/PR | 1ª Mensalidade Grátis | Portal Itaipu";
 const DESCRIPTION =
-  "Internet fibra óptica em Medianeira/PR para contratar hoje: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e HBO Max. Instalação grátis, ativação em até 24h e suporte local.";
+  "1ª mensalidade grátis em Medianeira/PR: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.";
 const KEYWORDS = [
   "internet em Medianeira",
   "internet fibra óptica Medianeira",
@@ -37,7 +43,7 @@ const KEYWORDS = [
   "internet 550 mega Medianeira",
   "internet com WiFi 6 Medianeira",
   "internet com TV Medianeira",
-  "internet com HBO Max Medianeira",
+  "internet com Max Medianeira",
   "internet residencial Medianeira Paraná",
   "contratar internet Medianeira",
   "instalação de internet grátis Medianeira",
@@ -134,7 +140,7 @@ export const Route = createFileRoute("/")({
             },
             {
               "@type": "Offer",
-              name: "Plano 550 Mega + WiFi 6 + Watch TV + HBO Max",
+              name: "Plano 550 Mega + WiFi 6 + Watch TV + Max",
               price: "129.90",
               priceCurrency: "BRL",
             },
@@ -236,15 +242,15 @@ function HeroSection() {
             </div>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
               Internet fibra em{" "}
-              <span className="text-brand-magenta">Medianeira</span> com
-              instalação grátis
+              <span className="text-brand-magenta">Medianeira</span> com 1ª
+              mensalidade grátis
             </h1>
             <p className="text-lg text-muted-foreground md:text-xl">
               Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
-              <strong className="text-foreground">R$ 109,90/mês</strong>. Rede
-              totalmente nova, ativação em até <strong>24 horas</strong> e
-              atendimento humanizado de verdade.
+              <strong className="text-foreground">R$ 109,90/mês</strong> e não
+              pague nada no primeiro mês. Instalação grátis, ativação em até 24h.
             </p>
+            <p className="text-xs text-muted-foreground">{OFFER_DISCLAIMER}</p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 asChild
@@ -296,9 +302,14 @@ function HeroSection() {
             <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-xl">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-brand-magenta/10 px-3 py-1 text-sm font-semibold text-brand-magenta">
-                    MAIS VENDIDO
-                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full bg-brand-magenta/10 px-3 py-1 text-sm font-semibold text-brand-magenta">
+                      MAIS VENDIDO
+                    </span>
+                    <span className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-bold text-brand-dark">
+                      1º MÊS GRÁTIS
+                    </span>
+                  </div>
                   <Wifi className="h-8 w-8 text-brand-magenta" />
                 </div>
                 <div>
@@ -559,8 +570,12 @@ function FinalCtaSection() {
               Não fique sem internet de qualidade
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
-              Aproveite a oferta de 550 Mega + WiFi 6 por R$ 109,90/mês com
-              instalação grátis e ativação em até 24h em Medianeira/PR.
+              Contrate 550 Mega + WiFi 6 por R$ 109,90/mês e ganhe a 1ª
+              mensalidade grátis, com instalação grátis e ativação em até 24h em
+              Medianeira/PR.
+            </p>
+            <p className="mx-auto mt-3 max-w-2xl text-xs text-white/70">
+              {OFFER_DISCLAIMER}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button

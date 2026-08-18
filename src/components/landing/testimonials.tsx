@@ -2,19 +2,19 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Juliane M.",
-    place: "Bairro Centro • Medianeira",
-    text: "Instalaram no dia seguinte e o WiFi pega em toda a casa, até na área. Suporte responde no WhatsApp em minutos.",
+    name: "Tayná Carolina",
+    place: "Avaliação no Google • Medianeira",
+    text: "Muito boa a minha experiência com a portal, sempre muito prestativos e resolver rapidamente quando acontece algum problema",
   },
   {
-    name: "Rodrigo P.",
-    place: "Bairro Ipê • Medianeira",
-    text: "Trabalho em home office com videochamada o dia todo e não caiu nenhuma vez. A velocidade entrega o que promete.",
+    name: "Janice Bellon",
+    place: "Avaliação no Google • Medianeira",
+    text: "Foi excelente, fiquei satisfeita com o atendimento",
   },
   {
-    name: "Sandra T.",
-    place: "Jardim Irriga • Medianeira",
-    text: "Troquei de provedor por causa das quedas. Aqui é outro nível, e o atendimento é de gente da cidade mesmo.",
+    name: "Thiago",
+    place: "Avaliação no Google • Medianeira",
+    text: "Melhor internet da região",
   },
 ];
 

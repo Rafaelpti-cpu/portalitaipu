@@ -1,6 +1,7 @@
 import { Check, MessageCircle, Wifi } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppLink } from "@/components/landing/cta-link";
+import { OFFER_DISCLAIMER } from "@/lib/lead";
 import watchTvLogo from "@/assets/watch-tv.png.asset.json";
 import hboMaxLogo from "@/assets/hbo-max.svg.asset.json";
 
@@ -45,20 +46,20 @@ const plans: Plan[] = [
     ],
   },
   {
-    name: "FOR FAMILY + TV E HBO MAX",
+    name: "FOR FAMILY + TV E MAX",
     speed: "550",
     price: "129,90",
     highlight: false,
     features: [
       "Watch TV Canais Brasil incluso",
-      "HBO Max incluso",
+      "Max incluso",
       "WiFi 6 de alta performance",
       "Instalação 100% grátis",
       "Suporte técnico local",
     ],
     logos: [
       { src: watchTvLogo.url, alt: "Watch TV Canais Brasil", className: "h-7" },
-      { src: hboMaxLogo.url, alt: "HBO Max", className: "h-7" },
+      { src: hboMaxLogo.url, alt: "Max", className: "h-7" },
     ],
   },
 ];
@@ -72,7 +73,8 @@ export function PlansComparison() {
             Compare os planos para Medianeira
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Todos com 550 Mega de fibra óptica, WiFi 6 e instalação grátis.
+            Todos com 550 Mega de fibra óptica, WiFi 6, instalação grátis e a{" "}
+            <strong className="text-foreground">1ª mensalidade grátis</strong>.
             Escolha se quer TV e streaming inclusos.
           </p>
         </div>
@@ -86,11 +88,16 @@ export function PlansComparison() {
                   : "border-border shadow-sm"
               }`}
             >
-              {plan.highlight ? (
-                <span className="absolute right-5 top-5 rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
-                  MAIS VENDIDO
+              <div className="absolute right-5 top-5 flex flex-col items-end gap-2">
+                <span className="rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold text-brand-dark">
+                  1º MÊS GRÁTIS
                 </span>
-              ) : null}
+                {plan.highlight ? (
+                  <span className="rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
+                    MAIS VENDIDO
+                  </span>
+                ) : null}
+              </div>
               <Wifi
                 className={`h-7 w-7 ${
                   plan.highlight ? "text-brand-magenta" : "text-brand-blue"
@@ -150,7 +157,7 @@ export function PlansComparison() {
               >
                 <WhatsAppLink
                   location={`plano_${plan.price}`}
-                  message={`Olá! Quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês em Medianeira/PR.`}
+                  message={`Olá! Vim pela página de Medianeira e quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês com a 1ª mensalidade grátis.`}
                 >
                   <MessageCircle className="h-5 w-5" />
                   Contratar R$ {plan.price}
@@ -160,8 +167,8 @@ export function PlansComparison() {
           ))}
         </div>
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          Ofertas válidas para Medianeira/PR e sujeitas a viabilidade técnica.
-          Watch TV Canais Brasil e HBO Max sujeitos aos termos de cada serviço.
+          {OFFER_DISCLAIMER} Ofertas sujeitas a viabilidade técnica. Watch TV
+          Canais Brasil e Max sujeitos aos termos de cada serviço.
         </p>
       </div>
     </section>
