@@ -69,17 +69,6 @@ export function SeoKeywords() {
           ))}
         </ul>
 
-        <h3 className="mt-10 text-lg font-bold text-foreground">
-          O que as pessoas procuram antes de contratar
-        </h3>
-        <ul className="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2 lg:grid-cols-3">
-          {searchTerms.map((term) => (
-            <li key={term} className="flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-magenta" />
-              {term}
-            </li>
-          ))}
-        </ul>
 
         <div className="mt-10">
           <WhatsAppLink

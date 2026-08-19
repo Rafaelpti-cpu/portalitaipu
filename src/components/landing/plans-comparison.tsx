@@ -22,6 +22,7 @@ const plans: Plan[] = [
     highlight: false,
     features: [
       "WiFi 6 de alta performance",
+      "Latência baixa para jogos online e home office",
       "Instalação 100% grátis",
       "Ativação em até 24h",
       "Suporte técnico local",

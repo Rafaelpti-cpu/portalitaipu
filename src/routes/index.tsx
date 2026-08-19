@@ -71,6 +71,11 @@ const faqs = [
     answer:
       "Não. Nesta oferta, a instalação e ativação são gratuitas. Você paga apenas a mensalidade do plano contratado.",
   },
+  {
+    question: "Por que escolher a Portal Itaipu em Medianeira?",
+    answer:
+      "Somos um provedor local com suporte humanizado, 20 anos de experiência no oeste do Paraná e infraestrutura moderna em Medianeira. Todos os planos incluem Wi-Fi 6, instalação grátis e atendimento próximo, sem robôs.",
+  },
 ];
 
 export const Route = createFileRoute("/")({
