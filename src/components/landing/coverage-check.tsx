@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MapPin, MessageCircle } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -142,6 +143,16 @@ export function CoverageCheck() {
               </Button>
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 Sem compromisso. Resposta imediata em horário comercial.
+              </p>
+              <p className="mt-2 text-center text-xs text-muted-foreground">
+                Ao enviar, você concorda com nossa{" "}
+                <Link
+                  to="/privacidade"
+                  className="underline hover:text-foreground"
+                >
+                  Política de Privacidade
+                </Link>
+                .
               </p>
             </div>
           </form>
