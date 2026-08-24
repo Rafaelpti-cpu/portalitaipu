@@ -21,6 +21,9 @@ const BAIRROS = [
   "Panorâmico",
 ];
 
+const SHEETS_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbzk-3ej9Oz8lOCMTvMP1qIv4usH_HdjdMW0KFLX9LJ-zPvGUK0VsV1zk6pmHTOFcPSFSA/exec";
+
 function formatPhone(value: string) {
   const digits = value.replace(/\D/g, "").slice(0, 11);
   if (digits.length <= 2) return digits.replace(/^(\d{0,2})/, "($1");
@@ -43,7 +46,32 @@ export function CoverageCheck() {
     event.preventDefault();
     if (!phoneValid) return;
     trackLead("coverage_form_submit", { bairro: bairro || "nao_informado" });
-    navigate({ to: "/obrigado" });
+
+    const nomeLimpo = nome.trim();
+    const bairroLimpo = bairro.trim();
+
+    try {
+      fetch(SHEETS_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          nome: nomeLimpo,
+          whatsapp: phoneDigits,
+          bairro: bairroLimpo,
+          origem: "LP Medianeira",
+        }),
+      }).catch(() => {
+        // Falha no envio não bloqueia o usuário
+      });
+    } catch {
+      // Falha no envio não bloqueia o usuário
+    }
+
+    navigate({
+      to: "/obrigado",
+      search: { nome: nomeLimpo, bairro: bairroLimpo },
+    });
   };
 
   return (

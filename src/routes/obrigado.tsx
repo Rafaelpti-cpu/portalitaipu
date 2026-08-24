@@ -1,12 +1,27 @@
+import { useEffect, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, CheckCircle2 } from "lucide-react";
-import { trackLead, trackWhatsAppClick } from "@/lib/lead";
+import {
+  DEFAULT_MESSAGE,
+  WHATSAPP_NUMBER,
+  trackLead,
+  trackWhatsAppClick,
+} from "@/lib/lead";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 
-const WHATSAPP_OBRIGADO_URL =
-  "https://wa.me/554535591665?text=Ol%C3%A1!%20Acabei%20de%20preencher%20o%20formul%C3%A1rio%20e%20quero%20o%201%C2%BA%20m%C3%AAs%20gr%C3%A1tis";
+function buildWhatsAppMessage(nome: string, bairro: string) {
+  if (nome && bairro) {
+    return `Olá! Sou ${nome}, do bairro ${bairro} em Medianeira. Acabei de consultar a cobertura e quero contratar com o 1º mês grátis.`;
+  }
+  return DEFAULT_MESSAGE;
+}
 
 export const Route = createFileRoute("/obrigado")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    nome: typeof search["nome"] === "string" ? (search["nome"] as string) : "",
+    bairro:
+      typeof search["bairro"] === "string" ? (search["bairro"] as string) : "",
+  }),
   head: () => ({
     meta: [
       { title: "Recebemos seu contato | Portal Itaipu" },
@@ -19,8 +34,7 @@ export const Route = createFileRoute("/obrigado")({
       { property: "og:title", content: "Recebemos seu contato | Portal Itaipu" },
       {
         property: "og:description",
-        content:
-          "Nosso time vai te chamar no WhatsApp em até 10 minutos.",
+        content: "Nosso time vai te chamar no WhatsApp em até 10 minutos.",
       },
     ],
   }),
@@ -28,6 +42,20 @@ export const Route = createFileRoute("/obrigado")({
 });
 
 function ObrigadoPage() {
+  const { nome, bairro } = Route.useSearch();
+
+  const whatsappUrl = useMemo(() => {
+    const message = buildWhatsAppMessage(nome.trim(), bairro.trim());
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  }, [nome, bairro]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [whatsappUrl]);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b border-border bg-card">
@@ -51,11 +79,12 @@ function ObrigadoPage() {
             Recebemos seu contato! ✅
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Nosso time vai te chamar no WhatsApp em até 10 minutos. Se preferir
-            falar agora, é só clicar no botão abaixo.
+            Nosso time vai te chamar no WhatsApp em até 10 minutos. O WhatsApp
+            vai abrir automaticamente em instantes — se não abrir, é só clicar
+            no botão abaixo.
           </p>
           <a
-            href={WHATSAPP_OBRIGADO_URL}
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => {
