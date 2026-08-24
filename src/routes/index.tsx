@@ -202,13 +202,15 @@ function Header() {
     <header className="sticky top-0 z-40 w-full bg-brand-dark">
       <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16">
         <a href="/" className="flex items-center gap-2">
-          <img
-            src={logoAsset.url}
-            alt="Portal Itaipu — internet fibra óptica em Medianeira/PR"
-            className="h-8 w-auto sm:h-9"
-            width="1733"
-            height="593"
-          />
+          <span className="flex items-center rounded-xl bg-white px-2.5 py-1.5">
+            <img
+              src={logoAsset.url}
+              alt="Portal Itaipu — internet fibra óptica em Medianeira/PR"
+              className="h-6 w-auto sm:h-7"
+              width="1733"
+              height="593"
+            />
+          </span>
         </a>
         <nav
           aria-label="Navegação principal"
