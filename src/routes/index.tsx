@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
+import heroPerson from "@/assets/hero-person.png";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -192,8 +193,13 @@ function Index() {
 }
 
 function Header() {
+  const navItems = [
+    { label: "Planos", href: "#planos" },
+    { label: "Benefícios", href: "#beneficios" },
+    { label: "Dúvidas", href: "#duvidas" },
+  ];
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 w-full bg-brand-dark">
       <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16">
         <a href="/" className="flex items-center gap-2">
           <img
@@ -204,11 +210,25 @@ function Header() {
             height="593"
           />
         </a>
+        <nav
+          aria-label="Navegação principal"
+          className="hidden items-center gap-7 md:flex"
+        >
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-white/80 transition-colors hover:text-white"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
         <div className="flex items-center gap-2">
           <a
             href={`tel:${PHONE_TEL}`}
             onClick={() => trackLead("phone_click", { location: "header" })}
-            className="hidden items-center gap-2 rounded-md border border-input px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent hover:text-accent-foreground sm:inline-flex"
+            className="hidden items-center gap-2 rounded-md border border-white/20 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 sm:inline-flex"
           >
             <Phone className="h-4 w-4" />
             {PHONE_DISPLAY}
@@ -233,144 +253,111 @@ function Header() {
 }
 
 function HeroSection() {
+  const heroChecks = [
+    "Instalação grátis",
+    "WiFi 6 de alta performance",
+    "Ativação em até 24h",
+    "Rede 100% fibra óptica",
+    "Suporte local humanizado",
+  ];
+
   return (
-    <section className="relative overflow-hidden bg-background px-4 pb-12 pt-8 sm:pt-12 md:pb-16 md:pt-20">
-      <div className="container mx-auto max-w-6xl">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-10">
-          <div className="space-y-5 sm:space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-magenta/20 bg-brand-magenta/10 px-3 py-1 text-sm font-medium text-brand-magenta">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-magenta opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-magenta"></span>
-              </span>
-              Rede nova em Medianeira/PR
-            </div>
-            <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-              Internet fibra em{" "}
-              <span className="text-brand-magenta">Medianeira</span> com 1ª
-              mensalidade grátis
-            </h1>
-            <p className="text-base text-muted-foreground sm:text-lg md:text-xl">
-              Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
-              <strong className="text-foreground">R$ 109,90/mês</strong> e não
-              pague nada no primeiro mês. Instalação grátis, ativação em até 24h.
-            </p>
-            <p className="text-xs text-muted-foreground">{OFFER_DISCLAIMER}</p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                className="h-14 gap-2 bg-brand-magenta px-8 text-base font-bold text-white shadow-lg shadow-brand-magenta/25 hover:bg-brand-magenta/90"
-              >
-                <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
-                  <MessageCircle className="h-5 w-5" />
-                  Quero contratar pelo WhatsApp
-                </WhatsAppLink>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="h-14 gap-2 px-6 text-base font-semibold"
-              >
-                <a href="#cobertura">Consultar cobertura</a>
-              </Button>
-            </div>
-            <div className="flex flex-wrap items-center gap-4 pt-2 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-brand-magenta" />
-                Sem burocracia
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-brand-magenta" />
-                Atendimento local
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-brand-magenta" />
-                WiFi 6 incluso
-              </span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Prefere ligar?{" "}
-              <a
-                href={`tel:${PHONE_TEL}`}
-                onClick={() => trackLead("phone_click", { location: "hero" })}
-                className="font-bold text-brand-magenta underline-offset-4 hover:underline"
-              >
-                {PHONE_DISPLAY}
-              </a>{" "}
-              — seg. a sáb., 8h às 18h.
-            </p>
+    <section className="relative overflow-hidden bg-gradient-to-br from-brand-magenta via-brand-magenta to-brand-purple text-white">
+      <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+      <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-brand-yellow/20 blur-3xl" />
+      <div className="container relative mx-auto grid max-w-6xl gap-8 px-4 pt-10 sm:pt-12 lg:grid-cols-[1.05fr_0.7fr_0.75fr] lg:items-end lg:gap-6 lg:pt-16">
+        <div className="space-y-5 sm:space-y-6 lg:pb-14">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-yellow"></span>
+            </span>
+            Rede nova em Medianeira/PR
           </div>
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-brand-magenta/20 via-brand-blue/20 to-brand-yellow/20 blur-3xl" />
-            <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-5 shadow-xl sm:p-8">
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-brand-magenta/10 px-3 py-1 text-sm font-semibold text-brand-magenta">
-                      MAIS VENDIDO
-                    </span>
-                    <span className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-bold text-brand-dark">
-                      1º MÊS GRÁTIS
-                    </span>
-                  </div>
-                  <Wifi className="h-8 w-8 text-brand-magenta" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Plano FOR FAMILY
-                  </p>
-                  <div className="mt-1 flex items-baseline gap-2">
-                    <span className="text-5xl font-black text-foreground sm:text-6xl">
-                      550
-                    </span>
-                    <span className="text-xl font-semibold text-muted-foreground">
-                      Mega
-                    </span>
-                  </div>
-                </div>
-                <ul className="space-y-3">
-                  {[
-                    "WiFi 6 de alta performance",
-                    "Instalação grátis",
-                    "Ativação em até 24h",
-                    "Suporte humanizado",
-                  ].map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-3 text-sm text-foreground"
-                    >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-magenta/10">
-                        <Check className="h-3 w-3 text-brand-magenta" />
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="border-t border-border pt-6">
-                  <p className="text-sm text-muted-foreground">A partir de</p>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-lg text-muted-foreground">R$</span>
-                    <span className="text-4xl font-black text-foreground sm:text-5xl">
-                      109,90
-                    </span>
-                    <span className="text-muted-foreground">/mês</span>
-                  </div>
-                </div>
-                <Button
-                  asChild
-                  className="w-full gap-2 bg-brand-magenta py-6 text-base font-bold text-white hover:bg-brand-magenta/90"
-                >
-                  <WhatsAppLink location="hero_card" message={DEFAULT_MESSAGE}>
-                    <MessageCircle className="h-5 w-5" />
-                    Contratar agora
-                  </WhatsAppLink>
-                </Button>
+          <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+            Internet fibra em Medianeira com{" "}
+            <span className="text-brand-yellow">1ª mensalidade grátis</span>
+          </h1>
+          <p className="text-base text-white/85 sm:text-lg">
+            Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
+            <strong>R$ 109,90/mês</strong> e não pague nada no primeiro mês.
+            Instalação grátis, ativação em até 24h.
+          </p>
+          <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-white/70">
+                Plano FOR FAMILY por apenas
+              </p>
+              <div className="mt-1 flex items-baseline gap-1.5">
+                <span className="text-xl font-bold sm:text-2xl">R$</span>
+                <span className="text-6xl font-black leading-none sm:text-7xl">
+                  109
+                </span>
+                <span className="text-2xl font-black sm:text-3xl">,90</span>
+                <span className="pb-0.5 text-sm text-white/80">/mês</span>
               </div>
             </div>
+            <span className="mb-1 inline-flex -rotate-2 items-center rounded-lg bg-brand-yellow px-3 py-1.5 text-sm font-black text-brand-dark shadow-lg">
+              1º MÊS GRÁTIS
+            </span>
           </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="h-14 gap-2 rounded-full bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
+            >
+              <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
+                <MessageCircle className="h-5 w-5" />
+                Quero contratar agora
+              </WhatsAppLink>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="h-14 gap-2 rounded-full border-white/40 bg-transparent px-6 text-base font-semibold text-white hover:bg-white/10 hover:text-white"
+            >
+              <a href="#cobertura">Consultar cobertura</a>
+            </Button>
+          </div>
+          <p className="text-[11px] leading-relaxed text-white/60">
+            {OFFER_DISCLAIMER}
+          </p>
+          <p className="text-sm text-white/80">
+            Prefere ligar?{" "}
+            <a
+              href={`tel:${PHONE_TEL}`}
+              onClick={() => trackLead("phone_click", { location: "hero" })}
+              className="font-bold text-white underline-offset-4 hover:underline"
+            >
+              {PHONE_DISPLAY}
+            </a>{" "}
+            — seg. a sáb., 8h às 18h.
+          </p>
         </div>
+        <div className="relative order-3 flex items-end justify-center lg:order-none">
+          <img
+            src={heroPerson}
+            alt="Cliente navegando no celular com a internet fibra da Portal Itaipu"
+            width={832}
+            height={1216}
+            className="w-52 max-w-full object-contain drop-shadow-2xl sm:w-64 lg:w-full lg:max-w-xs"
+          />
+        </div>
+        <ul className="order-2 space-y-3 pb-10 sm:space-y-4 lg:order-none lg:pb-14">
+          {heroChecks.map((item) => (
+            <li
+              key={item}
+              className="flex items-center gap-3 text-sm font-medium sm:text-base"
+            >
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/15">
+                <Check className="h-3.5 w-3.5 text-brand-yellow" />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
