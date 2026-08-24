@@ -20,9 +20,9 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-muted/50 px-4 py-16">
+    <section className="bg-muted/50 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-10 text-center">
+        <div className="mb-8 text-center md:mb-10">
           <div className="flex items-center justify-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
@@ -31,7 +31,7 @@ export function Testimonials() {
               />
             ))}
           </div>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Quem já é cliente em Medianeira
           </h2>
           <p className="mt-3 text-muted-foreground">

@@ -67,10 +67,10 @@ const plans: Plan[] = [
 
 export function PlansComparison() {
   return (
-    <section id="planos" className="px-4 py-16">
+    <section id="planos" className="scroll-mt-24 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Compare os planos para Medianeira
           </h2>
           <p className="mt-3 text-muted-foreground">
@@ -79,31 +79,33 @@ export function PlansComparison() {
             Escolha se quer TV e streaming inclusos.
           </p>
         </div>
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:mt-10 lg:grid-cols-3">
           {plans.map((plan) => (
             <div
               key={plan.price}
-              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-card p-7 ${
+              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-card p-5 sm:p-7 ${
                 plan.highlight
-                  ? "border-2 border-brand-magenta shadow-2xl lg:-mt-3 lg:pb-10"
+                  ? "border-2 border-brand-magenta shadow-2xl max-lg:order-first lg:-mt-3 lg:pb-10"
                   : "border-border shadow-sm"
               }`}
             >
-              <div className="absolute right-5 top-5 flex flex-col items-end gap-2">
-                <span className="rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold text-brand-dark">
-                  1º MÊS GRÁTIS
-                </span>
-                {plan.highlight ? (
-                  <span className="rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
-                    MAIS VENDIDO
+              <div className="flex items-start justify-between gap-2">
+                <Wifi
+                  className={`h-7 w-7 shrink-0 ${
+                    plan.highlight ? "text-brand-magenta" : "text-brand-blue"
+                  }`}
+                />
+                <div className="flex flex-col items-end gap-2">
+                  <span className="rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold text-brand-dark">
+                    1º MÊS GRÁTIS
                   </span>
-                ) : null}
+                  {plan.highlight ? (
+                    <span className="rounded-full bg-brand-magenta px-3 py-1 text-xs font-bold text-white">
+                      MAIS VENDIDO
+                    </span>
+                  ) : null}
+                </div>
               </div>
-              <Wifi
-                className={`h-7 w-7 ${
-                  plan.highlight ? "text-brand-magenta" : "text-brand-blue"
-                }`}
-              />
               <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                 Plano {plan.name}
               </p>

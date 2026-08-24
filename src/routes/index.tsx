@@ -565,13 +565,13 @@ function FaqSection() {
 
 function FinalCtaSection() {
   return (
-    <section className="px-4 py-16">
+    <section className="px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-5xl">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-magenta via-brand-magenta to-brand-purple p-8 text-center text-white shadow-2xl md:p-12">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-magenta via-brand-magenta to-brand-purple p-6 text-center text-white shadow-2xl sm:p-8 md:p-12">
           <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-brand-yellow/20 blur-3xl" />
           <div className="relative">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
               Não fique sem internet de qualidade
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
@@ -586,7 +586,7 @@ function FinalCtaSection() {
               <Button
                 asChild
                 size="lg"
-                className="h-14 gap-2 bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
+                className="h-14 w-full gap-2 bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90 sm:w-auto"
               >
                 <WhatsAppLink location="final_cta" message={DEFAULT_MESSAGE}>
                   <MessageCircle className="h-5 w-5" />
@@ -597,7 +597,7 @@ function FinalCtaSection() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-14 gap-2 border-white/40 bg-transparent px-8 text-base font-bold text-white hover:bg-white/10 hover:text-white"
+                className="h-14 w-full gap-2 border-white/40 bg-transparent px-8 text-base font-bold text-white hover:bg-white/10 hover:text-white sm:w-auto"
               >
                 <a
                   href={`tel:${PHONE_TEL}`}
