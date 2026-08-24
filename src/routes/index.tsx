@@ -400,7 +400,7 @@ function BenefitsSection() {
   ];
 
   return (
-    <section className="bg-muted/50 px-4 py-12 md:py-16">
+    <section id="beneficios" className="scroll-mt-16 bg-muted/50 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl">
         <div className="mb-8 text-center md:mb-10">
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
