@@ -21,6 +21,9 @@ const BAIRROS = [
   "Panorâmico",
 ];
 
+const SHEETS_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbzk-3ej9Oz8lOCMTvMP1qIv4usH_HdjdMW0KFLX9LJ-zPvGUK0VsV1zk6pmHTOFcPSFSA/exec";
+
 function formatPhone(value: string) {
   const digits = value.replace(/\D/g, "").slice(0, 11);
   if (digits.length <= 2) return digits.replace(/^(\d{0,2})/, "($1");
