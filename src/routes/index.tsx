@@ -516,7 +516,7 @@ function TrustSection() {
             {items.map((item) => (
               <div
                 key={item.title}
-                className="flex gap-4 rounded-2xl bg-white/10 p-5 backdrop-blur"
+                className="flex gap-4 rounded-2xl bg-white/10 p-4 backdrop-blur sm:p-5"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-magenta">
                   <item.icon className="h-5 w-5 text-white" />

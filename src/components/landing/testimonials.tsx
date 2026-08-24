@@ -38,11 +38,11 @@ export function Testimonials() {
             Avaliações reais de moradores atendidos pela nossa rede nova.
           </p>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
           {testimonials.map((item) => (
             <figure
               key={item.name}
-              className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm"
+              className="flex h-full w-[85%] shrink-0 snap-center flex-col rounded-2xl border border-border bg-card p-6 shadow-sm md:w-auto md:shrink"
             >
               <div className="flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
