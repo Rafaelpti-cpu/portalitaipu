@@ -234,7 +234,7 @@ function Header() {
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-background px-4 pb-16 pt-12 md:pt-20">
+    <section className="relative overflow-hidden bg-background px-4 pb-12 pt-8 sm:pt-12 md:pb-16 md:pt-20">
       <div className="container mx-auto max-w-6xl">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="space-y-6">
@@ -245,7 +245,7 @@ function HeroSection() {
               </span>
               Rede nova em Medianeira/PR
             </div>
-            <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
+            <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
               Internet fibra em{" "}
               <span className="text-brand-magenta">Medianeira</span> com 1ª
               mensalidade grátis
@@ -304,7 +304,7 @@ function HeroSection() {
           </div>
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-brand-magenta/20 via-brand-blue/20 to-brand-yellow/20 blur-3xl" />
-            <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-xl">
+            <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-5 shadow-xl sm:p-8">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-wrap gap-2">
@@ -413,10 +413,10 @@ function BenefitsSection() {
   ];
 
   return (
-    <section className="bg-muted/50 px-4 py-16">
+    <section className="bg-muted/50 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        <div className="mb-8 text-center md:mb-10">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Por que contratar a Portal Itaipu?
           </h2>
           <p className="mt-3 text-muted-foreground">
@@ -468,11 +468,11 @@ function TrustSection() {
   ];
 
   return (
-    <section className="bg-brand-dark px-4 py-16 text-white">
+    <section className="bg-brand-dark px-4 py-12 text-white md:py-16">
       <div className="container mx-auto max-w-6xl">
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
               Provedor local, tecnologia de ponta
             </h2>
             <p className="mt-4 text-lg text-white/80">
@@ -484,7 +484,7 @@ function TrustSection() {
               <Button
                 asChild
                 size="lg"
-                className="h-12 gap-2 bg-white px-6 font-bold text-brand-dark hover:bg-white/90"
+                className="h-12 w-full gap-2 bg-white px-6 font-bold text-brand-dark hover:bg-white/90 sm:w-auto"
               >
                 <WhatsAppLink
                   location="trust"
@@ -498,7 +498,7 @@ function TrustSection() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="h-12 gap-2 border-white/30 bg-transparent px-6 font-bold text-white hover:bg-white/10 hover:text-white"
+                className="h-12 w-full gap-2 border-white/30 bg-transparent px-6 font-bold text-white hover:bg-white/10 hover:text-white sm:w-auto"
               >
                 <a
                   href={`tel:${PHONE_TEL}`}
@@ -536,10 +536,10 @@ function TrustSection() {
 
 function FaqSection() {
   return (
-    <section className="bg-muted/30 px-4 py-16">
+    <section className="bg-muted/30 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-3xl">
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        <div className="mb-8 text-center md:mb-10">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Dúvidas frequentes
           </h2>
           <p className="mt-3 text-muted-foreground">
