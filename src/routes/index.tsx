@@ -194,12 +194,12 @@ function Index() {
 function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/95 backdrop-blur">
-      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+      <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16">
         <a href="/" className="flex items-center gap-2">
           <img
             src={logoAsset.url}
             alt="Portal Itaipu — internet fibra óptica em Medianeira/PR"
-            className="h-9 w-auto"
+            className="h-8 w-auto sm:h-9"
             width="1733"
             height="593"
           />
@@ -250,7 +250,7 @@ function HeroSection() {
               <span className="text-brand-magenta">Medianeira</span> com 1ª
               mensalidade grátis
             </h1>
-            <p className="text-lg text-muted-foreground md:text-xl">
+            <p className="text-base text-muted-foreground sm:text-lg md:text-xl">
               Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
               <strong className="text-foreground">R$ 109,90/mês</strong> e não
               pague nada no primeiro mês. Instalação grátis, ativação em até 24h.
@@ -423,21 +423,23 @@ function BenefitsSection() {
             A escolha certa para quem quer internet de qualidade em Medianeira.
           </p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
           {benefits.map((benefit) => (
             <div
               key={benefit.title}
-              className="rounded-2xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="rounded-2xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md sm:p-6"
             >
               <div
-                className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${benefit.bg}`}
+                className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl sm:mb-4 sm:h-12 sm:w-12 ${benefit.bg}`}
               >
-                <benefit.icon className={`h-6 w-6 ${benefit.color}`} />
+                <benefit.icon
+                  className={`h-5 w-5 sm:h-6 sm:w-6 ${benefit.color}`}
+                />
               </div>
-              <h3 className="text-lg font-bold text-foreground">
+              <h3 className="text-base font-bold text-foreground sm:text-lg">
                 {benefit.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground sm:mt-2 sm:text-sm">
                 {benefit.description}
               </p>
             </div>
