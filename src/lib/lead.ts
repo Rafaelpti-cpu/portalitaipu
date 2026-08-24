@@ -37,6 +37,18 @@ export function trackLead(action: string, params: LeadEventParams = {}) {
   }
 }
 
+/** Evento de clique em qualquer botão/link de WhatsApp (Google Ads). */
+export function trackWhatsAppClick() {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+  if (typeof w.gtag === "function") {
+    w.gtag("event", "whatsapp_click", {
+      event_category: "contato",
+      event_label: "botao_whatsapp",
+    });
+  }
+}
+
 /** Data limite da oferta: último dia do mês corrente. */
 export function offerDeadline(now = new Date()) {
   return new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
