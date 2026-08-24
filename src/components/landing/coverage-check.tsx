@@ -47,9 +47,9 @@ export function CoverageCheck() {
   };
 
   return (
-    <section id="cobertura" className="px-4 py-16">
+    <section id="cobertura" className="scroll-mt-24 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-3xl">
-        <div className="rounded-3xl border border-border bg-card p-6 shadow-lg md:p-10">
+        <div className="rounded-3xl border border-border bg-card p-5 shadow-lg sm:p-6 md:p-10">
           <div className="flex items-center gap-2 text-brand-magenta">
             <MapPin className="h-5 w-5" />
             <span className="text-sm font-bold uppercase tracking-wide">
@@ -120,7 +120,7 @@ export function CoverageCheck() {
                     key={b}
                     type="button"
                     onClick={() => setBairro(b)}
-                    className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                    className={`rounded-full border px-3.5 py-2 text-xs font-medium transition-colors ${
                       bairro === b
                         ? "border-brand-magenta bg-brand-magenta text-white"
                         : "border-border bg-background text-foreground hover:border-brand-magenta hover:text-brand-magenta"

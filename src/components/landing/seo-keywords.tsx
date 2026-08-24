@@ -34,9 +34,9 @@ const searchTerms = [
 
 export function SeoKeywords() {
   return (
-    <section id="cobertura-bairros" className="bg-muted/40 px-4 py-16">
+    <section id="cobertura-bairros" className="bg-muted/40 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+        <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
           Internet fibra óptica em Medianeira/PR: cobertura, planos e preços
         </h2>
         <p className="mt-4 text-muted-foreground">
@@ -74,7 +74,7 @@ export function SeoKeywords() {
           <WhatsAppLink
             location="seo_local_section"
             message={DEFAULT_MESSAGE}
-            className="inline-flex items-center gap-2 rounded-xl bg-whatsapp px-6 py-4 text-base font-bold text-white shadow-lg transition-colors hover:bg-whatsapp-dark"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-whatsapp px-6 py-4 text-base font-bold text-white shadow-lg transition-colors hover:bg-whatsapp-dark sm:w-auto"
           >
             <MessageCircle className="h-5 w-5" />
             Verificar cobertura no meu bairro
