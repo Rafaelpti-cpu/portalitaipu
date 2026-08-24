@@ -18,8 +18,9 @@ function buildWhatsAppMessage(nome: string, bairro: string) {
 
 export const Route = createFileRoute("/obrigado")({
   validateSearch: (search: Record<string, unknown>) => ({
-    nome: typeof search.nome === "string" ? search.nome : "",
-    bairro: typeof search.bairro === "string" ? search.bairro : "",
+    nome: typeof search["nome"] === "string" ? (search["nome"] as string) : "",
+    bairro:
+      typeof search["bairro"] === "string" ? (search["bairro"] as string) : "",
   }),
   head: () => ({
     meta: [
