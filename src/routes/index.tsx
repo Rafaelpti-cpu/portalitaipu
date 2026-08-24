@@ -525,7 +525,7 @@ function TrustSection() {
 
 function FaqSection() {
   return (
-    <section className="bg-muted/30 px-4 py-12 md:py-16">
+    <section id="duvidas" className="scroll-mt-16 bg-muted/30 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-3xl">
         <div className="mb-8 text-center md:mb-10">
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
