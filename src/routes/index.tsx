@@ -236,8 +236,8 @@ function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-background px-4 pb-12 pt-8 sm:pt-12 md:pb-16 md:pt-20">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="space-y-6">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-10">
+          <div className="space-y-5 sm:space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-brand-magenta/20 bg-brand-magenta/10 px-3 py-1 text-sm font-medium text-brand-magenta">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-magenta opacity-75"></span>
@@ -322,7 +322,7 @@ function HeroSection() {
                     Plano FOR FAMILY
                   </p>
                   <div className="mt-1 flex items-baseline gap-2">
-                    <span className="text-6xl font-black text-foreground">
+                    <span className="text-5xl font-black text-foreground sm:text-6xl">
                       550
                     </span>
                     <span className="text-xl font-semibold text-muted-foreground">
@@ -352,7 +352,7 @@ function HeroSection() {
                   <p className="text-sm text-muted-foreground">A partir de</p>
                   <div className="flex items-baseline gap-1">
                     <span className="text-lg text-muted-foreground">R$</span>
-                    <span className="text-5xl font-black text-foreground">
+                    <span className="text-4xl font-black text-foreground sm:text-5xl">
                       109,90
                     </span>
                     <span className="text-muted-foreground">/mês</span>
@@ -551,7 +551,7 @@ function FaqSection() {
         <Accordion type="single" collapsible className="rounded-2xl bg-card p-2">
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="px-4 text-left text-base font-semibold hover:no-underline">
+              <AccordionTrigger className="px-4 text-left text-sm font-semibold hover:no-underline sm:text-base">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="px-4 text-muted-foreground">
