@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { MapPin, MessageCircle } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { buildWhatsAppLink, trackLead } from "@/lib/lead";
+import { trackLead } from "@/lib/lead";
 
 const BAIRROS = [
   "Centro",
@@ -31,6 +31,7 @@ function formatPhone(value: string) {
 }
 
 export function CoverageCheck() {
+  const navigate = useNavigate();
   const [bairro, setBairro] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -42,12 +43,7 @@ export function CoverageCheck() {
     event.preventDefault();
     if (!phoneValid) return;
     trackLead("coverage_form_submit", { bairro: bairro || "nao_informado" });
-    const message = `Olá! Vim pela página de Medianeira e quero contratar com a 1ª mensalidade grátis. Meu nome é ${
-      nome || "(não informado)"
-    }, meu WhatsApp é ${telefone} e moro no bairro ${
-      bairro || "(não informado)"
-    } em Medianeira/PR.`;
-    window.open(buildWhatsAppLink(message), "_blank", "noopener,noreferrer");
+    navigate({ to: "/obrigado" });
   };
 
   return (
