@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { buildWhatsAppLink, trackLead } from "@/lib/lead";
+import { buildWhatsAppLink, trackLead, trackWhatsAppClick } from "@/lib/lead";
 
 type Props = {
   message: string;
@@ -23,7 +23,10 @@ export function WhatsAppLink({
       target="_blank"
       rel="noopener noreferrer"
       className={className}
-      onClick={() => trackLead("whatsapp_click", { location })}
+      onClick={() => {
+        trackLead("whatsapp_click", { location });
+        trackWhatsAppClick();
+      }}
       {...rest}
     >
       {children}
