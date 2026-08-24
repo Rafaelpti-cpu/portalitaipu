@@ -653,9 +653,13 @@ function FloatingWhatsAppButton() {
       location="floating_button"
       message={DEFAULT_MESSAGE}
       aria-label="Conversar no WhatsApp"
-      className="fixed bottom-6 right-6 z-50 hidden h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/20 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:flex"
+      className="group fixed bottom-24 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/25 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:bottom-6 md:right-6"
     >
-      <MessageCircle className="h-7 w-7" />
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 animate-ping rounded-full bg-whatsapp opacity-30 [animation-duration:2s]"
+      />
+      <MessageCircle className="relative h-7 w-7" />
     </WhatsAppLink>
   );
 }
