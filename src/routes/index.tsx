@@ -682,6 +682,7 @@ function FinalCtaSection() {
 
 function Footer() {
   const city = useCity();
+  const navigate = useNavigate();
   return (
     <footer className="border-t border-border bg-background px-4 py-10">
       <div className="container mx-auto max-w-6xl">
@@ -709,6 +710,18 @@ function Footer() {
             </p>
             <p className="mt-1">
               {city.nameWithState} • Internet Fibra Óptica de qualidade
+            </p>
+            <p className="mt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  clearSavedCity();
+                  navigate({ to: "/", search: {}, replace: true });
+                }}
+                className="text-xs text-muted-foreground/80 underline-offset-4 hover:underline"
+              >
+                Trocar cidade
+              </button>
             </p>
           </div>
         </div>
