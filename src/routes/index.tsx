@@ -81,16 +81,11 @@ const buildFaqs = (city: CityConfig) => [
 ];
 
 export const Route = createFileRoute("/")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    cidade:
-      typeof search["cidade"] === "string"
-        ? (search["cidade"] as string)
-        : undefined,
-  }),
   head: (ctx) => {
     const city = resolveCity(
       (ctx.match.search as { cidade?: string } | undefined)?.cidade,
     );
+
     const TITLE = buildTitle(city);
     const DESCRIPTION = buildDescription(city);
     const KEYWORDS = buildKeywords(city);
