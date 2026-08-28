@@ -1,4 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import {
+  createFileRoute,
+  useNavigate,
+  useSearch,
+} from "@tanstack/react-router";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 import heroPerson from "@/assets/hero-person.png";
 import { Button } from "@/components/ui/button";
@@ -32,7 +37,16 @@ import {
   offerDisclaimerFor,
   trackLead,
 } from "@/lib/lead";
-import { resolveCity, useCity, type CityConfig } from "@/lib/cities";
+import {
+  clearSavedCity,
+  getSavedCitySlug,
+  resolveCity,
+  resolveCityParam,
+  saveCitySlug,
+  useCity,
+  type CityConfig,
+} from "@/lib/cities";
+import { CitySelector } from "@/components/landing/city-selector";
 
 const buildTitle = (city: CityConfig) =>
   `Internet Fibra em ${city.nameWithState} | 1ª Mensalidade Grátis | Portal Itaipu`;
@@ -182,6 +196,33 @@ export const Route = createFileRoute("/")({
 
 
 function Index() {
+  const search = useSearch({ strict: false }) as { cidade?: unknown };
+  const paramCity = resolveCityParam(search?.cidade);
+  const navigate = useNavigate();
+  // null = ainda verificando o localStorage; true = mostrar seletor
+  const [showSelector, setShowSelector] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (paramCity) {
+      // Tráfego de anúncio (parâmetro válido): conteúdo direto, sem seletor.
+      saveCitySlug(paramCity.slug);
+      setShowSelector(false);
+      return;
+    }
+    const saved = getSavedCitySlug();
+    if (saved) {
+      navigate({ to: "/", search: { cidade: saved }, replace: true });
+    } else {
+      setShowSelector(true);
+    }
+  }, [paramCity, navigate]);
+
+  if (!paramCity) {
+    if (showSelector) return <CitySelector />;
+    // Verificando cidade salva: tela neutra para evitar flash de conteúdo.
+    return <div className="min-h-screen bg-background" />;
+  }
+
   return (
     <div className="min-h-screen bg-background pb-20 font-sans md:pb-0">
       <Header />
@@ -641,6 +682,7 @@ function FinalCtaSection() {
 
 function Footer() {
   const city = useCity();
+  const navigate = useNavigate();
   return (
     <footer className="border-t border-border bg-background px-4 py-10">
       <div className="container mx-auto max-w-6xl">
@@ -668,6 +710,18 @@ function Footer() {
             </p>
             <p className="mt-1">
               {city.nameWithState} • Internet Fibra Óptica de qualidade
+            </p>
+            <p className="mt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  clearSavedCity();
+                  navigate({ to: "/", search: {}, replace: true });
+                }}
+                className="text-xs text-muted-foreground/80 underline-offset-4 hover:underline"
+              >
+                Trocar cidade
+              </button>
             </p>
           </div>
         </div>

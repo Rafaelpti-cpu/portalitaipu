@@ -122,11 +122,47 @@ export const CITIES: Record<string, CityConfig> = {
 
 export const DEFAULT_CITY = CITIES[DEFAULT_CITY_SLUG] as CityConfig;
 
+/** Lista ordenada das cidades para o seletor. */
+export const CITY_LIST: CityConfig[] = Object.values(CITIES);
+
+/** Resolve o slug recebido na URL. Slug inválido/ausente → null (sem fallback). */
+export function resolveCityParam(slug?: unknown): CityConfig | null {
+  if (typeof slug !== "string") return null;
+  const key = slug.trim().toLowerCase();
+  return CITIES[key] ?? null;
+}
+
 /** Resolve o slug recebido na URL. Slug inválido/ausente → Medianeira. */
 export function resolveCity(slug?: unknown): CityConfig {
-  if (typeof slug !== "string") return DEFAULT_CITY;
-  const key = slug.trim().toLowerCase();
-  return CITIES[key] ?? DEFAULT_CITY;
+  return resolveCityParam(slug) ?? DEFAULT_CITY;
+}
+
+const SAVED_CITY_KEY = "portalitaipu-cidade";
+
+/** Slug salvo no navegador (apenas client-side). */
+export function getSavedCitySlug(): string | null {
+  try {
+    const value = window.localStorage.getItem(SAVED_CITY_KEY);
+    return value && CITIES[value] ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+export function saveCitySlug(slug: string): void {
+  try {
+    if (CITIES[slug]) window.localStorage.setItem(SAVED_CITY_KEY, slug);
+  } catch {
+    /* ignora */
+  }
+}
+
+export function clearSavedCity(): void {
+  try {
+    window.localStorage.removeItem(SAVED_CITY_KEY);
+  } catch {
+    /* ignora */
+  }
 }
 
 /**
