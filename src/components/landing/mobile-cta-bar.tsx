@@ -1,8 +1,10 @@
 import { MessageCircle, Phone } from "lucide-react";
 import { WhatsAppLink } from "@/components/landing/cta-link";
-import { DEFAULT_MESSAGE, PHONE_TEL, trackLead } from "@/lib/lead";
+import { PHONE_TEL, defaultMessageFor, trackLead } from "@/lib/lead";
+import { useCity } from "@/lib/cities";
 
 export function MobileCtaBar() {
+  const city = useCity();
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_20px_rgba(0,0,0,0.12)] backdrop-blur md:hidden">
       <div className="flex items-center gap-2">
@@ -16,7 +18,7 @@ export function MobileCtaBar() {
         </a>
         <WhatsAppLink
           location="mobile_sticky_bar"
-          message={DEFAULT_MESSAGE}
+          message={defaultMessageFor(city.name)}
           className="flex h-13 flex-1 items-center justify-center gap-2 rounded-xl bg-brand-magenta text-base font-bold text-white shadow-lg shadow-brand-magenta/25"
         >
           <MessageCircle className="h-5 w-5" />

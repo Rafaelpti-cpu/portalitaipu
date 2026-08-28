@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import { DEFAULT_CITY_SLUG, useCity } from "@/lib/cities";
 
 const testimonials = [
   {
@@ -19,6 +20,11 @@ const testimonials = [
 ];
 
 export function Testimonials() {
+  const city = useCity();
+  const heading =
+    city.slug === DEFAULT_CITY_SLUG
+      ? `Quem já é cliente em ${city.name}`
+      : "Quem já é cliente da Portal Itaipu";
   return (
     <section className="bg-muted/50 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl">
@@ -32,7 +38,7 @@ export function Testimonials() {
             ))}
           </div>
           <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Quem já é cliente em Medianeira
+            {heading}
           </h2>
           <p className="mt-3 text-muted-foreground">
             Avaliações reais de moradores atendidos pela nossa rede nova.
