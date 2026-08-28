@@ -11,6 +11,10 @@ export type CityConfig = {
   nameComma: string;
   /** bairros / localidades atendidas (vazio = ainda não preenchido) */
   bairros: string[];
+  /** true = comunicação de "rede nova"; false = "fibra própria" */
+  redeNova: boolean;
+  /** depoimentos reais da cidade (vazio = esconder a seção) */
+  depoimentos: { name: string; text: string }[];
 };
 
 export const DEFAULT_CITY_SLUG = "medianeira";

@@ -1,8 +1,10 @@
 export const WHATSAPP_NUMBER = "554535591665";
 export const PHONE_DISPLAY = "(45) 3559-1665";
 export const PHONE_TEL = "+554535591665";
-export const UTM_PARAMS =
-  "utm_source=google&utm_medium=cpc&utm_campaign=medianeira_internet";
+/** UTM da campanha por cidade: utm_campaign=${slug}_internet */
+export function utmParamsFor(slug: string) {
+  return `utm_source=google&utm_medium=cpc&utm_campaign=${slug}_internet`;
+}
 export const DEFAULT_MESSAGE =
   "Olá! Vim pela página de Medianeira e quero contratar com a 1ª mensalidade grátis.";
 export const OFFER_DISCLAIMER =
@@ -19,9 +21,9 @@ export function offerDisclaimerFor(cityName: string) {
 }
 
 
-export function buildWhatsAppLink(message: string) {
+export function buildWhatsAppLink(message: string, citySlug = "medianeira") {
   const encoded = encodeURIComponent(message);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}&${UTM_PARAMS}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}&${utmParamsFor(citySlug)}`;
 }
 
 type LeadEventParams = Record<string, string | number | undefined>;
