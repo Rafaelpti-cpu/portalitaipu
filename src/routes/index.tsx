@@ -24,38 +24,39 @@ import { CoverageCheck } from "@/components/landing/coverage-check";
 import { Testimonials } from "@/components/landing/testimonials";
 import { PlansComparison } from "@/components/landing/plans-comparison";
 import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
-import { SeoKeywords, BAIRROS_MEDIANEIRA } from "@/components/landing/seo-keywords";
+import { SeoKeywords } from "@/components/landing/seo-keywords";
 import {
-  DEFAULT_MESSAGE,
-  OFFER_DISCLAIMER,
   PHONE_DISPLAY,
   PHONE_TEL,
+  defaultMessageFor,
+  offerDisclaimerFor,
   trackLead,
 } from "@/lib/lead";
+import { resolveCity, useCity, type CityConfig } from "@/lib/cities";
 
-const TITLE =
-  "Internet Fibra em Medianeira/PR | 1ª Mensalidade Grátis | Portal Itaipu";
-const DESCRIPTION =
-  "1ª mensalidade grátis em Medianeira/PR: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.";
-const KEYWORDS = [
-  "internet em Medianeira",
-  "internet fibra óptica Medianeira",
-  "provedor de internet Medianeira PR",
-  "internet 550 mega Medianeira",
-  "internet com WiFi 6 Medianeira",
-  "internet com TV Medianeira",
-  "internet com Max Medianeira",
-  "internet residencial Medianeira Paraná",
-  "contratar internet Medianeira",
-  "instalação de internet grátis Medianeira",
-  "Portal Itaipu internet",
-].join(", ");
+const buildTitle = (city: CityConfig) =>
+  `Internet Fibra em ${city.nameWithState} | 1ª Mensalidade Grátis | Portal Itaipu`;
+const buildDescription = (city: CityConfig) =>
+  `1ª mensalidade grátis em ${city.nameWithState}: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.`;
+const buildKeywords = (city: CityConfig) =>
+  [
+    `internet em ${city.name}`,
+    `internet fibra óptica ${city.name}`,
+    `provedor de internet ${city.name} PR`,
+    `internet 550 mega ${city.name}`,
+    `internet com WiFi 6 ${city.name}`,
+    `internet com TV ${city.name}`,
+    `internet com Max ${city.name}`,
+    `internet residencial ${city.name} Paraná`,
+    `contratar internet ${city.name}`,
+    `instalação de internet grátis ${city.name}`,
+    "Portal Itaipu internet",
+  ].join(", ");
 
-const faqs = [
+const buildFaqs = (city: CityConfig) => [
   {
-    question: "Tem disponibilidade no meu bairro em Medianeira?",
-    answer:
-      "Nossa rede nova está expandindo por Medianeira. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.",
+    question: `Tem disponibilidade no meu bairro em ${city.name}?`,
+    answer: `Nossa rede nova está expandindo por ${city.name}. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.`,
   },
   {
     question: "Quanto tempo leva para instalar?",
@@ -73,102 +74,112 @@ const faqs = [
       "Não. Nesta oferta, a instalação e ativação são gratuitas. Você paga apenas a mensalidade do plano contratado.",
   },
   {
-    question: "Por que escolher a Portal Itaipu em Medianeira?",
-    answer:
-      "Somos um provedor local com suporte humanizado, 20 anos de experiência no oeste do Paraná e infraestrutura moderna em Medianeira. Todos os planos incluem Wi-Fi 6, instalação grátis e atendimento próximo, sem robôs.",
+    question: `Por que escolher a Portal Itaipu em ${city.name}?`,
+    answer: `Somos um provedor local com suporte humanizado, 20 anos de experiência no oeste do Paraná e infraestrutura moderna em ${city.name}. Todos os planos incluem Wi-Fi 6, instalação grátis e atendimento próximo, sem robôs.`,
   },
 ];
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { name: "keywords", content: KEYWORDS },
-      { name: "geo.region", content: "BR-PR" },
-      { name: "geo.placename", content: "Medianeira, Paraná" },
-      { name: "robots", content: "index, follow, max-image-preview:large" },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
-    ],
-    links: [
-      { rel: "canonical", href: "/" },
-      { rel: "preload", as: "image", href: logoAsset.url },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "Portal Itaipu",
-          description:
-            "Provedor de internet fibra óptica em Medianeira, Paraná.",
-          url: "https://portalitaipu.com.br/",
-          telephone: PHONE_TEL,
-          image: "https://portalitaipu.com.br/",
-          keywords: KEYWORDS,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Medianeira",
-            addressRegion: "PR",
-            addressCountry: "BR",
-          },
-          areaServed: [
-            {
-              "@type": "City",
-              name: "Medianeira",
-              containedInPlace: { "@type": "State", name: "Paraná" },
+  head: (ctx) => {
+    const city = resolveCity(
+      (ctx.match.search as { cidade?: string } | undefined)?.cidade,
+    );
+
+    const TITLE = buildTitle(city);
+    const DESCRIPTION = buildDescription(city);
+    const KEYWORDS = buildKeywords(city);
+    const faqs = buildFaqs(city);
+
+    return {
+      meta: [
+        { title: TITLE },
+        { name: "description", content: DESCRIPTION },
+        { name: "keywords", content: KEYWORDS },
+        { name: "geo.region", content: "BR-PR" },
+        { name: "geo.placename", content: `${city.name}, Paraná` },
+        { name: "robots", content: "index, follow, max-image-preview:large" },
+        { property: "og:title", content: TITLE },
+        { property: "og:description", content: DESCRIPTION },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: "/" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: TITLE },
+        { name: "twitter:description", content: DESCRIPTION },
+      ],
+      links: [
+        { rel: "canonical", href: "/" },
+        { rel: "preload", as: "image", href: logoAsset.url },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: "Portal Itaipu",
+            description: `Provedor de internet fibra óptica em ${city.name}, Paraná.`,
+            url: "https://portalitaipu.com.br/",
+            telephone: PHONE_TEL,
+            image: "https://portalitaipu.com.br/",
+            keywords: KEYWORDS,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: city.name,
+              addressRegion: "PR",
+              addressCountry: "BR",
             },
-            ...BAIRROS_MEDIANEIRA.map((bairro) => ({
-              "@type": "Place",
-              name: `${bairro}, Medianeira - PR`,
+            areaServed: [
+              {
+                "@type": "City",
+                name: city.name,
+                containedInPlace: { "@type": "State", name: "Paraná" },
+              },
+              ...city.bairros.map((bairro) => ({
+                "@type": "Place",
+                name: `${bairro}, ${city.name} - PR`,
+              })),
+            ],
+            priceRange: "R$ 109,90 - R$ 129,90",
+            makesOffer: [
+              {
+                "@type": "Offer",
+                name: "Plano FOR FAMILY 550 Mega + WiFi 6",
+                price: "109.90",
+                priceCurrency: "BRL",
+              },
+              {
+                "@type": "Offer",
+                name: "Plano 550 Mega + WiFi 6 + Watch TV Canais Brasil",
+                price: "119.90",
+                priceCurrency: "BRL",
+              },
+              {
+                "@type": "Offer",
+                name: "Plano 550 Mega + WiFi 6 + Watch TV + Max",
+                price: "129.90",
+                priceCurrency: "BRL",
+              },
+            ],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: { "@type": "Answer", text: faq.answer },
             })),
-          ],
-          priceRange: "R$ 109,90 - R$ 129,90",
-          makesOffer: [
-            {
-              "@type": "Offer",
-              name: "Plano FOR FAMILY 550 Mega + WiFi 6",
-              price: "109.90",
-              priceCurrency: "BRL",
-            },
-            {
-              "@type": "Offer",
-              name: "Plano 550 Mega + WiFi 6 + Watch TV Canais Brasil",
-              price: "119.90",
-              priceCurrency: "BRL",
-            },
-            {
-              "@type": "Offer",
-              name: "Plano 550 Mega + WiFi 6 + Watch TV + Max",
-              price: "129.90",
-              priceCurrency: "BRL",
-            },
-          ],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqs.map((faq) => ({
-            "@type": "Question",
-            name: faq.question,
-            acceptedAnswer: { "@type": "Answer", text: faq.answer },
-          })),
-        }),
-      },
-    ],
-  }),
+          }),
+        },
+      ],
+    };
+  },
   component: Index,
 });
+
 
 function Index() {
   return (
@@ -193,6 +204,7 @@ function Index() {
 }
 
 function Header() {
+  const city = useCity();
   const navItems = [
     { label: "Planos", href: "#planos" },
     { label: "Benefícios", href: "#beneficios" },
@@ -205,7 +217,7 @@ function Header() {
           <span className="flex items-center rounded-xl bg-white px-2.5 py-1.5">
             <img
               src={logoAsset.url}
-              alt="Portal Itaipu — internet fibra óptica em Medianeira/PR"
+              alt={`Portal Itaipu — internet fibra óptica em ${city.nameWithState}`}
               className="h-6 w-auto sm:h-7"
               width="1733"
               height="593"
@@ -242,7 +254,7 @@ function Header() {
           >
             <WhatsAppLink
               location="header"
-              message="Olá! Vi a campanha do Google e quero contratar internet em Medianeira/PR."
+              message={`Olá! Vi a campanha do Google e quero contratar internet em ${city.nameWithState}.`}
             >
               <MessageCircle className="h-4 w-4" />
               WhatsApp
@@ -255,6 +267,7 @@ function Header() {
 }
 
 function HeroSection() {
+  const city = useCity();
   const heroChecks = [
     "Instalação grátis",
     "WiFi 6 de alta performance",
@@ -274,10 +287,10 @@ function HeroSection() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-yellow"></span>
             </span>
-            Rede nova em Medianeira/PR
+            Rede nova em {city.nameWithState}
           </div>
           <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-            Internet fibra em Medianeira com{" "}
+            Internet fibra em {city.name} com{" "}
             <span className="text-brand-yellow">1ª mensalidade grátis</span>
           </h1>
           <p className="text-base text-white/85 sm:text-lg">
@@ -309,7 +322,7 @@ function HeroSection() {
               size="lg"
               className="h-14 gap-2 rounded-full bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
             >
-              <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
+              <WhatsAppLink location="hero" message={defaultMessageFor(city.name)}>
                 <MessageCircle className="h-5 w-5" />
                 Quero contratar agora
               </WhatsAppLink>
@@ -324,7 +337,7 @@ function HeroSection() {
             </Button>
           </div>
           <p className="text-[11px] leading-relaxed text-white/60">
-            {OFFER_DISCLAIMER}
+            {offerDisclaimerFor(city.name)}
           </p>
           <p className="text-sm text-white/80">
             Prefere ligar?{" "}
@@ -366,6 +379,7 @@ function HeroSection() {
 }
 
 function BenefitsSection() {
+  const city = useCity();
   const benefits = [
     {
       icon: Zap,
@@ -409,7 +423,8 @@ function BenefitsSection() {
             Por que contratar a Portal Itaipu?
           </h2>
           <p className="mt-3 text-muted-foreground">
-            A escolha certa para quem quer internet de qualidade em Medianeira.
+            A escolha certa para quem quer internet de qualidade em{" "}
+            {city.name}.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
@@ -440,6 +455,7 @@ function BenefitsSection() {
 }
 
 function TrustSection() {
+  const city = useCity();
   const items = [
     {
       icon: ShieldCheck,
@@ -448,7 +464,7 @@ function TrustSection() {
     },
     {
       icon: MapPin,
-      title: "Rede nova em Medianeira",
+      title: `Rede nova em ${city.name}`,
       description: "Infraestrutura moderna e de alta capacidade para a cidade.",
     },
     {
@@ -467,7 +483,7 @@ function TrustSection() {
               Provedor local, tecnologia de ponta
             </h2>
             <p className="mt-4 text-lg text-white/80">
-              A Portal Itaipu chegou em Medianeira com uma rede totalmente nova,
+              A Portal Itaipu chegou em {city.name} com uma rede totalmente nova,
               pronta para entregar a velocidade e estabilidade que sua casa
               precisa.
             </p>
@@ -479,7 +495,7 @@ function TrustSection() {
               >
                 <WhatsAppLink
                   location="trust"
-                  message="Olá! Moro em Medianeira/PR e quero saber se tem disponibilidade na minha rua."
+                  message={`Olá! Moro em ${city.nameWithState} e quero saber se tem disponibilidade na minha rua.`}
                 >
                   <MessageCircle className="h-5 w-5" />
                   Ver disponibilidade
@@ -526,6 +542,8 @@ function TrustSection() {
 }
 
 function FaqSection() {
+  const city = useCity();
+  const faqs = buildFaqs(city);
   return (
     <section id="duvidas" className="scroll-mt-16 bg-muted/30 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-3xl">
@@ -555,6 +573,7 @@ function FaqSection() {
 }
 
 function FinalCtaSection() {
+  const city = useCity();
   return (
     <section className="px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-5xl">
@@ -568,10 +587,10 @@ function FinalCtaSection() {
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
               Contrate 550 Mega + WiFi 6 por R$ 109,90/mês e ganhe a 1ª
               mensalidade grátis, com instalação grátis e ativação em até 24h em
-              Medianeira/PR.
+              {city.nameWithState}.
             </p>
             <p className="mx-auto mt-3 max-w-2xl text-xs text-white/70">
-              {OFFER_DISCLAIMER}
+              {offerDisclaimerFor(city.name)}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
@@ -579,7 +598,10 @@ function FinalCtaSection() {
                 size="lg"
                 className="h-14 w-full gap-2 bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90 sm:w-auto"
               >
-                <WhatsAppLink location="final_cta" message={DEFAULT_MESSAGE}>
+                <WhatsAppLink
+                  location="final_cta"
+                  message={defaultMessageFor(city.name)}
+                >
                   <MessageCircle className="h-5 w-5" />
                   Falar no WhatsApp agora
                 </WhatsAppLink>
@@ -612,6 +634,7 @@ function FinalCtaSection() {
 }
 
 function Footer() {
+  const city = useCity();
   return (
     <footer className="border-t border-border bg-background px-4 py-10">
       <div className="container mx-auto max-w-6xl">
@@ -638,7 +661,7 @@ function Footer() {
               © 2026 Portal Itaipu. Todos os direitos reservados.
             </p>
             <p className="mt-1">
-              Medianeira/PR • Internet Fibra Óptica de qualidade
+              {city.nameWithState} • Internet Fibra Óptica de qualidade
             </p>
           </div>
         </div>
@@ -648,10 +671,11 @@ function Footer() {
 }
 
 function FloatingWhatsAppButton() {
+  const city = useCity();
   return (
     <WhatsAppLink
       location="floating_button"
-      message={DEFAULT_MESSAGE}
+      message={defaultMessageFor(city.name)}
       aria-label="Conversar no WhatsApp"
       className="group fixed bottom-24 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/25 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:bottom-6 md:right-6"
     >

@@ -1,7 +1,8 @@
 import { Check, MapPin, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppLink } from "@/components/landing/cta-link";
-import { OFFER_DISCLAIMER } from "@/lib/lead";
+import { offerDisclaimerFor } from "@/lib/lead";
+import { useCity } from "@/lib/cities";
 import watchTvLogo from "@/assets/watch-tv.png.asset.json";
 import hboMaxLogo from "@/assets/hbo-max.svg.asset.json";
 
@@ -66,12 +67,13 @@ const plans: Plan[] = [
 ];
 
 export function PlansComparison() {
+  const city = useCity();
   return (
     <section id="planos" className="scroll-mt-16 bg-muted/40 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Compare os planos para Medianeira
+            Compare os planos para {city.name}
           </h2>
           <p className="mt-3 text-muted-foreground">
             Todos com 550 Mega de fibra óptica, WiFi 6, instalação grátis e a{" "}
@@ -84,7 +86,7 @@ export function PlansComparison() {
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-magenta/30 bg-card px-4 py-1.5 text-sm font-semibold text-foreground shadow-sm">
               <MapPin className="h-4 w-4 text-brand-magenta" />
-              Medianeira, PR
+              {city.nameComma}
             </span>
           </div>
         </div>
@@ -172,7 +174,7 @@ export function PlansComparison() {
                 >
                   <WhatsAppLink
                     location={`plano_${plan.price}`}
-                    message={`Olá! Vim pela página de Medianeira e quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês com a 1ª mensalidade grátis.`}
+                    message={`Olá! Vim pela página de ${city.name} e quero contratar o plano ${plan.name} de ${plan.speed} Mega por R$ ${plan.price}/mês com a 1ª mensalidade grátis.`}
                   >
                     <MessageCircle className="h-5 w-5" />
                     Contratar R$ {plan.price}
@@ -183,7 +185,7 @@ export function PlansComparison() {
           ))}
         </div>
         <p className="mt-6 px-4 text-center text-xs text-muted-foreground">
-          {OFFER_DISCLAIMER} Ofertas sujeitas a viabilidade técnica. Watch TV
+          {offerDisclaimerFor(city.name)} Ofertas sujeitas a viabilidade técnica. Watch TV
           Canais Brasil e Max sujeitos aos termos de cada serviço.
         </p>
       </div>

@@ -8,6 +8,17 @@ export const DEFAULT_MESSAGE =
 export const OFFER_DISCLAIMER =
   "Promoção válida para novos clientes em Medianeira, na contratação pela página, com fidelidade de 12 meses. Válida até 30/09/2026.";
 
+/** Mensagem padrão do WhatsApp com o nome da cidade selecionada. */
+export function defaultMessageFor(cityName: string) {
+  return `Olá! Vim pela página de ${cityName} e quero contratar com a 1ª mensalidade grátis.`;
+}
+
+/** Disclaimer da oferta com o nome da cidade selecionada. */
+export function offerDisclaimerFor(cityName: string) {
+  return `Promoção válida para novos clientes em ${cityName}, na contratação pela página, com fidelidade de 12 meses. Válida até 30/09/2026.`;
+}
+
+
 export function buildWhatsAppLink(message: string) {
   const encoded = encodeURIComponent(message);
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}&${UTM_PARAMS}`;
