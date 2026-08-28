@@ -1,30 +1,13 @@
 import { Star } from "lucide-react";
-import { DEFAULT_CITY_SLUG, useCity } from "@/lib/cities";
-
-const testimonials = [
-  {
-    name: "Tayná Carolina",
-    place: "Avaliação no Google • Medianeira",
-    text: "Muito boa a minha experiência com a portal, sempre muito prestativos e resolver rapidamente quando acontece algum problema",
-  },
-  {
-    name: "Janice Bellon",
-    place: "Avaliação no Google • Medianeira",
-    text: "Foi excelente, fiquei satisfeita com o atendimento",
-  },
-  {
-    name: "Thiago",
-    place: "Avaliação no Google • Medianeira",
-    text: "Melhor internet da região",
-  },
-];
+import { useCity } from "@/lib/cities";
 
 export function Testimonials() {
   const city = useCity();
-  const heading =
-    city.slug === DEFAULT_CITY_SLUG
-      ? `Quem já é cliente em ${city.name}`
-      : "Quem já é cliente da Portal Itaipu";
+  const depoimentos = city.depoimentos;
+
+  // Cidade sem depoimentos cadastrados: esconde a seção inteira.
+  if (depoimentos.length === 0) return null;
+
   return (
     <section className="bg-muted/50 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl">
@@ -38,14 +21,14 @@ export function Testimonials() {
             ))}
           </div>
           <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            {heading}
+            Quem já é cliente em {city.name}
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Avaliações reais de moradores atendidos pela nossa rede nova.
+            Avaliações reais de moradores atendidos pela nossa rede.
           </p>
         </div>
         <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
-          {testimonials.map((item) => (
+          {depoimentos.map((item) => (
             <figure
               key={item.name}
               className="flex h-full w-[85%] shrink-0 snap-center flex-col rounded-2xl border border-border bg-card p-6 shadow-sm md:w-auto md:shrink"
@@ -63,7 +46,9 @@ export function Testimonials() {
               </blockquote>
               <figcaption className="mt-4 border-t border-border pt-4">
                 <p className="font-bold text-foreground">{item.name}</p>
-                <p className="text-xs text-muted-foreground">{item.place}</p>
+                <p className="text-xs text-muted-foreground">
+                  Avaliação no Google • {city.name}
+                </p>
               </figcaption>
             </figure>
           ))}
