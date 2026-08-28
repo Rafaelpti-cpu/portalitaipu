@@ -1,4 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import {
+  createFileRoute,
+  useNavigate,
+  useSearch,
+} from "@tanstack/react-router";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 import heroPerson from "@/assets/hero-person.png";
 import { Button } from "@/components/ui/button";
@@ -32,7 +37,16 @@ import {
   offerDisclaimerFor,
   trackLead,
 } from "@/lib/lead";
-import { resolveCity, useCity, type CityConfig } from "@/lib/cities";
+import {
+  clearSavedCity,
+  getSavedCitySlug,
+  resolveCity,
+  resolveCityParam,
+  saveCitySlug,
+  useCity,
+  type CityConfig,
+} from "@/lib/cities";
+import { CitySelector } from "@/components/landing/city-selector";
 
 const buildTitle = (city: CityConfig) =>
   `Internet Fibra em ${city.nameWithState} | 1ª Mensalidade Grátis | Portal Itaipu`;
