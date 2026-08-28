@@ -205,6 +205,7 @@ function Index() {
 }
 
 function Header() {
+  const city = useCity();
   const navItems = [
     { label: "Planos", href: "#planos" },
     { label: "Benefícios", href: "#beneficios" },
@@ -217,7 +218,7 @@ function Header() {
           <span className="flex items-center rounded-xl bg-white px-2.5 py-1.5">
             <img
               src={logoAsset.url}
-              alt="Portal Itaipu — internet fibra óptica em Medianeira/PR"
+              alt={`Portal Itaipu — internet fibra óptica em ${city.nameWithState}`}
               className="h-6 w-auto sm:h-7"
               width="1733"
               height="593"
@@ -254,7 +255,7 @@ function Header() {
           >
             <WhatsAppLink
               location="header"
-              message="Olá! Vi a campanha do Google e quero contratar internet em Medianeira/PR."
+              message={`Olá! Vi a campanha do Google e quero contratar internet em ${city.nameWithState}.`}
             >
               <MessageCircle className="h-4 w-4" />
               WhatsApp
@@ -267,6 +268,7 @@ function Header() {
 }
 
 function HeroSection() {
+  const city = useCity();
   const heroChecks = [
     "Instalação grátis",
     "WiFi 6 de alta performance",
@@ -286,10 +288,10 @@ function HeroSection() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-yellow"></span>
             </span>
-            Rede nova em Medianeira/PR
+            Rede nova em {city.nameWithState}
           </div>
           <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-            Internet fibra em Medianeira com{" "}
+            Internet fibra em {city.name} com{" "}
             <span className="text-brand-yellow">1ª mensalidade grátis</span>
           </h1>
           <p className="text-base text-white/85 sm:text-lg">
@@ -321,7 +323,7 @@ function HeroSection() {
               size="lg"
               className="h-14 gap-2 rounded-full bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
             >
-              <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
+              <WhatsAppLink location="hero" message={defaultMessageFor(city.name)}>
                 <MessageCircle className="h-5 w-5" />
                 Quero contratar agora
               </WhatsAppLink>
@@ -336,7 +338,7 @@ function HeroSection() {
             </Button>
           </div>
           <p className="text-[11px] leading-relaxed text-white/60">
-            {OFFER_DISCLAIMER}
+            {offerDisclaimerFor(city.name)}
           </p>
           <p className="text-sm text-white/80">
             Prefere ligar?{" "}
@@ -378,6 +380,7 @@ function HeroSection() {
 }
 
 function BenefitsSection() {
+  const city = useCity();
   const benefits = [
     {
       icon: Zap,
@@ -421,7 +424,8 @@ function BenefitsSection() {
             Por que contratar a Portal Itaipu?
           </h2>
           <p className="mt-3 text-muted-foreground">
-            A escolha certa para quem quer internet de qualidade em Medianeira.
+            A escolha certa para quem quer internet de qualidade em{" "}
+            {city.name}.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
@@ -452,6 +456,7 @@ function BenefitsSection() {
 }
 
 function TrustSection() {
+  const city = useCity();
   const items = [
     {
       icon: ShieldCheck,
@@ -460,7 +465,7 @@ function TrustSection() {
     },
     {
       icon: MapPin,
-      title: "Rede nova em Medianeira",
+      title: `Rede nova em ${city.name}`,
       description: "Infraestrutura moderna e de alta capacidade para a cidade.",
     },
     {
@@ -479,7 +484,7 @@ function TrustSection() {
               Provedor local, tecnologia de ponta
             </h2>
             <p className="mt-4 text-lg text-white/80">
-              A Portal Itaipu chegou em Medianeira com uma rede totalmente nova,
+              A Portal Itaipu chegou em {city.name} com uma rede totalmente nova,
               pronta para entregar a velocidade e estabilidade que sua casa
               precisa.
             </p>
@@ -491,7 +496,7 @@ function TrustSection() {
               >
                 <WhatsAppLink
                   location="trust"
-                  message="Olá! Moro em Medianeira/PR e quero saber se tem disponibilidade na minha rua."
+                  message={`Olá! Moro em ${city.nameWithState} e quero saber se tem disponibilidade na minha rua.`}
                 >
                   <MessageCircle className="h-5 w-5" />
                   Ver disponibilidade
@@ -538,6 +543,8 @@ function TrustSection() {
 }
 
 function FaqSection() {
+  const city = useCity();
+  const faqs = buildFaqs(city);
   return (
     <section id="duvidas" className="scroll-mt-16 bg-muted/30 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-3xl">
@@ -567,6 +574,7 @@ function FaqSection() {
 }
 
 function FinalCtaSection() {
+  const city = useCity();
   return (
     <section className="px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-5xl">
@@ -580,10 +588,10 @@ function FinalCtaSection() {
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
               Contrate 550 Mega + WiFi 6 por R$ 109,90/mês e ganhe a 1ª
               mensalidade grátis, com instalação grátis e ativação em até 24h em
-              Medianeira/PR.
+              {city.nameWithState}.
             </p>
             <p className="mx-auto mt-3 max-w-2xl text-xs text-white/70">
-              {OFFER_DISCLAIMER}
+              {offerDisclaimerFor(city.name)}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
@@ -591,7 +599,10 @@ function FinalCtaSection() {
                 size="lg"
                 className="h-14 w-full gap-2 bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90 sm:w-auto"
               >
-                <WhatsAppLink location="final_cta" message={DEFAULT_MESSAGE}>
+                <WhatsAppLink
+                  location="final_cta"
+                  message={defaultMessageFor(city.name)}
+                >
                   <MessageCircle className="h-5 w-5" />
                   Falar no WhatsApp agora
                 </WhatsAppLink>
@@ -624,6 +635,7 @@ function FinalCtaSection() {
 }
 
 function Footer() {
+  const city = useCity();
   return (
     <footer className="border-t border-border bg-background px-4 py-10">
       <div className="container mx-auto max-w-6xl">
@@ -650,7 +662,7 @@ function Footer() {
               © 2026 Portal Itaipu. Todos os direitos reservados.
             </p>
             <p className="mt-1">
-              Medianeira/PR • Internet Fibra Óptica de qualidade
+              {city.nameWithState} • Internet Fibra Óptica de qualidade
             </p>
           </div>
         </div>
@@ -660,10 +672,11 @@ function Footer() {
 }
 
 function FloatingWhatsAppButton() {
+  const city = useCity();
   return (
     <WhatsAppLink
       location="floating_button"
-      message={DEFAULT_MESSAGE}
+      message={defaultMessageFor(city.name)}
       aria-label="Conversar no WhatsApp"
       className="group fixed bottom-24 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/25 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:bottom-6 md:right-6"
     >
