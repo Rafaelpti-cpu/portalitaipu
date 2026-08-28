@@ -196,6 +196,33 @@ export const Route = createFileRoute("/")({
 
 
 function Index() {
+  const search = useSearch({ strict: false }) as { cidade?: unknown };
+  const paramCity = resolveCityParam(search?.cidade);
+  const navigate = useNavigate();
+  // null = ainda verificando o localStorage; true = mostrar seletor
+  const [showSelector, setShowSelector] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (paramCity) {
+      // Tráfego de anúncio (parâmetro válido): conteúdo direto, sem seletor.
+      saveCitySlug(paramCity.slug);
+      setShowSelector(false);
+      return;
+    }
+    const saved = getSavedCitySlug();
+    if (saved) {
+      navigate({ to: "/", search: { cidade: saved }, replace: true });
+    } else {
+      setShowSelector(true);
+    }
+  }, [paramCity, navigate]);
+
+  if (!paramCity) {
+    if (showSelector) return <CitySelector />;
+    // Verificando cidade salva: tela neutra para evitar flash de conteúdo.
+    return <div className="min-h-screen bg-background" />;
+  }
+
   return (
     <div className="min-h-screen bg-background pb-20 font-sans md:pb-0">
       <Header />
