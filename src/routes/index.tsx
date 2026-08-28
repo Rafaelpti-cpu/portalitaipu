@@ -26,7 +26,6 @@ import { PlansComparison } from "@/components/landing/plans-comparison";
 import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
 import { SeoKeywords } from "@/components/landing/seo-keywords";
 import {
-  OFFER_DISCLAIMER,
   PHONE_DISPLAY,
   PHONE_TEL,
   defaultMessageFor,
