@@ -24,38 +24,40 @@ import { CoverageCheck } from "@/components/landing/coverage-check";
 import { Testimonials } from "@/components/landing/testimonials";
 import { PlansComparison } from "@/components/landing/plans-comparison";
 import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
-import { SeoKeywords, BAIRROS_MEDIANEIRA } from "@/components/landing/seo-keywords";
+import { SeoKeywords } from "@/components/landing/seo-keywords";
 import {
-  DEFAULT_MESSAGE,
   OFFER_DISCLAIMER,
   PHONE_DISPLAY,
   PHONE_TEL,
+  defaultMessageFor,
+  offerDisclaimerFor,
   trackLead,
 } from "@/lib/lead";
+import { resolveCity, useCity, type CityConfig } from "@/lib/cities";
 
-const TITLE =
-  "Internet Fibra em Medianeira/PR | 1ª Mensalidade Grátis | Portal Itaipu";
-const DESCRIPTION =
-  "1ª mensalidade grátis em Medianeira/PR: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.";
-const KEYWORDS = [
-  "internet em Medianeira",
-  "internet fibra óptica Medianeira",
-  "provedor de internet Medianeira PR",
-  "internet 550 mega Medianeira",
-  "internet com WiFi 6 Medianeira",
-  "internet com TV Medianeira",
-  "internet com Max Medianeira",
-  "internet residencial Medianeira Paraná",
-  "contratar internet Medianeira",
-  "instalação de internet grátis Medianeira",
-  "Portal Itaipu internet",
-].join(", ");
+const buildTitle = (city: CityConfig) =>
+  `Internet Fibra em ${city.nameWithState} | 1ª Mensalidade Grátis | Portal Itaipu`;
+const buildDescription = (city: CityConfig) =>
+  `1ª mensalidade grátis em ${city.nameWithState}: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.`;
+const buildKeywords = (city: CityConfig) =>
+  [
+    `internet em ${city.name}`,
+    `internet fibra óptica ${city.name}`,
+    `provedor de internet ${city.name} PR`,
+    `internet 550 mega ${city.name}`,
+    `internet com WiFi 6 ${city.name}`,
+    `internet com TV ${city.name}`,
+    `internet com Max ${city.name}`,
+    `internet residencial ${city.name} Paraná`,
+    `contratar internet ${city.name}`,
+    `instalação de internet grátis ${city.name}`,
+    "Portal Itaipu internet",
+  ].join(", ");
 
-const faqs = [
+const buildFaqs = (city: CityConfig) => [
   {
-    question: "Tem disponibilidade no meu bairro em Medianeira?",
-    answer:
-      "Nossa rede nova está expandindo por Medianeira. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.",
+    question: `Tem disponibilidade no meu bairro em ${city.name}?`,
+    answer: `Nossa rede nova está expandindo por ${city.name}. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.`,
   },
   {
     question: "Quanto tempo leva para instalar?",
@@ -73,102 +75,117 @@ const faqs = [
       "Não. Nesta oferta, a instalação e ativação são gratuitas. Você paga apenas a mensalidade do plano contratado.",
   },
   {
-    question: "Por que escolher a Portal Itaipu em Medianeira?",
-    answer:
-      "Somos um provedor local com suporte humanizado, 20 anos de experiência no oeste do Paraná e infraestrutura moderna em Medianeira. Todos os planos incluem Wi-Fi 6, instalação grátis e atendimento próximo, sem robôs.",
+    question: `Por que escolher a Portal Itaipu em ${city.name}?`,
+    answer: `Somos um provedor local com suporte humanizado, 20 anos de experiência no oeste do Paraná e infraestrutura moderna em ${city.name}. Todos os planos incluem Wi-Fi 6, instalação grátis e atendimento próximo, sem robôs.`,
   },
 ];
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { name: "keywords", content: KEYWORDS },
-      { name: "geo.region", content: "BR-PR" },
-      { name: "geo.placename", content: "Medianeira, Paraná" },
-      { name: "robots", content: "index, follow, max-image-preview:large" },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
-    ],
-    links: [
-      { rel: "canonical", href: "/" },
-      { rel: "preload", as: "image", href: logoAsset.url },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "Portal Itaipu",
-          description:
-            "Provedor de internet fibra óptica em Medianeira, Paraná.",
-          url: "https://portalitaipu.com.br/",
-          telephone: PHONE_TEL,
-          image: "https://portalitaipu.com.br/",
-          keywords: KEYWORDS,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Medianeira",
-            addressRegion: "PR",
-            addressCountry: "BR",
-          },
-          areaServed: [
-            {
-              "@type": "City",
-              name: "Medianeira",
-              containedInPlace: { "@type": "State", name: "Paraná" },
-            },
-            ...BAIRROS_MEDIANEIRA.map((bairro) => ({
-              "@type": "Place",
-              name: `${bairro}, Medianeira - PR`,
-            })),
-          ],
-          priceRange: "R$ 109,90 - R$ 129,90",
-          makesOffer: [
-            {
-              "@type": "Offer",
-              name: "Plano FOR FAMILY 550 Mega + WiFi 6",
-              price: "109.90",
-              priceCurrency: "BRL",
-            },
-            {
-              "@type": "Offer",
-              name: "Plano 550 Mega + WiFi 6 + Watch TV Canais Brasil",
-              price: "119.90",
-              priceCurrency: "BRL",
-            },
-            {
-              "@type": "Offer",
-              name: "Plano 550 Mega + WiFi 6 + Watch TV + Max",
-              price: "129.90",
-              priceCurrency: "BRL",
-            },
-          ],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqs.map((faq) => ({
-            "@type": "Question",
-            name: faq.question,
-            acceptedAnswer: { "@type": "Answer", text: faq.answer },
-          })),
-        }),
-      },
-    ],
+  validateSearch: (search: Record<string, unknown>) => ({
+    cidade:
+      typeof search["cidade"] === "string"
+        ? (search["cidade"] as string)
+        : undefined,
   }),
+  head: (ctx) => {
+    const city = resolveCity(
+      (ctx.match.search as { cidade?: string } | undefined)?.cidade,
+    );
+    const TITLE = buildTitle(city);
+    const DESCRIPTION = buildDescription(city);
+    const KEYWORDS = buildKeywords(city);
+    const faqs = buildFaqs(city);
+
+    return {
+      meta: [
+        { title: TITLE },
+        { name: "description", content: DESCRIPTION },
+        { name: "keywords", content: KEYWORDS },
+        { name: "geo.region", content: "BR-PR" },
+        { name: "geo.placename", content: `${city.name}, Paraná` },
+        { name: "robots", content: "index, follow, max-image-preview:large" },
+        { property: "og:title", content: TITLE },
+        { property: "og:description", content: DESCRIPTION },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: "/" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: TITLE },
+        { name: "twitter:description", content: DESCRIPTION },
+      ],
+      links: [
+        { rel: "canonical", href: "/" },
+        { rel: "preload", as: "image", href: logoAsset.url },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: "Portal Itaipu",
+            description: `Provedor de internet fibra óptica em ${city.name}, Paraná.`,
+            url: "https://portalitaipu.com.br/",
+            telephone: PHONE_TEL,
+            image: "https://portalitaipu.com.br/",
+            keywords: KEYWORDS,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: city.name,
+              addressRegion: "PR",
+              addressCountry: "BR",
+            },
+            areaServed: [
+              {
+                "@type": "City",
+                name: city.name,
+                containedInPlace: { "@type": "State", name: "Paraná" },
+              },
+              ...city.bairros.map((bairro) => ({
+                "@type": "Place",
+                name: `${bairro}, ${city.name} - PR`,
+              })),
+            ],
+            priceRange: "R$ 109,90 - R$ 129,90",
+            makesOffer: [
+              {
+                "@type": "Offer",
+                name: "Plano FOR FAMILY 550 Mega + WiFi 6",
+                price: "109.90",
+                priceCurrency: "BRL",
+              },
+              {
+                "@type": "Offer",
+                name: "Plano 550 Mega + WiFi 6 + Watch TV Canais Brasil",
+                price: "119.90",
+                priceCurrency: "BRL",
+              },
+              {
+                "@type": "Offer",
+                name: "Plano 550 Mega + WiFi 6 + Watch TV + Max",
+                price: "129.90",
+                priceCurrency: "BRL",
+              },
+            ],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: { "@type": "Answer", text: faq.answer },
+            })),
+          }),
+        },
+      ],
+    };
+  },
   component: Index,
 });
+
 
 function Index() {
   return (
