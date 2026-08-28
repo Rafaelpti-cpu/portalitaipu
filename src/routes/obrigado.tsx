@@ -2,18 +2,19 @@ import { useEffect, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, CheckCircle2 } from "lucide-react";
 import {
-  DEFAULT_MESSAGE,
   WHATSAPP_NUMBER,
+  defaultMessageFor,
   trackLead,
   trackWhatsAppClick,
 } from "@/lib/lead";
+import { resolveCity } from "@/lib/cities";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 
-function buildWhatsAppMessage(nome: string, bairro: string) {
+function buildWhatsAppMessage(nome: string, bairro: string, cidade: string) {
   if (nome && bairro) {
-    return `Olá! Sou ${nome}, do bairro ${bairro} em Medianeira. Acabei de consultar a cobertura e quero contratar com o 1º mês grátis.`;
+    return `Olá! Sou ${nome}, do bairro ${bairro} em ${cidade}. Acabei de consultar a cobertura e quero contratar com o 1º mês grátis.`;
   }
-  return DEFAULT_MESSAGE;
+  return defaultMessageFor(cidade);
 }
 
 export const Route = createFileRoute("/obrigado")({
@@ -21,6 +22,8 @@ export const Route = createFileRoute("/obrigado")({
     nome: typeof search["nome"] === "string" ? (search["nome"] as string) : "",
     bairro:
       typeof search["bairro"] === "string" ? (search["bairro"] as string) : "",
+    cidade:
+      typeof search["cidade"] === "string" ? (search["cidade"] as string) : "",
   }),
   head: () => ({
     meta: [
@@ -42,12 +45,13 @@ export const Route = createFileRoute("/obrigado")({
 });
 
 function ObrigadoPage() {
-  const { nome, bairro } = Route.useSearch();
+  const { nome, bairro, cidade } = Route.useSearch();
 
   const whatsappUrl = useMemo(() => {
-    const message = buildWhatsAppMessage(nome.trim(), bairro.trim());
+    const city = resolveCity(cidade);
+    const message = buildWhatsAppMessage(nome.trim(), bairro.trim(), city.name);
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  }, [nome, bairro]);
+  }, [nome, bairro, cidade]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
