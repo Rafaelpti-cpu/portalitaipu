@@ -120,16 +120,22 @@ export function CoverageCheck() {
                 id="bairro"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
-                placeholder="Ex: Centro, Ipê, Nazaré"
+                placeholder={
+                  bairros.length > 0
+                    ? "Ex: Centro, Ipê, Nazaré"
+                    : `Digite seu bairro em ${city.name}`
+                }
                 className="h-12"
-                list="bairros-medianeira"
+                {...(bairros.length > 0 ? { list: "bairros-cidade" } : {})}
                 required
               />
-              <datalist id="bairros-medianeira">
-                {bairros.map((b) => (
-                  <option key={b} value={b} />
-                ))}
-              </datalist>
+              {bairros.length > 0 ? (
+                <datalist id="bairros-cidade">
+                  {bairros.map((b) => (
+                    <option key={b} value={b} />
+                  ))}
+                </datalist>
+              ) : null}
             </div>
             <div className="sm:col-span-2">
               {bairros.length > 0 ? (
