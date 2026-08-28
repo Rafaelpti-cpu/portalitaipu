@@ -5,21 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { trackLead } from "@/lib/lead";
+import { useCity } from "@/lib/cities";
 
-const BAIRROS = [
-  "Centro",
-  "São Cristóvão",
-  "Belo Horizonte",
-  "Condá",
-  "Cidade Alta",
-  "Frimesa",
-  "Nazaré",
-  "Ipê",
-  "Jardim Irene",
-  "Independência",
-  "Itaipu",
-  "Panorâmico",
-];
 
 const SHEETS_WEBHOOK_URL =
   "https://script.google.com/macros/s/AKfycbzk-3ej9Oz8lOCMTvMP1qIv4usH_HdjdMW0KFLX9LJ-zPvGUK0VsV1zk6pmHTOFcPSFSA/exec";
@@ -35,6 +22,8 @@ function formatPhone(value: string) {
 
 export function CoverageCheck() {
   const navigate = useNavigate();
+  const city = useCity();
+  const bairros = city.bairros;
   const [bairro, setBairro] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -45,7 +34,10 @@ export function CoverageCheck() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!phoneValid) return;
-    trackLead("coverage_form_submit", { bairro: bairro || "nao_informado" });
+    trackLead("coverage_form_submit", {
+      bairro: bairro || "nao_informado",
+      cidade: city.name,
+    });
 
     const nomeLimpo = nome.trim();
     const bairroLimpo = bairro.trim();
@@ -59,7 +51,8 @@ export function CoverageCheck() {
           nome: nomeLimpo,
           whatsapp: phoneDigits,
           bairro: bairroLimpo,
-          origem: "LP Medianeira",
+          cidade: city.name,
+          origem: `LP ${city.name}`,
         }),
       }).catch(() => {
         // Falha no envio não bloqueia o usuário
@@ -70,7 +63,7 @@ export function CoverageCheck() {
 
     navigate({
       to: "/obrigado",
-      search: { nome: nomeLimpo, bairro: bairroLimpo },
+      search: { nome: nomeLimpo, bairro: bairroLimpo, cidade: city.slug },
     });
   };
 
@@ -85,11 +78,11 @@ export function CoverageCheck() {
             </span>
           </div>
           <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            Tem fibra no seu bairro? Descubra em 1 minuto
+            Tem fibra no seu bairro em {city.name}? Descubra em 1 minuto
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Informe seu bairro e nós confirmamos a viabilidade técnica na hora
-            pelo WhatsApp.
+            Informe seu bairro em {city.name} e nós confirmamos a viabilidade
+            técnica na hora pelo WhatsApp.
           </p>
           <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
@@ -122,7 +115,7 @@ export function CoverageCheck() {
               ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="bairro">Seu bairro em Medianeira</Label>
+              <Label htmlFor="bairro">Seu bairro em {city.name}</Label>
               <Input
                 id="bairro"
                 value={bairro}
@@ -133,18 +126,20 @@ export function CoverageCheck() {
                 required
               />
               <datalist id="bairros-medianeira">
-                {BAIRROS.map((b) => (
+                {bairros.map((b) => (
                   <option key={b} value={b} />
                 ))}
               </datalist>
             </div>
             <div className="sm:col-span-2">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Bairros atendidos em Medianeira (referência)
-              </p>
-              <div className="mb-5 flex flex-wrap gap-2">
-                {BAIRROS.map((b) => (
-                  <button
+              {bairros.length > 0 ? (
+                <>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Bairros atendidos em {city.name} (referência)
+                  </p>
+                  <div className="mb-5 flex flex-wrap gap-2">
+                    {bairros.map((b) => (
+                      <button
                     key={b}
                     type="button"
                     onClick={() => setBairro(b)}
@@ -153,11 +148,13 @@ export function CoverageCheck() {
                         ? "border-brand-magenta bg-brand-magenta text-white"
                         : "border-border bg-background text-foreground hover:border-brand-magenta hover:text-brand-magenta"
                     }`}
-                  >
-                    {b}
-                  </button>
-                ))}
-              </div>
+                      >
+                        {b}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : null}
               <Button
                 type="submit"
                 className="h-14 w-full gap-2 bg-whatsapp text-base font-bold text-white hover:bg-whatsapp-dark"
