@@ -287,7 +287,9 @@ function HeroSection() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-yellow"></span>
             </span>
-            Rede nova em {city.nameWithState}
+            {city.redeNova
+              ? `Rede nova em ${city.nameWithState}`
+              : `Fibra óptica em ${city.nameWithState}`}
           </div>
           <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
             Internet fibra em {city.name} com{" "}
@@ -464,8 +466,12 @@ function TrustSection() {
     },
     {
       icon: MapPin,
-      title: `Rede nova em ${city.name}`,
-      description: "Infraestrutura moderna e de alta capacidade para a cidade.",
+      title: city.redeNova
+        ? `Rede nova em ${city.name}`
+        : `Fibra própria em ${city.name}`,
+      description: city.redeNova
+        ? "Infraestrutura moderna e de alta capacidade para a cidade."
+        : "Infraestrutura de alta capacidade para a cidade.",
     },
     {
       icon: Phone,
@@ -483,9 +489,9 @@ function TrustSection() {
               Provedor local, tecnologia de ponta
             </h2>
             <p className="mt-4 text-lg text-white/80">
-              A Portal Itaipu chegou em {city.name} com uma rede totalmente nova,
-              pronta para entregar a velocidade e estabilidade que sua casa
-              precisa.
+              {city.redeNova
+                ? `A Portal Itaipu chegou em ${city.name} com uma rede totalmente nova, pronta para entregar a velocidade e estabilidade que sua casa precisa.`
+                : `A Portal Itaipu atende ${city.name} com rede de fibra óptica própria, entregando a velocidade e estabilidade que sua casa precisa.`}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button

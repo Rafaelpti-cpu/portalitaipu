@@ -11,6 +11,10 @@ export type CityConfig = {
   nameComma: string;
   /** bairros / localidades atendidas (vazio = ainda não preenchido) */
   bairros: string[];
+  /** true = comunicação de "rede nova"; false = "fibra própria" */
+  redeNova: boolean;
+  /** depoimentos reais da cidade (vazio = esconder a seção) */
+  depoimentos: { name: string; text: string }[];
 };
 
 export const DEFAULT_CITY_SLUG = "medianeira";
@@ -35,6 +39,21 @@ export const CITIES: Record<string, CityConfig> = {
       "Itaipu",
       "Panorâmico",
     ],
+    redeNova: true,
+    depoimentos: [
+      {
+        name: "Tayná Carolina",
+        text: "Muito boa a minha experiência com a portal, sempre muito prestativos e resolver rapidamente quando acontece algum problema",
+      },
+      {
+        name: "Janice Bellon",
+        text: "Foi excelente, fiquei satisfeita com o atendimento",
+      },
+      {
+        name: "Thiago",
+        text: "Melhor internet da região",
+      },
+    ],
   },
   "santa-helena": {
     slug: "santa-helena",
@@ -42,6 +61,8 @@ export const CITIES: Record<string, CityConfig> = {
     nameWithState: "Santa Helena/PR",
     nameComma: "Santa Helena, PR",
     bairros: [],
+    redeNova: false,
+    depoimentos: [],
   },
   "sao-miguel": {
     slug: "sao-miguel",
@@ -49,6 +70,8 @@ export const CITIES: Record<string, CityConfig> = {
     nameWithState: "São Miguel do Iguaçu/PR",
     nameComma: "São Miguel do Iguaçu, PR",
     bairros: [],
+    redeNova: false,
+    depoimentos: [],
   },
   itaipulandia: {
     slug: "itaipulandia",
@@ -56,6 +79,8 @@ export const CITIES: Record<string, CityConfig> = {
     nameWithState: "Itaipulândia/PR",
     nameComma: "Itaipulândia, PR",
     bairros: [],
+    redeNova: false,
+    depoimentos: [],
   },
   missal: {
     slug: "missal",
@@ -63,6 +88,8 @@ export const CITIES: Record<string, CityConfig> = {
     nameWithState: "Missal/PR",
     nameComma: "Missal, PR",
     bairros: [],
+    redeNova: false,
+    depoimentos: [],
   },
   serranopolis: {
     slug: "serranopolis",
@@ -70,6 +97,8 @@ export const CITIES: Record<string, CityConfig> = {
     nameWithState: "Serranópolis do Iguaçu/PR",
     nameComma: "Serranópolis do Iguaçu, PR",
     bairros: [],
+    redeNova: false,
+    depoimentos: [],
   },
   diamante: {
     slug: "diamante",
@@ -77,6 +106,8 @@ export const CITIES: Record<string, CityConfig> = {
     nameWithState: "Diamante D'Oeste/PR",
     nameComma: "Diamante D'Oeste, PR",
     bairros: [],
+    redeNova: false,
+    depoimentos: [],
   },
   ramilandia: {
     slug: "ramilandia",
@@ -84,6 +115,8 @@ export const CITIES: Record<string, CityConfig> = {
     nameWithState: "Ramilândia (zona rural)/PR",
     nameComma: "Ramilândia (zona rural), PR",
     bairros: [],
+    redeNova: false,
+    depoimentos: [],
   },
 };
 
