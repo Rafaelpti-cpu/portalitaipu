@@ -70,7 +70,9 @@ const buildKeywords = (city: CityConfig) =>
 const buildFaqs = (city: CityConfig) => [
   {
     question: `Tem disponibilidade no meu bairro em ${city.name}?`,
-    answer: `Nossa rede nova está expandindo por ${city.name}. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.`,
+    answer: city.redeNova
+      ? `Nossa rede nova está expandindo por ${city.name}. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.`
+      : `Nossa rede de fibra óptica atende ${city.name}. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.`,
   },
   {
     question: "Quanto tempo leva para instalar?",

@@ -10,6 +10,9 @@ export function SeoKeywords() {
   const city = useCity();
   const bairros = city.bairros;
 
+  // Cidade sem bairros cadastrados: esconde a seção inteira.
+  if (bairros.length === 0) return null;
+
   return (
     <section id="cobertura-bairros" className="bg-muted/40 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-5xl">
@@ -20,7 +23,10 @@ export function SeoKeywords() {
         <p className="mt-4 text-muted-foreground">
           A Portal Itaipu é um provedor de internet local em{" "}
           <strong className="text-foreground">{city.name}, Paraná</strong>, com
-          rede de fibra óptica nova, WiFi 6 incluso e atendimento humanizado. Se
+          {city.redeNova
+            ? " rede de fibra óptica nova,"
+            : " rede de fibra óptica própria,"}{" "}
+          WiFi 6 incluso e atendimento humanizado. Se
           você está procurando{" "}
           <strong className="text-foreground">
             internet para contratar em {city.name}
