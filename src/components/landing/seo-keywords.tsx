@@ -10,6 +10,9 @@ export function SeoKeywords() {
   const city = useCity();
   const bairros = city.bairros;
 
+  // Cidade sem bairros cadastrados: esconde a seção inteira.
+  if (bairros.length === 0) return null;
+
   return (
     <section id="cobertura-bairros" className="bg-muted/40 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-5xl">
