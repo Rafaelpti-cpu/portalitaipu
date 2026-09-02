@@ -4,7 +4,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { trackLead } from "@/lib/lead";
+import { trackLead, trackFormConversion } from "@/lib/lead";
 import { useCity } from "@/lib/cities";
 
 
@@ -38,6 +38,7 @@ export function CoverageCheck() {
       bairro: bairro || "nao_informado",
       cidade: city.name,
     });
+    trackFormConversion();
 
     const nomeLimpo = nome.trim();
     const bairroLimpo = bairro.trim();

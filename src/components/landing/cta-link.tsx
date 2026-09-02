@@ -1,5 +1,10 @@
 import type { ReactNode } from "react";
-import { buildWhatsAppLink, trackLead, trackWhatsAppClick } from "@/lib/lead";
+import {
+  buildWhatsAppLink,
+  handleWhatsAppConversion,
+  trackLead,
+  trackWhatsAppClick,
+} from "@/lib/lead";
 import { useCity } from "@/lib/cities";
 
 type Props = {
@@ -25,9 +30,10 @@ export function WhatsAppLink({
       target="_blank"
       rel="noopener noreferrer"
       className={className}
-      onClick={() => {
+      onClick={(e) => {
         trackLead("whatsapp_click", { location });
         trackWhatsAppClick();
+        handleWhatsAppConversion(e);
       }}
       {...rest}
     >

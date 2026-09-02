@@ -4,6 +4,7 @@ import { MessageCircle, CheckCircle2 } from "lucide-react";
 import {
   WHATSAPP_NUMBER,
   defaultMessageFor,
+  handleWhatsAppConversion,
   trackLead,
   trackWhatsAppClick,
 } from "@/lib/lead";
@@ -91,9 +92,10 @@ function ObrigadoPage() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => {
+            onClick={(e) => {
               trackLead("whatsapp_click", { location: "obrigado" });
               trackWhatsAppClick();
+              handleWhatsAppConversion(e);
             }}
             className="mt-8 flex h-16 w-full items-center justify-center gap-3 rounded-2xl bg-whatsapp text-lg font-bold text-white shadow-lg shadow-whatsapp/25 transition-colors hover:bg-whatsapp-dark"
           >
