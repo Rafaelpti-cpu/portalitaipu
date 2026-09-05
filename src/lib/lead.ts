@@ -56,6 +56,15 @@ export function trackLead(action: string, params: LeadEventParams = {}) {
   }
 }
 
+/** Dispara um evento padrão do Meta Pixel, se disponível. */
+function trackMetaEvent(event: string) {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as { fbq?: (...args: unknown[]) => void };
+  if (typeof w.fbq === "function") {
+    w.fbq("track", event);
+  }
+}
+
 /** Evento de clique em qualquer botão/link de WhatsApp (Google Ads). */
 export function trackWhatsAppClick() {
   if (typeof window === "undefined") return;
