@@ -75,6 +75,8 @@ export function trackWhatsAppClick() {
       event_label: "botao_whatsapp",
     });
   }
+  // Meta Pixel: evento padrão de contato.
+  trackMetaEvent("Contact");
 }
 
 /**
