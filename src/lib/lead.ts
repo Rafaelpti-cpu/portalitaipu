@@ -89,6 +89,8 @@ export function trackFormConversion() {
   if (typeof w.gtag === "function") {
     w.gtag("event", "conversion", { send_to: FORM_CONVERSION_ID });
   }
+  // Meta Pixel: evento padrão de lead.
+  trackMetaEvent("Lead");
 }
 
 /**
