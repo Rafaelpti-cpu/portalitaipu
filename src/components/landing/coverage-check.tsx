@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { trackLead, trackFormConversion } from "@/lib/lead";
-import { useCity } from "@/lib/cities";
 
 
 const SHEETS_WEBHOOK_URL =
@@ -22,9 +21,7 @@ function formatPhone(value: string) {
 
 export function CoverageCheck() {
   const navigate = useNavigate();
-  const city = useCity();
-  const bairros = city.bairros;
-  const [bairro, setBairro] = useState("");
+  const [endereco, setEndereco] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
 
@@ -35,13 +32,12 @@ export function CoverageCheck() {
     event.preventDefault();
     if (!phoneValid) return;
     trackLead("coverage_form_submit", {
-      bairro: bairro || "nao_informado",
-      cidade: city.name,
+      endereco: endereco || "nao_informado",
     });
     trackFormConversion();
 
     const nomeLimpo = nome.trim();
-    const bairroLimpo = bairro.trim();
+    const enderecoLimpo = endereco.trim();
 
     try {
       fetch(SHEETS_WEBHOOK_URL, {
@@ -51,9 +47,9 @@ export function CoverageCheck() {
         body: JSON.stringify({
           nome: nomeLimpo,
           whatsapp: phoneDigits,
-          bairro: bairroLimpo,
-          cidade: city.name,
-          origem: `LP ${city.name}`,
+          bairro: enderecoLimpo,
+          cidade: "Oeste do Paraná",
+          origem: "LP Oeste do Paraná",
         }),
       }).catch(() => {
         // Falha no envio não bloqueia o usuário
@@ -64,7 +60,7 @@ export function CoverageCheck() {
 
     navigate({
       to: "/obrigado",
-      search: { nome: nomeLimpo, bairro: bairroLimpo, cidade: city.slug },
+      search: { nome: nomeLimpo, bairro: enderecoLimpo },
     });
   };
 
@@ -79,11 +75,11 @@ export function CoverageCheck() {
             </span>
           </div>
           <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            Tem fibra no seu bairro em {city.name}? Descubra em 1 minuto
+            Tem fibra na sua rua? Descubra em 1 minuto
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Informe seu bairro em {city.name} e nós confirmamos a viabilidade
-            técnica na hora pelo WhatsApp.
+            Informe sua rua e cidade e nós confirmamos a viabilidade técnica na
+            hora pelo WhatsApp.
           </p>
           <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
@@ -116,52 +112,17 @@ export function CoverageCheck() {
               ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="bairro">Seu bairro em {city.name}</Label>
+              <Label htmlFor="bairro">Sua rua e cidade</Label>
               <Input
                 id="bairro"
-                value={bairro}
-                onChange={(e) => setBairro(e.target.value)}
-                placeholder={
-                  bairros.length > 0
-                    ? "Ex: Centro, Ipê, Nazaré"
-                    : `Digite seu bairro em ${city.name}`
-                }
+                value={endereco}
+                onChange={(e) => setEndereco(e.target.value)}
+                placeholder="Ex: Rua das Flores, 123, Itaipulândia"
                 className="h-12"
-                {...(bairros.length > 0 ? { list: "bairros-cidade" } : {})}
                 required
               />
-              {bairros.length > 0 ? (
-                <datalist id="bairros-cidade">
-                  {bairros.map((b) => (
-                    <option key={b} value={b} />
-                  ))}
-                </datalist>
-              ) : null}
             </div>
             <div className="sm:col-span-2">
-              {bairros.length > 0 ? (
-                <>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Bairros atendidos em {city.name} (referência)
-                  </p>
-                  <div className="mb-5 flex flex-wrap gap-2">
-                    {bairros.map((b) => (
-                      <button
-                    key={b}
-                    type="button"
-                    onClick={() => setBairro(b)}
-                    className={`rounded-full border px-3.5 py-2 text-xs font-medium transition-colors ${
-                      bairro === b
-                        ? "border-brand-magenta bg-brand-magenta text-white"
-                        : "border-border bg-background text-foreground hover:border-brand-magenta hover:text-brand-magenta"
-                    }`}
-                      >
-                        {b}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              ) : null}
               <Button
                 type="submit"
                 className="h-14 w-full gap-2 bg-whatsapp text-base font-bold text-white hover:bg-whatsapp-dark"
