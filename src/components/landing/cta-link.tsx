@@ -5,7 +5,6 @@ import {
   trackLead,
   trackWhatsAppClick,
 } from "@/lib/lead";
-import { useCity } from "@/lib/cities";
 
 type Props = {
   message: string;
@@ -23,10 +22,9 @@ export function WhatsAppLink({
   children,
   ...rest
 }: Props) {
-  const city = useCity();
   return (
     <a
-      href={buildWhatsAppLink(message, city.slug)}
+      href={buildWhatsAppLink(message)}
       target="_blank"
       rel="noopener noreferrer"
       className={className}

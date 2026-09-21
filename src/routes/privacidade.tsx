@@ -32,7 +32,7 @@ function PrivacyPage() {
           <Link to="/" className="flex items-center gap-2">
             <img
               src={logoAsset.url}
-              alt="Portal Itaipu — internet fibra óptica em Medianeira/PR"
+              alt="Portal Itaipu — internet fibra óptica no oeste do Paraná"
               className="h-9 w-auto"
               width="1733"
               height="593"
@@ -58,7 +58,7 @@ function PrivacyPage() {
             </h2>
             <p className="text-muted-foreground">
               Coletamos apenas os dados necessários para atender às suas
-              solicitações, como nome, bairro, número de WhatsApp e endereço, quando
+              solicitações, como nome, número de WhatsApp e endereço, quando
               informados voluntariamente por meio dos formulários da página ou do
               WhatsApp.
             </p>
@@ -162,7 +162,7 @@ function PrivacyPage() {
             />
             <div className="text-center text-sm text-muted-foreground md:text-right">
               <p>© 2026 Portal Itaipu. Todos os direitos reservados.</p>
-              <p className="mt-1">Medianeira/PR • Internet Fibra Óptica de qualidade</p>
+              <p className="mt-1">Oeste do Paraná • Internet Fibra Óptica de qualidade</p>
             </div>
           </div>
         </div>

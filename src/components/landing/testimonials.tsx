@@ -1,13 +1,18 @@
 import { Star } from "lucide-react";
-import { useCity } from "@/lib/cities";
+
+const depoimentos = [
+  {
+    name: "Tayná Carolina",
+    text: "Muito boa a minha experiência com a portal, sempre muito prestativos e resolver rapidamente quando acontece algum problema",
+  },
+  {
+    name: "Janice Bellon",
+    text: "Foi excelente, fiquei satisfeita com o atendimento",
+  },
+  { name: "Thiago", text: "Melhor internet da região" },
+];
 
 export function Testimonials() {
-  const city = useCity();
-  const depoimentos = city.depoimentos;
-
-  // Cidade sem depoimentos cadastrados: esconde a seção inteira.
-  if (depoimentos.length === 0) return null;
-
   return (
     <section className="bg-muted/50 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-6xl">
@@ -21,7 +26,7 @@ export function Testimonials() {
             ))}
           </div>
           <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Quem já é cliente em {city.name}
+            Quem já é cliente
           </h2>
           <p className="mt-3 text-muted-foreground">
             Avaliações reais de moradores atendidos pela nossa rede.
@@ -46,9 +51,7 @@ export function Testimonials() {
               </blockquote>
               <figcaption className="mt-4 border-t border-border pt-4">
                 <p className="font-bold text-foreground">{item.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  Avaliação no Google • {city.name}
-                </p>
+                <p className="text-xs text-muted-foreground">Avaliação no Google</p>
               </figcaption>
             </figure>
           ))}

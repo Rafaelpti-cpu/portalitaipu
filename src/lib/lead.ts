@@ -7,29 +7,18 @@ const FORM_CONVERSION_ID = "AW-11254985388/aKp5CLjAj84cEKzl5fYp";
 const WHATSAPP_CONVERSION_ID = "AW-11254985388/8FjCCKy4yewcEKzl5fYp";
 export const PHONE_DISPLAY = "(45) 3559-1665";
 export const PHONE_TEL = "+554535591665";
-/** UTM da campanha por cidade: utm_campaign=${slug}_internet */
-export function utmParamsFor(slug: string) {
-  return `utm_source=google&utm_medium=cpc&utm_campaign=${slug}_internet`;
-}
+/** Parâmetros UTM preservados em todos os links de WhatsApp. */
+export const WHATSAPP_UTM_PARAMS =
+  "utm_source=google&utm_medium=cpc&utm_campaign=medianeira_internet";
 export const DEFAULT_MESSAGE =
-  "Olá! Vim pela página de Medianeira e quero contratar com a 1ª mensalidade grátis.";
+  "LP Olá! Vim pela página e quero contratar o plano de 550 Mega com a 1ª mensalidade grátis.";
 export const OFFER_DISCLAIMER =
-  "Promoção válida para novos clientes em Medianeira, na contratação pela página, com fidelidade de 12 meses. Válida até 30/09/2026.";
-
-/** Mensagem padrão do WhatsApp com o nome da cidade selecionada. */
-export function defaultMessageFor(cityName: string) {
-  return `Olá! Vim pela página de ${cityName} e quero contratar com a 1ª mensalidade grátis.`;
-}
-
-/** Disclaimer da oferta com o nome da cidade selecionada. */
-export function offerDisclaimerFor(cityName: string) {
-  return `Promoção válida para novos clientes em ${cityName}, na contratação pela página, com fidelidade de 12 meses. Válida até 30/09/2026.`;
-}
+  "Promoção válida para novos clientes, na contratação pela página, com fidelidade de 12 meses. Válida até 31/10/2026. Sujeita a viabilidade técnica.";
 
 
-export function buildWhatsAppLink(message: string, citySlug = "medianeira") {
+export function buildWhatsAppLink(message: string) {
   const encoded = encodeURIComponent(message);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}&${utmParamsFor(citySlug)}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}&${WHATSAPP_UTM_PARAMS}`;
 }
 
 type LeadEventParams = Record<string, string | number | undefined>;

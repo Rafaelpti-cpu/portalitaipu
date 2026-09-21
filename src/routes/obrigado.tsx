@@ -3,19 +3,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, CheckCircle2 } from "lucide-react";
 import {
   WHATSAPP_NUMBER,
-  defaultMessageFor,
+  WHATSAPP_UTM_PARAMS,
+  DEFAULT_MESSAGE,
   handleWhatsAppConversion,
   trackLead,
   trackWhatsAppClick,
 } from "@/lib/lead";
-import { resolveCity } from "@/lib/cities";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 
-function buildWhatsAppMessage(nome: string, bairro: string, cidade: string) {
-  if (nome && bairro) {
-    return `Olá! Sou ${nome}, do bairro ${bairro} em ${cidade}. Acabei de consultar a cobertura e quero contratar com o 1º mês grátis.`;
+function buildWhatsAppMessage(nome: string, endereco: string) {
+  if (nome && endereco) {
+    return `Olá! Vim pela página e quero saber se tem fibra na minha rua: ${endereco}. Meu nome é ${nome}.`;
   }
-  return defaultMessageFor(cidade);
+  return DEFAULT_MESSAGE;
 }
 
 export const Route = createFileRoute("/obrigado")({
@@ -23,8 +23,6 @@ export const Route = createFileRoute("/obrigado")({
     nome: typeof search["nome"] === "string" ? (search["nome"] as string) : "",
     bairro:
       typeof search["bairro"] === "string" ? (search["bairro"] as string) : "",
-    cidade:
-      typeof search["cidade"] === "string" ? (search["cidade"] as string) : "",
   }),
   head: () => ({
     meta: [
@@ -40,19 +38,20 @@ export const Route = createFileRoute("/obrigado")({
         property: "og:description",
         content: "Nosso time vai te chamar no WhatsApp em até 10 minutos.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: ObrigadoPage,
 });
 
 function ObrigadoPage() {
-  const { nome, bairro, cidade } = Route.useSearch();
+  const { nome, bairro } = Route.useSearch();
 
   const whatsappUrl = useMemo(() => {
-    const city = resolveCity(cidade);
-    const message = buildWhatsAppMessage(nome.trim(), bairro.trim(), city.name);
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  }, [nome, bairro, cidade]);
+    const message = buildWhatsAppMessage(nome.trim(), bairro.trim());
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}&${WHATSAPP_UTM_PARAMS}`;
+  }, [nome, bairro]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
