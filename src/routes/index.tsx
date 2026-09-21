@@ -1,9 +1,4 @@
-import { useEffect, useState } from "react";
-import {
-  createFileRoute,
-  useNavigate,
-  useSearch,
-} from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 import heroPerson from "@/assets/hero-person.png";
 import { Button } from "@/components/ui/button";
@@ -29,50 +24,35 @@ import { CoverageCheck } from "@/components/landing/coverage-check";
 import { Testimonials } from "@/components/landing/testimonials";
 import { PlansComparison } from "@/components/landing/plans-comparison";
 import { MobileCtaBar } from "@/components/landing/mobile-cta-bar";
-import { SeoKeywords } from "@/components/landing/seo-keywords";
 import {
+  DEFAULT_MESSAGE,
+  OFFER_DISCLAIMER,
   PHONE_DISPLAY,
   PHONE_TEL,
-  defaultMessageFor,
-  offerDisclaimerFor,
   trackLead,
 } from "@/lib/lead";
-import {
-  clearSavedCity,
-  getSavedCitySlug,
-  resolveCity,
-  resolveCityParam,
-  saveCitySlug,
-  useCity,
-  type CityConfig,
-} from "@/lib/cities";
-import { CitySelector } from "@/components/landing/city-selector";
 
-const buildTitle = (city: CityConfig) =>
-  `Internet Fibra em ${city.nameWithState} | 1ª Mensalidade Grátis | Portal Itaipu`;
-const buildDescription = (city: CityConfig) =>
-  `1ª mensalidade grátis em ${city.nameWithState}: 550 Mega + WiFi 6 por R$ 109,90/mês, planos com Watch TV Canais Brasil e Max. Instalação grátis, ativação em até 24h e suporte local.`;
-const buildKeywords = (city: CityConfig) =>
-  [
-    `internet em ${city.name}`,
-    `internet fibra óptica ${city.name}`,
-    `provedor de internet ${city.name} PR`,
-    `internet 550 mega ${city.name}`,
-    `internet com WiFi 6 ${city.name}`,
-    `internet com TV ${city.name}`,
-    `internet com Max ${city.name}`,
-    `internet residencial ${city.name} Paraná`,
-    `contratar internet ${city.name}`,
-    `instalação de internet grátis ${city.name}`,
-    "Portal Itaipu internet",
-  ].join(", ");
+const TITLE =
+  "Internet Fibra no Oeste do Paraná | 1ª Mensalidade Grátis | Portal Itaipu";
+const DESCRIPTION =
+  "Internet fibra no oeste do Paraná: 550 Mega + WiFi 6 por R$ 109,90/mês e 1ª mensalidade grátis. Instalação grátis e ativação em até 24h.";
+const KEYWORDS = [
+  "internet no oeste do Paraná",
+  "internet fibra óptica oeste do Paraná",
+  "provedor de internet Paraná",
+  "internet 550 mega",
+  "internet com WiFi 6",
+  "internet com TV",
+  "internet com Max",
+  "contratar internet fibra",
+  "Portal Itaipu internet",
+].join(", ");
 
-const buildFaqs = (city: CityConfig) => [
+const faqs = [
   {
-    question: `Tem disponibilidade no meu bairro em ${city.name}?`,
-    answer: city.redeNova
-      ? `Nossa rede nova está expandindo por ${city.name}. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.`
-      : `Nossa rede de fibra óptica atende ${city.name}. Informe seu bairro na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.`,
+    question: "Tem disponibilidade na minha rua?",
+    answer:
+      "Nossa rede de fibra óptica atende o oeste do Paraná. Informe sua rua e cidade na consulta de cobertura ou envie seu endereço pelo WhatsApp e confirmamos a viabilidade técnica em poucos minutos.",
   },
   {
     question: "Quanto tempo leva para instalar?",
@@ -90,29 +70,20 @@ const buildFaqs = (city: CityConfig) => [
       "Não. Nesta oferta, a instalação e ativação são gratuitas. Você paga apenas a mensalidade do plano contratado.",
   },
   {
-    question: `Por que escolher a Portal Itaipu em ${city.name}?`,
-    answer: `Somos um provedor local com suporte humanizado, 20 anos de experiência no oeste do Paraná e infraestrutura moderna em ${city.name}. Todos os planos incluem Wi-Fi 6, instalação grátis e atendimento próximo, sem robôs.`,
+    question: "Por que escolher a Portal Itaipu?",
+    answer:
+      "Somos um provedor local com suporte humanizado, 20 anos de experiência no oeste do Paraná e infraestrutura moderna. Todos os planos incluem Wi-Fi 6, instalação grátis e atendimento próximo, sem robôs.",
   },
 ];
 
 export const Route = createFileRoute("/")({
-  head: (ctx) => {
-    const city = resolveCity(
-      (ctx.match.search as { cidade?: string } | undefined)?.cidade,
-    );
-
-    const TITLE = buildTitle(city);
-    const DESCRIPTION = buildDescription(city);
-    const KEYWORDS = buildKeywords(city);
-    const faqs = buildFaqs(city);
-
-    return {
+  head: () => ({
       meta: [
         { title: TITLE },
         { name: "description", content: DESCRIPTION },
         { name: "keywords", content: KEYWORDS },
         { name: "geo.region", content: "BR-PR" },
-        { name: "geo.placename", content: `${city.name}, Paraná` },
+        { name: "geo.placename", content: "Oeste do Paraná" },
         { name: "robots", content: "index, follow, max-image-preview:large" },
         { property: "og:title", content: TITLE },
         { property: "og:description", content: DESCRIPTION },
@@ -133,28 +104,20 @@ export const Route = createFileRoute("/")({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             name: "Portal Itaipu",
-            description: `Provedor de internet fibra óptica em ${city.name}, Paraná.`,
+            description: "Provedor de internet fibra óptica no oeste do Paraná.",
             url: "https://portalitaipu.com.br/",
             telephone: PHONE_TEL,
             image: "https://portalitaipu.com.br/",
             keywords: KEYWORDS,
             address: {
               "@type": "PostalAddress",
-              addressLocality: city.name,
               addressRegion: "PR",
               addressCountry: "BR",
             },
-            areaServed: [
-              {
-                "@type": "City",
-                name: city.name,
-                containedInPlace: { "@type": "State", name: "Paraná" },
-              },
-              ...city.bairros.map((bairro) => ({
-                "@type": "Place",
-                name: `${bairro}, ${city.name} - PR`,
-              })),
-            ],
+            areaServed: {
+              "@type": "AdministrativeArea",
+              name: "Oeste do Paraná",
+            },
             priceRange: "R$ 109,90 - R$ 129,90",
             makesOffer: [
               {
@@ -191,40 +154,12 @@ export const Route = createFileRoute("/")({
           }),
         },
       ],
-    };
-  },
+    }),
   component: Index,
 });
 
 
 function Index() {
-  const search = useSearch({ strict: false }) as { cidade?: unknown };
-  const paramCity = resolveCityParam(search?.cidade);
-  const navigate = useNavigate();
-  // null = ainda verificando o localStorage; true = mostrar seletor
-  const [showSelector, setShowSelector] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    if (paramCity) {
-      // Tráfego de anúncio (parâmetro válido): conteúdo direto, sem seletor.
-      saveCitySlug(paramCity.slug);
-      setShowSelector(false);
-      return;
-    }
-    const saved = getSavedCitySlug();
-    if (saved) {
-      navigate({ to: "/", search: { cidade: saved }, replace: true });
-    } else {
-      setShowSelector(true);
-    }
-  }, [paramCity, navigate]);
-
-  if (!paramCity) {
-    if (showSelector) return <CitySelector />;
-    // Verificando cidade salva: tela neutra para evitar flash de conteúdo.
-    return <div className="min-h-screen bg-background" />;
-  }
-
   return (
     <div className="min-h-screen bg-background pb-20 font-sans md:pb-0">
       <Header />
@@ -235,7 +170,6 @@ function Index() {
         <PlansComparison />
         <Testimonials />
         <TrustSection />
-        <SeoKeywords />
         <FaqSection />
         <FinalCtaSection />
       </main>
@@ -247,7 +181,6 @@ function Index() {
 }
 
 function Header() {
-  const city = useCity();
   const navItems = [
     { label: "Planos", href: "#planos" },
     { label: "Benefícios", href: "#beneficios" },
@@ -260,7 +193,7 @@ function Header() {
           <span className="flex items-center rounded-xl bg-white px-2.5 py-1.5">
             <img
               src={logoAsset.url}
-              alt={`Portal Itaipu — internet fibra óptica em ${city.nameWithState}`}
+              alt="Portal Itaipu — internet fibra óptica no oeste do Paraná"
               className="h-6 w-auto sm:h-7"
               width="1733"
               height="593"
@@ -297,7 +230,7 @@ function Header() {
           >
             <WhatsAppLink
               location="header"
-              message={`Olá! Vi a campanha do Google e quero contratar internet em ${city.nameWithState}.`}
+              message={DEFAULT_MESSAGE}
             >
               <MessageCircle className="h-4 w-4" />
               WhatsApp
@@ -310,7 +243,6 @@ function Header() {
 }
 
 function HeroSection() {
-  const city = useCity();
   const heroChecks = [
     "Instalação grátis",
     "WiFi 6 de alta performance",
@@ -330,12 +262,10 @@ function HeroSection() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-yellow"></span>
             </span>
-            {city.redeNova
-              ? `Rede nova em ${city.nameWithState}`
-              : `Fibra óptica em ${city.nameWithState}`}
+            Fibra óptica no oeste do Paraná
           </div>
           <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-            Internet fibra em {city.name} com{" "}
+            Internet fibra com a{" "}
             <span className="text-brand-yellow">1ª mensalidade grátis</span>
           </h1>
           <p className="text-base text-white/85 sm:text-lg">
@@ -358,7 +288,7 @@ function HeroSection() {
               </div>
             </div>
             <span className="mb-1 inline-flex -rotate-2 items-center rounded-lg bg-brand-yellow px-3 py-1.5 text-sm font-black text-brand-dark shadow-lg">
-              1º MÊS GRÁTIS
+              1ª MENSALIDADE GRÁTIS
             </span>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
@@ -367,7 +297,7 @@ function HeroSection() {
               size="lg"
               className="h-14 gap-2 rounded-full bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
             >
-              <WhatsAppLink location="hero" message={defaultMessageFor(city.name)}>
+              <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
                 <MessageCircle className="h-5 w-5" />
                 Quero contratar agora
               </WhatsAppLink>
@@ -382,7 +312,7 @@ function HeroSection() {
             </Button>
           </div>
           <p className="text-[11px] leading-relaxed text-white/60">
-            {offerDisclaimerFor(city.name)}
+            {OFFER_DISCLAIMER}
           </p>
           <p className="text-sm text-white/80">
             Prefere ligar?{" "}
@@ -424,7 +354,6 @@ function HeroSection() {
 }
 
 function BenefitsSection() {
-  const city = useCity();
   const benefits = [
     {
       icon: Zap,
@@ -468,8 +397,8 @@ function BenefitsSection() {
             Por que contratar a Portal Itaipu?
           </h2>
           <p className="mt-3 text-muted-foreground">
-            A escolha certa para quem quer internet de qualidade em{" "}
-            {city.name}.
+            A escolha certa para quem quer internet de qualidade no oeste do
+            Paraná.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
@@ -500,7 +429,6 @@ function BenefitsSection() {
 }
 
 function TrustSection() {
-  const city = useCity();
   const items = [
     {
       icon: ShieldCheck,
@@ -509,12 +437,8 @@ function TrustSection() {
     },
     {
       icon: MapPin,
-      title: city.redeNova
-        ? `Rede nova em ${city.name}`
-        : `Fibra própria em ${city.name}`,
-      description: city.redeNova
-        ? "Infraestrutura moderna e de alta capacidade para a cidade."
-        : "Infraestrutura de alta capacidade para a cidade.",
+      title: "Fibra própria",
+      description: "Infraestrutura de alta capacidade para a região.",
     },
     {
       icon: Phone,
@@ -532,9 +456,7 @@ function TrustSection() {
               Provedor local, tecnologia de ponta
             </h2>
             <p className="mt-4 text-lg text-white/80">
-              {city.redeNova
-                ? `A Portal Itaipu chegou em ${city.name} com uma rede totalmente nova, pronta para entregar a velocidade e estabilidade que sua casa precisa.`
-                : `A Portal Itaipu atende ${city.name} com rede de fibra óptica própria, entregando a velocidade e estabilidade que sua casa precisa.`}
+              20 anos levando fibra óptica ao oeste do Paraná.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button
@@ -544,7 +466,7 @@ function TrustSection() {
               >
                 <WhatsAppLink
                   location="trust"
-                  message={`Olá! Moro em ${city.nameWithState} e quero saber se tem disponibilidade na minha rua.`}
+                  message="LP Olá! Vim pela página e quero saber se tem fibra na minha rua."
                 >
                   <MessageCircle className="h-5 w-5" />
                   Ver disponibilidade
@@ -591,8 +513,6 @@ function TrustSection() {
 }
 
 function FaqSection() {
-  const city = useCity();
-  const faqs = buildFaqs(city);
   return (
     <section id="duvidas" className="scroll-mt-16 bg-muted/30 px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-3xl">
@@ -622,7 +542,6 @@ function FaqSection() {
 }
 
 function FinalCtaSection() {
-  const city = useCity();
   return (
     <section className="px-4 py-12 md:py-16">
       <div className="container mx-auto max-w-5xl">
@@ -635,11 +554,10 @@ function FinalCtaSection() {
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
               Contrate 550 Mega + WiFi 6 por R$ 109,90/mês e ganhe a 1ª
-              mensalidade grátis, com instalação grátis e ativação em até 24h em
-              {city.nameWithState}.
+              mensalidade grátis, com instalação grátis e ativação em até 24h.
             </p>
             <p className="mx-auto mt-3 max-w-2xl text-xs text-white/70">
-              {offerDisclaimerFor(city.name)}
+              {OFFER_DISCLAIMER}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
@@ -649,7 +567,7 @@ function FinalCtaSection() {
               >
                 <WhatsAppLink
                   location="final_cta"
-                  message={defaultMessageFor(city.name)}
+                  message={DEFAULT_MESSAGE}
                 >
                   <MessageCircle className="h-5 w-5" />
                   Falar no WhatsApp agora
@@ -683,8 +601,6 @@ function FinalCtaSection() {
 }
 
 function Footer() {
-  const city = useCity();
-  const navigate = useNavigate();
   return (
     <footer className="border-t border-border bg-background px-4 py-10">
       <div className="container mx-auto max-w-6xl">
@@ -710,20 +626,10 @@ function Footer() {
             <p className="mt-1">
               © 2026 Portal Itaipu. Todos os direitos reservados.
             </p>
-            <p className="mt-1">
-              {city.nameWithState} • Internet Fibra Óptica de qualidade
-            </p>
-            <p className="mt-1">
-              <button
-                type="button"
-                onClick={() => {
-                  clearSavedCity();
-                  navigate({ to: "/", search: {}, replace: true });
-                }}
-                className="text-xs text-muted-foreground/80 underline-offset-4 hover:underline"
-              >
-                Trocar cidade
-              </button>
+            <p className="mt-1">Oeste do Paraná • Internet Fibra Óptica de qualidade</p>
+            <p className="mt-2 max-w-2xl text-xs leading-relaxed">
+              PTI SERVICOS SVA LTDA · CNPJ 48.637.529/0001-47 · Av. Tiradentes,
+              2170 - Centro, Itaipulândia - PR, 85880-000
             </p>
           </div>
         </div>
@@ -733,11 +639,10 @@ function Footer() {
 }
 
 function FloatingWhatsAppButton() {
-  const city = useCity();
   return (
     <WhatsAppLink
       location="floating_button"
-      message={defaultMessageFor(city.name)}
+      message={DEFAULT_MESSAGE}
       aria-label="Conversar no WhatsApp"
       className="group fixed bottom-24 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/25 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:bottom-6 md:right-6"
     >

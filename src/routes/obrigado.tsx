@@ -11,7 +11,7 @@ import {
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
 
 function buildWhatsAppMessage(nome: string, endereco: string) {
-  if (nome && bairro) {
+  if (nome && endereco) {
     return `Olá! Vim pela página e quero saber se tem fibra na minha rua: ${endereco}. Meu nome é ${nome}.`;
   }
   return DEFAULT_MESSAGE;
