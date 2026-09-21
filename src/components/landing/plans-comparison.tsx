@@ -67,7 +67,7 @@ const plans: Plan[] = [
 
 export function PlansComparison() {
   return (
-    <section id="planos" className="scroll-mt-16 bg-muted/40 py-12 md:py-16">
+    <section id="planos" className="scroll-mt-16 bg-muted/40 py-10 md:py-16">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
@@ -85,7 +85,7 @@ export function PlansComparison() {
           {plans.map((plan) => (
             <article
               key={plan.price}
-              className={`flex w-[82vw] max-w-sm shrink-0 snap-center flex-col overflow-hidden rounded-3xl bg-card lg:w-auto lg:max-w-none ${
+              className={`flex w-[88vw] max-w-sm shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-card sm:w-[82vw] sm:rounded-3xl lg:w-auto lg:max-w-none ${
                 plan.highlight
                   ? "border-2 border-brand-magenta shadow-2xl"
                   : "border border-border shadow-sm"
@@ -153,9 +153,9 @@ export function PlansComparison() {
                     </li>
                   ))}
                 </ul>
-                <Button
+                 <Button
                   asChild
-                  className={`mt-6 w-full gap-2 rounded-full py-6 text-base font-bold ${
+                   className={`mt-6 w-full gap-2 rounded-xl py-6 text-base font-bold ${
                     plan.highlight
                       ? "bg-brand-magenta text-white hover:bg-brand-magenta/90"
                       : "bg-brand-dark text-white hover:bg-brand-dark/90"

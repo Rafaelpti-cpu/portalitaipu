@@ -194,10 +194,10 @@ function Header() {
     { label: "Dúvidas", href: "#duvidas" },
   ];
   return (
-    <header className="sticky top-0 z-40 w-full bg-brand-dark">
+    <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-brand-dark/95 backdrop-blur-md">
       <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16">
         <a href="/" className="flex items-center gap-2">
-          <span className="flex items-center rounded-xl bg-white px-2.5 py-1.5">
+          <span className="flex items-center rounded-lg bg-white px-2.5 py-1.5 shadow-sm">
             <img
               src={logoAsset.url}
               alt="Portal Itaipu — internet fibra óptica no oeste do Paraná"
@@ -233,7 +233,7 @@ function Header() {
           <Button
             asChild
             size="sm"
-            className="bg-whatsapp text-white hover:bg-whatsapp-dark"
+            className="h-9 rounded-full bg-whatsapp px-3 text-white shadow-md hover:bg-whatsapp-dark sm:h-10 sm:px-4"
           >
             <WhatsAppLink
               location="header"
@@ -263,100 +263,80 @@ function HeroSection() {
       <img
         src={heroBackground}
         alt="Técnico da Portal Itaipu instalando internet fibra óptica"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-[68%_center]"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[72%_center] sm:object-[68%_center]"
         width={1600}
         height={1000}
       />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand-dark via-brand-dark/95 to-brand-dark/25" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-dark/70 via-transparent to-brand-dark/20 lg:hidden" />
-      <div className="container relative mx-auto grid min-h-[680px] max-w-6xl px-4 py-10 sm:py-12 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:py-14">
-        <div className="max-w-2xl space-y-5 sm:space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand-dark via-brand-dark/95 to-brand-dark/30" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-dark via-brand-dark/65 to-brand-dark/15 lg:hidden" />
+      <div className="container relative mx-auto grid min-h-[calc(100svh-3.5rem)] max-w-6xl px-4 py-6 sm:py-10 lg:min-h-[680px] lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:py-14">
+        <div className="hero-reveal max-w-2xl space-y-4 sm:space-y-5">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-brand-dark/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md sm:text-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-yellow"></span>
             </span>
             Fibra óptica no oeste do Paraná
           </div>
-          <div className="w-fit rounded-2xl border border-brand-magenta/70 bg-brand-dark/75 px-4 py-3 shadow-xl backdrop-blur-md sm:px-5 sm:py-4">
-            <div className="flex items-center gap-4">
-              <div>
-                <p className="text-xs font-bold uppercase text-white/70">
-                  Avaliação no Google
-                </p>
-                <div className="mt-1 flex items-baseline gap-1.5">
-                  <strong className="text-4xl font-black leading-none sm:text-5xl">
-                    4,9
-                  </strong>
-                  <span className="text-lg font-bold text-white/75">/5</span>
-                </div>
-              </div>
-              <div className="border-l border-white/20 pl-4">
-                <div className="flex gap-0.5" aria-label="5 estrelas">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <Star
-                      key={index}
-                      className="h-4 w-4 fill-brand-yellow text-brand-yellow sm:h-5 sm:w-5"
-                    />
-                  ))}
-                </div>
-                <p className="mt-1.5 text-sm font-semibold text-white">
-                  113 avaliações
-                </p>
-              </div>
+          <div className="flex w-fit items-center gap-2.5 rounded-lg border border-brand-magenta/70 bg-brand-dark/75 px-3 py-2 shadow-xl backdrop-blur-md">
+            <strong className="font-display text-xl font-extrabold leading-none sm:text-2xl">4,9</strong>
+            <div className="flex gap-px" aria-label="5 estrelas">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Star key={index} className="h-3.5 w-3.5 fill-brand-yellow text-brand-yellow sm:h-4 sm:w-4" />
+              ))}
             </div>
+            <span className="border-l border-white/20 pl-2 text-[11px] font-semibold text-white/80 sm:text-xs">
+              113 avaliações no Google
+            </span>
           </div>
-          <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+          <h1 className="font-display text-[2rem] font-extrabold leading-[1.08] tracking-normal sm:text-4xl md:text-5xl">
             Internet fibra com a{" "}
             <span className="text-brand-yellow">1ª mensalidade grátis</span>
           </h1>
-          <p className="max-w-xl text-base text-white/85 sm:text-lg">
+          <p className="max-w-xl text-[15px] leading-relaxed text-white/85 sm:text-lg">
             Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
             <strong>R$ 109,90/mês</strong> e não pague nada no primeiro mês.
             Instalação grátis, ativação em até 24h.
           </p>
-          <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-white/70">
-                Plano FOR FAMILY por apenas
-              </p>
-              <div className="mt-1 flex items-baseline gap-1.5">
-                <span className="text-xl font-bold sm:text-2xl">R$</span>
-                <span className="text-6xl font-black leading-none sm:text-7xl">
-                  109
-                </span>
-                <span className="text-2xl font-black sm:text-3xl">,90</span>
-                <span className="pb-0.5 text-sm text-white/80">/mês</span>
+          <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-brand-dark/80 p-4 shadow-2xl backdrop-blur-md sm:max-w-xl sm:p-5">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-magenta to-transparent" />
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-bold uppercase text-white/60">Plano For Family</p>
+                <p className="font-display text-3xl font-extrabold leading-tight sm:text-4xl">
+                  550 <span className="text-lg text-brand-yellow sm:text-xl">MEGA</span>
+                </p>
               </div>
+              <span className="inline-flex -rotate-2 items-center rounded-md bg-brand-yellow px-2 py-1 text-center text-[10px] font-black leading-tight text-brand-dark shadow-lg sm:text-xs">
+                1ª MENSALIDADE<br />GRÁTIS
+              </span>
             </div>
-            <span className="mb-1 inline-flex -rotate-2 items-center rounded-lg bg-brand-yellow px-3 py-1.5 text-sm font-black text-brand-dark shadow-lg">
-              1ª MENSALIDADE GRÁTIS
-            </span>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="h-14 gap-2 rounded-full bg-white px-8 text-base font-bold text-brand-magenta shadow-xl hover:bg-white/90"
-            >
+            <div className="mt-3 flex items-end justify-between gap-3 border-t border-white/10 pt-3">
+              <div className="flex items-baseline gap-1">
+                <span className="text-sm font-bold">R$</span>
+                <span className="font-display text-5xl font-extrabold leading-none sm:text-6xl">109</span>
+                <span className="text-xl font-black">,90</span>
+                <span className="text-xs text-white/65">/mês</span>
+              </div>
+              <span className="hidden text-right text-xs font-semibold text-white/70 min-[370px]:block">WiFi 6<br />incluso</span>
+            </div>
+            <Button asChild size="lg" className="mt-4 h-14 w-full gap-2 rounded-xl bg-brand-magenta px-6 text-base font-extrabold text-white shadow-lg shadow-brand-magenta/25 hover:bg-brand-magenta/90">
               <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
                 <MessageCircle className="h-5 w-5" />
                 Quero contratar agora
               </WhatsAppLink>
             </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="h-14 gap-2 rounded-full border-white/40 bg-transparent px-6 text-base font-semibold text-white hover:bg-white/10 hover:text-white"
-            >
-              <a href="#cobertura">Consultar cobertura</a>
-            </Button>
           </div>
-          <p className="text-[11px] leading-relaxed text-white/60">
-            {OFFER_DISCLAIMER}
-          </p>
-          <p className="text-sm text-white/80">
+          <div className="flex items-center justify-between gap-3 text-sm">
+            <a href="#cobertura" className="font-bold text-white underline decoration-brand-magenta decoration-2 underline-offset-4">
+              Consultar cobertura
+            </a>
+            <p className="text-right text-xs text-white/65">
+              Instalação grátis · Até 24h
+            </p>
+          </div>
+          <p className="hidden text-[11px] leading-relaxed text-white/60 sm:block">{OFFER_DISCLAIMER}</p>
+          <p className="hidden text-sm text-white/80 sm:block">
             Prefere ligar?{" "}
             <a
               href={`tel:${PHONE_TEL}`}
@@ -368,7 +348,7 @@ function HeroSection() {
             — seg. a sáb., 8h às 18h.
           </p>
         </div>
-        <ul className="mt-8 grid gap-3 self-end rounded-2xl border border-white/15 bg-brand-dark/65 p-4 shadow-xl backdrop-blur-md sm:grid-cols-2 lg:mb-4 lg:ml-auto lg:mt-0 lg:w-72 lg:grid-cols-1">
+        <ul className="mt-5 hidden gap-3 self-end rounded-2xl border border-white/15 bg-brand-dark/65 p-4 shadow-xl backdrop-blur-md sm:grid sm:grid-cols-2 lg:mb-4 lg:ml-auto lg:mt-0 lg:w-72 lg:grid-cols-1">
           {heroChecks.map((item) => (
             <li
               key={item}
@@ -423,9 +403,9 @@ function BenefitsSection() {
   ];
 
   return (
-    <section id="beneficios" className="scroll-mt-16 bg-muted/50 px-4 py-12 md:py-16">
+    <section id="beneficios" className="scroll-mt-16 bg-muted/50 px-4 py-10 md:py-16">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-8 text-center md:mb-10">
+        <div className="mb-6 text-center md:mb-10">
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Por que contratar a Portal Itaipu?
           </h2>
@@ -438,10 +418,10 @@ function BenefitsSection() {
           {benefits.map((benefit) => (
             <div
               key={benefit.title}
-              className="rounded-2xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md sm:p-6"
+              className="rounded-xl border border-border bg-card p-3.5 shadow-sm transition-shadow hover:shadow-md sm:rounded-2xl sm:p-6"
             >
               <div
-                className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl sm:mb-4 sm:h-12 sm:w-12 ${benefit.bg}`}
+                className={`mb-3 flex h-9 w-9 items-center justify-center rounded-lg sm:mb-4 sm:h-12 sm:w-12 sm:rounded-xl ${benefit.bg}`}
               >
                 <benefit.icon
                   className={`h-5 w-5 sm:h-6 sm:w-6 ${benefit.color}`}

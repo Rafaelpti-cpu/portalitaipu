@@ -65,23 +65,25 @@ export function CoverageCheck() {
   };
 
   return (
-    <section id="cobertura" className="scroll-mt-24 px-4 py-12 md:py-16">
+    <section id="cobertura" className="scroll-mt-24 px-4 py-10 md:py-16">
       <div className="container mx-auto max-w-3xl">
-        <div className="rounded-3xl border border-border bg-card p-5 shadow-lg sm:p-6 md:p-10">
+        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg sm:rounded-3xl">
+          <div className="bg-brand-dark p-5 text-white sm:p-6 md:px-10 md:pt-8">
           <div className="flex items-center gap-2 text-brand-magenta">
             <MapPin className="h-5 w-5" />
             <span className="text-sm font-bold uppercase tracking-wide">
               Consulta de cobertura
             </span>
           </div>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+          <h2 className="mt-3 font-display text-2xl font-extrabold tracking-normal md:text-3xl">
             Tem fibra na sua rua? Descubra em 1 minuto
           </h2>
-          <p className="mt-2 text-muted-foreground">
+          <p className="mt-2 text-sm text-white/75 sm:text-base">
             Informe sua rua e cidade e nós confirmamos a viabilidade técnica na
             hora pelo WhatsApp.
           </p>
-          <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
+          </div>
+          <form onSubmit={handleSubmit} className="grid gap-4 p-5 sm:grid-cols-2 sm:p-6 md:px-10 md:pb-10">
             <div className="space-y-2">
               <Label htmlFor="nome">Seu nome</Label>
               <Input
