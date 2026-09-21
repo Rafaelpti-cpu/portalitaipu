@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
-import heroPerson from "@/assets/hero-person.png";
+import heroBackground from "@/assets/hero-technician-background.jpg";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -18,6 +18,7 @@ import {
   MessageCircle,
   Phone,
   Check,
+  Star,
 } from "lucide-react";
 import { WhatsAppLink } from "@/components/landing/cta-link";
 import { CoverageCheck } from "@/components/landing/coverage-check";
@@ -119,6 +120,12 @@ export const Route = createFileRoute("/")({
               name: "Oeste do Paraná",
             },
             priceRange: "R$ 109,90 - R$ 129,90",
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.9",
+              bestRating: "5",
+              ratingCount: "113",
+            },
             makesOffer: [
               {
                 "@type": "Offer",
@@ -252,11 +259,18 @@ function HeroSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-brand-magenta via-brand-magenta to-brand-purple text-white">
-      <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-brand-yellow/20 blur-3xl" />
-      <div className="container relative mx-auto grid max-w-6xl gap-8 px-4 pt-10 sm:pt-12 lg:grid-cols-[1.05fr_0.7fr_0.75fr] lg:items-end lg:gap-6 lg:pt-16">
-        <div className="space-y-5 sm:space-y-6 lg:pb-14">
+    <section className="relative isolate overflow-hidden bg-brand-dark text-white">
+      <img
+        src={heroBackground}
+        alt="Técnico da Portal Itaipu instalando internet fibra óptica"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[68%_center]"
+        width={1600}
+        height={1000}
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand-dark via-brand-dark/95 to-brand-dark/25" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-dark/70 via-transparent to-brand-dark/20 lg:hidden" />
+      <div className="container relative mx-auto grid min-h-[680px] max-w-6xl px-4 py-10 sm:py-12 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:py-14">
+        <div className="max-w-2xl space-y-5 sm:space-y-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
@@ -264,11 +278,39 @@ function HeroSection() {
             </span>
             Fibra óptica no oeste do Paraná
           </div>
+          <div className="w-fit rounded-2xl border border-brand-magenta/70 bg-brand-dark/75 px-4 py-3 shadow-xl backdrop-blur-md sm:px-5 sm:py-4">
+            <div className="flex items-center gap-4">
+              <div>
+                <p className="text-xs font-bold uppercase text-white/70">
+                  Avaliação no Google
+                </p>
+                <div className="mt-1 flex items-baseline gap-1.5">
+                  <strong className="text-4xl font-black leading-none sm:text-5xl">
+                    4,9
+                  </strong>
+                  <span className="text-lg font-bold text-white/75">/5</span>
+                </div>
+              </div>
+              <div className="border-l border-white/20 pl-4">
+                <div className="flex gap-0.5" aria-label="5 estrelas">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star
+                      key={index}
+                      className="h-4 w-4 fill-brand-yellow text-brand-yellow sm:h-5 sm:w-5"
+                    />
+                  ))}
+                </div>
+                <p className="mt-1.5 text-sm font-semibold text-white">
+                  113 avaliações
+                </p>
+              </div>
+            </div>
+          </div>
           <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
             Internet fibra com a{" "}
             <span className="text-brand-yellow">1ª mensalidade grátis</span>
           </h1>
-          <p className="text-base text-white/85 sm:text-lg">
+          <p className="max-w-xl text-base text-white/85 sm:text-lg">
             Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
             <strong>R$ 109,90/mês</strong> e não pague nada no primeiro mês.
             Instalação grátis, ativação em até 24h.
@@ -326,16 +368,7 @@ function HeroSection() {
             — seg. a sáb., 8h às 18h.
           </p>
         </div>
-        <div className="relative order-3 flex items-end justify-center lg:order-none">
-          <img
-            src={heroPerson}
-            alt="Cliente navegando no celular com a internet fibra da Portal Itaipu"
-            width={832}
-            height={1216}
-            className="w-52 max-w-full object-contain drop-shadow-2xl sm:w-64 lg:w-full lg:max-w-xs"
-          />
-        </div>
-        <ul className="order-2 space-y-3 pb-10 sm:space-y-4 lg:order-none lg:pb-14">
+        <ul className="mt-8 grid gap-3 self-end rounded-2xl border border-white/15 bg-brand-dark/65 p-4 shadow-xl backdrop-blur-md sm:grid-cols-2 lg:mb-4 lg:ml-auto lg:mt-0 lg:w-72 lg:grid-cols-1">
           {heroChecks.map((item) => (
             <li
               key={item}
