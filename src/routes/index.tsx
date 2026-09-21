@@ -78,7 +78,7 @@ const faqs = [
 
 export const Route = createFileRoute("/")({
   head: () => ({
-      meta: [
+    meta: [
         { title: TITLE },
         { name: "description", content: DESCRIPTION },
         { name: "keywords", content: KEYWORDS },
@@ -92,12 +92,12 @@ export const Route = createFileRoute("/")({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: TITLE },
         { name: "twitter:description", content: DESCRIPTION },
-      ],
-      links: [
+    ],
+    links: [
         { rel: "canonical", href: "/" },
         { rel: "preload", as: "image", href: logoAsset.url },
-      ],
-      scripts: [
+    ],
+    scripts: [
         {
           type: "application/ld+json",
           children: JSON.stringify({
@@ -153,8 +153,8 @@ export const Route = createFileRoute("/")({
             })),
           }),
         },
-      ],
-    }),
+    ],
+  }),
   component: Index,
 });
 

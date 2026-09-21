@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, CheckCircle2 } from "lucide-react";
 import {
   WHATSAPP_NUMBER,
+  WHATSAPP_UTM_PARAMS,
   DEFAULT_MESSAGE,
   handleWhatsAppConversion,
   trackLead,
@@ -37,6 +38,8 @@ export const Route = createFileRoute("/obrigado")({
         property: "og:description",
         content: "Nosso time vai te chamar no WhatsApp em até 10 minutos.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: ObrigadoPage,
@@ -47,7 +50,7 @@ function ObrigadoPage() {
 
   const whatsappUrl = useMemo(() => {
     const message = buildWhatsAppMessage(nome.trim(), bairro.trim());
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}&${WHATSAPP_UTM_PARAMS}`;
   }, [nome, bairro]);
 
   useEffect(() => {
