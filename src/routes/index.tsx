@@ -623,6 +623,7 @@ function Footer() {
                 {PHONE_DISPLAY}
               </a>
             </p>
+            <p className="mt-1">Atendimento de segunda a sábado, 8h às 18h.</p>
             <p className="mt-1">
               © 2026 Portal Itaipu. Todos os direitos reservados.
             </p>
