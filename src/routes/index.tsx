@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import logoAsset from "@/assets/portal-itaipu-logo.png.asset.json";
-import heroBackground from "@/assets/hero-technician-background.jpg";
+import heroRouter from "@/assets/hero-router-offer.jpg";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -250,117 +250,80 @@ function Header() {
 }
 
 function HeroSection() {
-  const heroChecks = [
-    "Instalação grátis",
-    "WiFi 6 de alta performance",
-    "Ativação em até 24h",
-    "Rede 100% fibra óptica",
-    "Suporte local humanizado",
-  ];
-
   return (
-    <section className="relative isolate overflow-hidden bg-brand-dark text-white">
-      <img
-        src={heroBackground}
-        alt="Técnico da Portal Itaipu instalando internet fibra óptica"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-[72%_center] sm:object-[68%_center]"
-        width={1600}
-        height={1000}
-      />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand-dark via-brand-dark/95 to-brand-dark/30" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-dark via-brand-dark/65 to-brand-dark/15 lg:hidden" />
-      <div className="container relative mx-auto grid min-h-[calc(100svh-3.5rem)] max-w-6xl px-4 py-6 sm:py-10 lg:min-h-[680px] lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:py-14">
-        <div className="hero-reveal max-w-2xl space-y-4 sm:space-y-5">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-brand-dark/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md sm:text-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-yellow opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-yellow"></span>
-            </span>
-            Fibra óptica no oeste do Paraná
-          </div>
-          <div className="flex w-fit items-center gap-2.5 rounded-lg border border-brand-magenta/70 bg-brand-dark/75 px-3 py-2 shadow-xl backdrop-blur-md">
-            <strong className="font-display text-xl font-extrabold leading-none sm:text-2xl">4,9</strong>
+    <section className="relative isolate overflow-hidden bg-background text-foreground">
+      <div className="absolute inset-x-0 top-0 -z-10 h-2 bg-brand-magenta" />
+      <div className="container mx-auto grid min-h-[calc(100svh-3.5rem)] max-w-6xl items-center gap-3 px-4 py-6 sm:gap-6 sm:py-10 lg:min-h-[650px] lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:py-14">
+        <div className="hero-reveal flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 shadow-sm">
             <div className="flex gap-px" aria-label="5 estrelas">
               {Array.from({ length: 5 }).map((_, index) => (
-                <Star key={index} className="h-3.5 w-3.5 fill-brand-yellow text-brand-yellow sm:h-4 sm:w-4" />
+                <Star key={index} className="h-3.5 w-3.5 fill-brand-yellow text-brand-yellow" />
               ))}
             </div>
-            <span className="border-l border-white/20 pl-2 text-[11px] font-semibold text-white/80 sm:text-xs">
-              113 avaliações no Google
-            </span>
+            <strong className="text-xs text-foreground">4,9/5 no Google</strong>
+            <span className="text-[11px] text-muted-foreground">113 avaliações</span>
           </div>
-          <h1 className="font-display text-[2rem] font-extrabold leading-[1.08] tracking-normal sm:text-4xl md:text-5xl">
-            Internet fibra com a{" "}
-            <span className="text-brand-yellow">1ª mensalidade grátis</span>
+
+          <h1 className="mt-4 max-w-xl font-display text-[2rem] font-extrabold leading-[1.08] tracking-normal sm:text-4xl md:text-5xl">
+            Comece o mês com uma conta a menos.
           </h1>
-          <p className="max-w-xl text-[15px] leading-relaxed text-white/85 sm:text-lg">
-            Contrate o plano de <strong>550 Mega + WiFi 6</strong> por{" "}
-            <strong>R$ 109,90/mês</strong> e não pague nada no primeiro mês.
-            Instalação grátis, ativação em até 24h.
+          <p className="mt-2 font-display text-xl font-extrabold text-brand-magenta sm:text-2xl">
+            1ª mensalidade grátis
           </p>
-          <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-brand-dark/80 p-4 shadow-2xl backdrop-blur-md sm:max-w-xl sm:p-5">
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-magenta to-transparent" />
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-[11px] font-bold uppercase text-white/60">Plano For Family</p>
-                <p className="font-display text-3xl font-extrabold leading-tight sm:text-4xl">
-                  550 <span className="text-lg text-brand-yellow sm:text-xl">MEGA</span>
-                </p>
-              </div>
-              <span className="inline-flex -rotate-2 items-center rounded-md bg-brand-yellow px-2 py-1 text-center text-[10px] font-black leading-tight text-brand-dark shadow-lg sm:text-xs">
-                1ª MENSALIDADE<br />GRÁTIS
-              </span>
-            </div>
-            <div className="mt-3 flex items-end justify-between gap-3 border-t border-white/10 pt-3">
-              <div className="flex items-baseline gap-1">
-                <span className="text-sm font-bold">R$</span>
-                <span className="font-display text-5xl font-extrabold leading-none sm:text-6xl">109</span>
-                <span className="text-xl font-black">,90</span>
-                <span className="text-xs text-white/65">/mês</span>
-              </div>
-              <span className="hidden text-right text-xs font-semibold text-white/70 min-[370px]:block">WiFi 6<br />incluso</span>
-            </div>
-            <Button asChild size="lg" className="mt-4 h-14 w-full gap-2 rounded-xl bg-brand-magenta px-6 text-base font-extrabold text-white shadow-lg shadow-brand-magenta/25 hover:bg-brand-magenta/90">
-              <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
-                <MessageCircle className="h-5 w-5" />
-                Quero contratar agora
-              </WhatsAppLink>
-            </Button>
+
+          <div className="relative mt-3 w-full lg:hidden">
+            <img
+              src={heroRouter}
+              alt="Roteador WiFi 6 incluso no plano de internet fibra"
+              className="mx-auto h-auto w-full max-w-[360px] object-contain"
+              width={1200}
+              height={900}
+            />
           </div>
-          <div className="flex items-center justify-between gap-3 text-sm">
-            <a href="#cobertura" className="font-bold text-white underline decoration-brand-magenta decoration-2 underline-offset-4">
-              Consultar cobertura
-            </a>
-            <p className="text-right text-xs text-white/65">
-              Instalação grátis · Até 24h
-            </p>
+
+          <div className="mt-1 flex items-end justify-center gap-1 lg:mt-6 lg:justify-start">
+            <span className="font-display text-6xl font-extrabold leading-none text-brand-dark sm:text-7xl">550</span>
+            <span className="pb-1 font-display text-3xl font-extrabold text-brand-magenta sm:text-4xl">MEGA</span>
           </div>
-          <p className="hidden text-[11px] leading-relaxed text-white/60 sm:block">{OFFER_DISCLAIMER}</p>
-          <p className="hidden text-sm text-white/80 sm:block">
-            Prefere ligar?{" "}
-            <a
-              href={`tel:${PHONE_TEL}`}
-              onClick={() => trackLead("phone_click", { location: "hero" })}
-              className="font-bold text-white underline-offset-4 hover:underline"
-            >
-              {PHONE_DISPLAY}
-            </a>{" "}
-            — seg. a sáb., 8h às 18h.
+          <p className="mt-1 text-lg text-muted-foreground">
+            Depois, <strong className="text-foreground">R$ 109,90/mês</strong>
           </p>
+
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs font-bold uppercase text-brand-magenta lg:justify-start">
+            <span>WiFi 6</span>
+            <span aria-hidden="true">·</span>
+            <span>Instalação grátis</span>
+            <span aria-hidden="true">·</span>
+            <span>Ativação em até 24h</span>
+          </div>
+
+          <Button asChild size="lg" className="mt-4 h-14 w-full max-w-md gap-2 rounded-full bg-whatsapp px-6 text-base font-extrabold text-white shadow-lg hover:bg-whatsapp-dark">
+            <WhatsAppLink location="hero" message={DEFAULT_MESSAGE}>
+              <MessageCircle className="h-5 w-5" />
+              Chame no WhatsApp
+            </WhatsAppLink>
+          </Button>
+
+          <p className="mt-3 max-w-md text-[11px] leading-relaxed text-muted-foreground">
+            Oferta válida até 31/10/2026. Consulte a viabilidade. Promoção para
+            novos clientes, com fidelidade de 12 meses.
+          </p>
+          <a href="#cobertura" className="mt-2 text-sm font-bold text-brand-magenta underline underline-offset-4">
+            Consultar cobertura
+          </a>
         </div>
-        <ul className="mt-5 hidden gap-3 self-end rounded-2xl border border-white/15 bg-brand-dark/65 p-4 shadow-xl backdrop-blur-md sm:grid sm:grid-cols-2 lg:mb-4 lg:ml-auto lg:mt-0 lg:w-72 lg:grid-cols-1">
-          {heroChecks.map((item) => (
-            <li
-              key={item}
-              className="flex items-center gap-3 text-sm font-medium sm:text-base"
-            >
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/15">
-                <Check className="h-3.5 w-3.5 text-brand-yellow" />
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
+
+        <div className="relative hidden lg:block">
+          <div className="absolute inset-x-10 bottom-5 -z-10 h-20 rounded-full bg-brand-magenta/10 blur-3xl" />
+          <img
+            src={heroRouter}
+            alt="Roteador WiFi 6 incluso no plano de internet fibra"
+            className="h-auto w-full object-contain"
+            width={1200}
+            height={900}
+          />
+        </div>
       </div>
     </section>
   );
